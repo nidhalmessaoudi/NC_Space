@@ -1,0 +1,32 @@
+{
+  "name": "nc_blog",
+  "version": "1.0.0",
+  "description": "NewCarthage's Official Blog",
+  "main": "app.js",
+  "scripts": {
+    "test": "node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nidhalmessaoudi/NC_Blog.git"
+  },
+  "keywords": [
+    "Blog",
+    "NewCarthage",
+    "News",
+    "Tech",
+    "Development"
+  ],
+  "author": "Nidhal Messaoudi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nidhalmessaoudi/NC_Blog/issues"
+  },
+  "homepage": "https://github.com/nidhalmessaoudi/NC_Blog#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.11.8"
+  }
+}
