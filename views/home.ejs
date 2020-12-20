@@ -1,12 +1,13 @@
 <%- include("partials/header") %>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <header class="site-header sticky-top">
+      <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">TheNewCarthage</a>
           <button class="navbar-toggler collapse-button" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <span><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg></span>
           </button>
-          <div class="collapse navbar-collapse bg-white justify-content-end" id="navbarSupportedContent">
+          <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
@@ -35,7 +36,7 @@
               </li>
             </ul>
             <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <input class="form-control search-field me-2" type="search" placeholder="Search" aria-label="Search">
               <button class="btn search-button btn-outline-secondary" type="submit"><i class="fas fa-search"></i></button>
             </form>
             <a href="#"><i class="social-top fab fa-facebook-f"></i></a> 
@@ -44,6 +45,7 @@
           </div>
         </div>
     </nav>
+    </header>
     <!-- Welcome Section -->
     <div class="container-system">
         <div class="row">
@@ -59,7 +61,14 @@
     <div class="container-system">
         <div class="vl"></div>
         <span class="news-span">News</span>
-        <p>Comming Soon...</p>
+        <div class="row">
+          <div class="col-lg-8 card post-component">
+            <img src="imgs/img1.png" class="img" alt="img1">
+            <h5 class="card-title">Lorem Ipsum</h5>
+            <i class="fab fa-hotjar card-text"></i>
+            <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque quaerat impedit asperiores fugit laudantium, temporibus quibusdam! Natus assumenda facere debitis accusamus.</p>
+          </div>
+        </div>
     </div>
     <!-- Tech Section -->
     <div class="container-system">

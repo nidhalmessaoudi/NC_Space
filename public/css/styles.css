@@ -9,11 +9,18 @@ a {
     color: black;
 }
 /* Navbar */
+nav {
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+}
+.site-header {
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
 .navbar-brand {
     color: #0a043c !important;
     margin-left: 2rem;
 }
-.form-control {
+.search-field {
     margin-right: 0 !important; 
     margin-left: 2rem;
     outline: none;
@@ -78,6 +85,15 @@ a {
 .row {
     margin: 0;
 }
+.post-component {
+    background-color: #fff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.img {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+}
 
 
 
@@ -118,6 +134,13 @@ a {
     margin-top: 10px;
     margin-bottom: 10px;
     margin-right: 5rem;
+}
+.nc-links {
+    text-decoration: none;
+}
+.nc-links:hover {
+    text-decoration: underline;
+    color: #0a043c;
 }
 .copyright-text {
     margin-top: 10px;
