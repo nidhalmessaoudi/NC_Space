@@ -6,6 +6,8 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
 
 const app = express();
 
@@ -46,7 +48,12 @@ app.get("/", function(req, res){
 });
 
 app.get("/login", function (req, res) {
-  res.render("login");
+  if (req.isAuthenticated()) {
+    res.redirect("/dashboard");
+  } else {
+    res.render("login");
+  }
+
 });
 app.get("/dashboard", function (req, res) {
   if (req.isAuthenticated()) {

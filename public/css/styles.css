@@ -1,7 +1,15 @@
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #f4f4f4;
+    scroll-behavior: smooth;
 }
+::-webkit-scrollbar {
+    width: 8px;
+}  
+  /* Handle */
+::-webkit-scrollbar-thumb {
+    background: #bbbbbb; 
+} 
 h1 {
     font-family: 'Roboto  Condensed', sans-serif;
 } 
@@ -29,6 +37,10 @@ nav {
     border-bottom-right-radius: 0;
 }
 .form-control:focus {
+    outline: none;
+    box-shadow: none;
+}
+.form-select:focus {
     outline: none;
     box-shadow: none;
 }
@@ -145,4 +157,36 @@ nav {
 .copyright-text {
     margin-top: 10px;
     line-height: 2;
+}
+/* Login Page */
+.container-login {
+    margin-top: 7rem;
+    margin-bottom: 3rem;
+    max-width: 100%;
+}
+.rights-login {
+    text-align: center;
+    padding-top: 5rem;
+    margin: 0 !important;
+}
+.login {
+    background-color: #ffffff;
+    padding: 2rem 1.5rem 2rem 1.5rem;
+    float: left;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-clip: border-box;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 6px 0 rgba(0, 0, 0, 0.19);
+}
+.login-text {
+    padding: 3rem;
+    margin-left: 5rem;
+    max-width: 50%;
+}
+.login-h5 {
+    padding-left: 7px;
 }

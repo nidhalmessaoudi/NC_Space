@@ -1,9 +1,9 @@
   1- LoginPage (Completed)
 
-  2- dashboard: composePage(Title, Photo, Categorie, Text) / addCategoriePage / managePostsPage / SettingsPage / Logout 
+  2- dashboard: composePage(Title, Categorie, Photo, Text) / addCategoriePage / managePostsPage / SettingsPage / Logout 
 
   3- handling with databases (save posts in databases and find them)
 
-  4- postPage
+  4- postPages
 
  
