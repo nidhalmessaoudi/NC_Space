@@ -88,6 +88,9 @@ nav {
     font-size: 2rem;
     padding-bottom: 2rem;
 }
+.post-sections {
+    margin-bottom: 20px;
+}
 .vl {
     border-left: 4px solid #0a043c;
     height: 25px;
@@ -99,17 +102,43 @@ nav {
 }
 .post-component {
     background-color: #fff;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 4px 3px 15px -2px rgba(0,0,0,0.55);
+    -moz-box-shadow: 4px 3px 15px -2px rgba(0,0,0,0.55);
+    box-shadow: 4px 3px 15px -2px rgba(0,0,0,0.55);
 }
-.img {
-    max-width: 100%;
-    margin: 0;
-    padding: 0;
+.post-template {
+    margin-bottom: 20px;
 }
-
-
-
-
+.card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+}
+.img-template {
+    width: 100%;
+    height: 26vw;
+    object-fit: cover;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+}
+.post-body {
+    padding: 20px;
+}
+.date-div {
+    margin-bottom: 5px;
+}
+.post-date {
+    color: #898b8a;
+    font-size: 15px;
+}
+.carousel {
+    -webkit-box-shadow: 4px 3px 15px -2px rgba(0,0,0,0.55);
+    -moz-box-shadow: 4px 3px 15px -2px rgba(0,0,0,0.55);
+    box-shadow: 4px 3px 15px -2px rgba(0,0,0,0.55);
+}
+.blockquote {
+    margin-bottom: 18px !important;
+}
 /* Explore Section */
 .footer-system {
     padding: 1% 4%;
