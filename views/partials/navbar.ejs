@@ -1,0 +1,56 @@
+<%- include("header") %> 
+<body>
+    <header class="site-header sticky-top">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand top-links" href="/">TheNewCarthage</a>
+                <button class="navbar-toggler collapse-button" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item">
+                    <a class="nav-link active top-links" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link active top-links" href="#">News</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link active top-links" href="#">Tech</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link active top-links" href="#">Sport</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle top-links" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        More
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Programming</a></li>
+                        <li><a class="dropdown-item" href="#">Health</a></li>
+                        <li><a class="dropdown-item" href="#">Life</a></li>
+                        <li><a class="dropdown-item" href="#">Entertainment</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Terms of Use</a></li>
+                        <li><a class="dropdown-item" href="#">Privacy Policy</a></li>
+                        <li><a class="dropdown-item" href="#">Send Feedback</a></li>
+                        <li><a class="dropdown-item" href="#">NC Developers</a></li>
+                        <li><a class="dropdown-item" href="#">Advertise with us</a></li>
+                        <li><a class="dropdown-item" href="#">About NC</a></li>
+                    </ul>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control search-field me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn search-button btn-outline-secondary" type="submit"><i class="fas fa-search"></i></button>
+                </form>
+                <a href="#" class="sm-col"><i class="social-top fab fa-facebook-f"></i></a> 
+                <a href="#"><i class="social-top fab fa-twitter"></i></a> 
+                <a href="#"><i class="fas social-top fa-envelope"></i></a> 
+                </div>
+            </div>
+        </nav>
+    </header>
+
+<%- include("footer") %>  
+<script src="home.js"></script>

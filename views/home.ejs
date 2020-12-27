@@ -1,55 +1,10 @@
 <%- include("partials/header") %>
-  <title>NC Blog: News, Tech, Programming, Development, Sport, Health, Entertainment</title>
+  <title>NC Blog: News, Tech, Sport, Health, Programming, Development, Entertainment</title>
 <body>
     <!-- Navbar -->
-    <header class="site-header sticky-top">
-      <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">TheNewCarthage</a>
-          <button class="navbar-toggler collapse-button" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg></span>
-          </button>
-          <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-            <ul class="navbar-nav mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" href="#">News</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" href="#">Tech</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" href="#">Programming</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  More
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#">Sport</a></li>
-                  <li><a class="dropdown-item" href="#">Health</a></li>
-                  <li><a class="dropdown-item" href="#">Life</a></li>
-                  <li><a class="dropdown-item" href="#">Entertainment</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">About NC</a></li>
-                </ul>
-              </li>
-            </ul>
-            <form class="d-flex">
-              <input class="form-control search-field me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn search-button btn-outline-secondary" type="submit"><i class="fas fa-search"></i></button>
-            </form>
-            <a href="#"><i class="social-top fab fa-facebook-f"></i></a> 
-            <a href="#"><i class="social-top fab fa-twitter"></i></a> 
-            <a href="#"><i class="fas social-top fa-envelope"></i></a> 
-          </div>
-        </div>
-    </nav>
-    </header>
+    <%- include("partials/navbar") %>
     <!-- Welcome Section -->
-    <div class="container-system">
+    <div class="welcome-section">
         <div class="row">
             <div class="col-lg-6">
                 <h1 class="welcome-h1">Welcome To TheNewCarthage Blog.</h1>
@@ -58,21 +13,24 @@
                 <img class="news-img" src="imgs/news.png" alt="news-illustration">
             </div>
         </div>
+        <div class="scroll-down">
+          <a href="#news-section"><button type="button" class="scroll-button"><i class="scroll-icon fas fa-arrow-down"></i></button></a>
+        </div>
     </div>
     <!-- News Section -->
-    <div class="container-system">
+    <div class="container-system" id="news-section">
         <div class="post-sections">
           <div class="vl"></div>
-          <span class="news-span">News</span>
+          <a href="/news" class="sitemap-links"><span class="news-span">News</span></a> 
         </div>
         <div class="row">
-          <div class="col-lg-7">
+          <div class="col-lg-7 first-post">
             <div class="card post-component post-template">
               <img src="imgs/img2.jpg" class="img-template" alt="img2">
               <div class="post-body">
                 <h5 class="card-title">Lorem Ipsum</h5>
                 <div class="date-div">
-                  <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span> 
+                  <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span>
                 </div>
                 <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque eveniet blanditiis facere sapiente quam nihil laudantium fugiat delectus illo velit! Praesentium fuga dignissimos sunt unde aliquid mollitia reprehenderit architecto magni Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt perspiciatis quibusdam harum libero aspernatur placeat, quas corrupti laboriosam ea hic...</p>
               </div>
@@ -84,8 +42,8 @@
               <div class="post-body">
                 <h5 class="card-title">Lorem Ipsum</h5>
                 <div class="date-div">
-                  <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span> 
-                </div> 
+                  <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span>
+                </div>
                 <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
               </div>
             </div>
@@ -94,7 +52,7 @@
               <div class="post-body">
                 <h5 class="card-title">Lorem Ipsum</h5>
                 <div class="date-div">
-                  <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span> 
+                  <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span>
                 </div>
                 <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
               </div>
@@ -106,7 +64,7 @@
     <div class="container-system">
       <div class="post-sections">
         <div class="vl"></div>
-        <span class="news-span">Tech</span>
+        <a href="/tech" class="sitemap-links"><span class="news-span">Tech</span></a> 
       </div>
       <div class="row">
         <div class="col-lg-4">
@@ -115,8 +73,8 @@
             <div class="post-body">
               <h5 class="card-title">Lorem Ipsum</h5>
               <div class="date-div">
-                <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span> 
-              </div> 
+                <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span>
+              </div>
               <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
             </div>
           </div>
@@ -125,7 +83,7 @@
             <div class="post-body">
               <h5 class="card-title">Lorem Ipsum</h5>
               <div class="date-div">
-                <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span> 
+                <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span>
               </div>
               <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
             </div>
@@ -137,8 +95,8 @@
             <div class="post-body">
               <h5 class="card-title">Lorem Ipsum</h5>
               <div class="date-div">
-                <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span> 
-              </div> 
+                <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span>
+              </div>
               <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
             </div>
           </div>
@@ -147,7 +105,7 @@
             <div class="post-body">
               <h5 class="card-title">Lorem Ipsum</h5>
               <div class="date-div">
-                <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span> 
+                <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span>
               </div>
               <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
             </div>
@@ -159,8 +117,8 @@
             <div class="post-body">
               <h5 class="card-title">Lorem Ipsum</h5>
               <div class="date-div">
-                <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span> 
-              </div> 
+                <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span>
+              </div>
               <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
             </div>
           </div>
@@ -169,7 +127,7 @@
             <div class="post-body">
               <h5 class="card-title">Lorem Ipsum</h5>
               <div class="date-div">
-                <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span> 
+                <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span>
               </div>
               <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
             </div>
@@ -177,7 +135,231 @@
         </div>
       </div>
     </div>
+    <!-- Sport Section -->
+    <div class="container-system">
+      <div class="post-sections">
+        <div class="vl"></div>
+        <a href="/sport" class="sitemap-links"><span class="news-span">Sport</span></a> 
+      </div>
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card post-component post-template">
+            <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
+            <div class="post-body">
+              <h5 class="card-title">Lorem Ipsum</h5>
+              <div class="date-div">
+                <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span>
+              </div>
+              <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
+            </div>
+          </div>
+          <div class="card post-component post-template">
+            <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
+            <div class="post-body">
+              <h5 class="card-title">Lorem Ipsum</h5>
+              <div class="date-div">
+                <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span>
+              </div>
+              <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="card post-component post-template">
+            <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
+            <div class="post-body">
+              <h5 class="card-title">Lorem Ipsum</h5>
+              <div class="date-div">
+                <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span>
+              </div>
+              <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
+            </div>
+          </div>
+          <div class="card post-component post-template">
+            <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
+            <div class="post-body">
+              <h5 class="card-title">Lorem Ipsum</h5>
+              <div class="date-div">
+                <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span>
+              </div>
+              <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="card post-component post-template">
+            <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
+            <div class="post-body">
+              <h5 class="card-title">Lorem Ipsum</h5>
+              <div class="date-div">
+                <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span>
+              </div>
+              <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
+            </div>
+          </div>
+          <div class="card post-component post-template">
+            <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
+            <div class="post-body">
+              <h5 class="card-title">Lorem Ipsum</h5>
+              <div class="date-div">
+                <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span>
+              </div>
+              <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+    <!-- Health Section -->
+        <div class="container-system">
+          <div class="post-sections">
+            <div class="vl"></div>
+            <a href="/healh" class="sitemap-links"><span class="news-span">Health</span></a> 
+          </div>
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="card post-component post-template">
+                <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
+                <div class="post-body">
+                  <h5 class="card-title">Lorem Ipsum</h5>
+                  <div class="date-div">
+                    <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span>
+                  </div>
+                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
+                </div>
+              </div>
+              <div class="card post-component post-template">
+                <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
+                <div class="post-body">
+                  <h5 class="card-title">Lorem Ipsum</h5>
+                  <div class="date-div">
+                    <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span>
+                  </div>
+                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="card post-component post-template">
+                <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
+                <div class="post-body">
+                  <h5 class="card-title">Lorem Ipsum</h5>
+                  <div class="date-div">
+                    <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span>
+                  </div>
+                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
+                </div>
+              </div>
+              <div class="card post-component post-template">
+                <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
+                <div class="post-body">
+                  <h5 class="card-title">Lorem Ipsum</h5>
+                  <div class="date-div">
+                    <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span>
+                  </div>
+                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="card post-component post-template">
+                <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
+                <div class="post-body">
+                  <h5 class="card-title">Lorem Ipsum</h5>
+                  <div class="date-div">
+                    <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span>
+                  </div>
+                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
+                </div>
+              </div>
+              <div class="card post-component post-template">
+                <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
+                <div class="post-body">
+                  <h5 class="card-title">Lorem Ipsum</h5>
+                  <div class="date-div">
+                    <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span>
+                  </div>
+                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Entertainment Section -->
+        <div class="container-system">
+          <div class="post-sections">
+            <div class="vl"></div>
+            <a href="/Entertainemt" class="sitemap-links"><span class="news-span">Entertainment</span></a> 
+          </div>
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="card post-component post-template">
+                <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
+                <div class="post-body">
+                  <h5 class="card-title">Lorem Ipsum</h5>
+                  <div class="date-div">
+                    <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span>
+                  </div>
+                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
+                </div>
+              </div>
+              <div class="card post-component post-template">
+                <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
+                <div class="post-body">
+                  <h5 class="card-title">Lorem Ipsum</h5>
+                  <div class="date-div">
+                    <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span>
+                  </div>
+                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="card post-component post-template">
+                <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
+                <div class="post-body">
+                  <h5 class="card-title">Lorem Ipsum</h5>
+                  <div class="date-div">
+                    <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span>
+                  </div>
+                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
+                </div>
+              </div>
+              <div class="card post-component post-template">
+                <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
+                <div class="post-body">
+                  <h5 class="card-title">Lorem Ipsum</h5>
+                  <div class="date-div">
+                    <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span>
+                  </div>
+                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="card post-component post-template">
+                <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
+                <div class="post-body">
+                  <h5 class="card-title">Lorem Ipsum</h5>
+                  <div class="date-div">
+                    <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span>
+                  </div>
+                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
+                </div>
+              </div>
+              <div class="card post-component post-template">
+                <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
+                <div class="post-body">
+                  <h5 class="card-title">Lorem Ipsum</h5>
+                  <div class="date-div">
+                    <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span>
+                  </div>
+                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
     <!-- Stories Section -->
     <div class="container-system">
       <div class="post-sections">
@@ -219,7 +401,7 @@
               <div class="post-body">
                 <h5 class="card-title">Lorem Ipsum</h5>
                 <div class="date-div">
-                  <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span> 
+                  <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span>
                 </div>
                 <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque eveniet blanditiis facere sapiente quam nihil laudantium fugiat delectus illo velit! Praesentium fuga dignissimos sunt unde aliquid mollitia reprehenderit architecto magni Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt perspiciatis quibusdam harum libero aspernatur placeat, quas corrupti laboriosam ea hic...</p>
               </div>
@@ -260,43 +442,7 @@
             </div>
         </div>
     </div>
-    <footer class="footer-system">
-      <div class="explore">
-          <div class="explore-title">
-              <div class="vl2"></div>
-              <span class="explore-span">Explore The NC</span>
-          </div>
-          <div class="explore-navs">
-              <div class="nav-collection">
-                  <div class="vl3"></div>
-                  <a class="nc-links" href="#"><span class="explore1-span">Home</span></a> 
-              </div>
-              <div class="nav-collection">
-                  <div class="vl3"></div>
-                  <a class="nc-links" href="#"><span class="explore1-span">News</span></a> 
-              </div>
-              <div class="nav-collection">
-                  <div class="vl3"></div>
-                  <a class="nc-links" href="#"><span class="explore1-span">Tech</span></a> 
-              </div>
-              <div class="nav-collection">
-                  <div class="vl3"></div>
-                  <a class="nc-links" href="#"><span class="explore1-span">Sport</span></a> 
-              </div>
-              <div class="nav-collection">
-                  <div class="vl3"></div>
-                  <a class="nc-links" href="#"><span class="explore1-span">Entertainment</span></a> 
-              </div> 
-          </div>
-          <hr>
-      </div>
-      <div class="footer-links"><a class="nc-links" href="#">Terms of Use</a></div>
-      <div class="footer-links"><a class="nc-links" href="#">About NC</a></div>
-      <div class="footer-links"><a class="nc-links" href="#">Privacy Policy</a></div>
-      <div class="footer-links"><a class="nc-links" href="#">NC Developers</a></div>
-      <div class="footer-links"><a class="nc-links" href="#">Contact NC</a></div>
-      <div class="footer-links"><a class="nc-links" href="#">Advertise with us</a></div>
-      <p class="copyright-text" >© 2021 TheNewCarthage. All rights Reserved, Developed with ❤️ by Nidhal Messaoudi.</p>
-    </footer>
+<%- include("partials/sitemap") %>
 
 <%- include("partials/footer") %>
+<script src="home.js"></script>

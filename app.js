@@ -43,11 +43,31 @@ passport.use(Admin.createStrategy());
 passport.serializeUser(Admin.serializeUser());
 passport.deserializeUser(Admin.deserializeUser());
 
-app.get("/", function(req, res){
+app.get("/", (req, res) => {
   res.render("home");
 });
 
-app.get("/login", function (req, res) {
+app.get("/news", (req, res) => {
+  res.render("news");
+});
+
+app.get("/tech", (req, res) => {
+  res.render("tech");
+});
+
+app.get("/sport", (req, res) => {
+  res.render("sport");
+});
+
+app.get("/health", (req, res) => {
+  res.render("health");
+});
+
+app.get("/entertainment", (req, res) => {
+  res.render("entertainment");
+});
+
+app.get("/login", (req, res) => {
   if (req.isAuthenticated()) {
     res.redirect("/dashboard");
   } else {
@@ -55,7 +75,7 @@ app.get("/login", function (req, res) {
   }
 
 });
-app.get("/dashboard", function (req, res) {
+app.get("/dashboard", (req, res) => {
   if (req.isAuthenticated()) {
     res.render("dashboard");
   } else {
@@ -63,27 +83,27 @@ app.get("/dashboard", function (req, res) {
   }
 })
 
-app.get("/logout", function (req, res) {
+app.get("/logout", (req, res) => {
   req.logout();
   res.redirect("/");
 })
 
-app.post("/login", function (req, res) {
+app.post("/login", (req, res) => {
   const admin = new Admin( {
     username: req.body.username,
     password: req.body.password
   });
-  req.login(admin, function (err) {
+  req.login(admin, (err) => {
     if (err) {
       console.log(err);
     } else {
-      passport.authenticate("local")(req, res, function () {
-        res.redirect("/dashboard");
-      })
+      passport.authenticate("local")(req, res, () => {
+          res.redirect("/dashboard");
+        })
     }
   })
 });
 
-app.listen(3000, function() {
-  console.log("Server started on port 3000.");
-});
+app.listen(3000, () => {
+    console.log("Server started on port 3000.");
+  });
