@@ -1,8 +1,8 @@
-<%- include("partials/header") %>
+<%- include("../partials/header") %>
   <title>NC Blog: News, Tech, Sport, Health, Programming, Development, Entertainment</title>
 <body>
     <!-- Navbar -->
-    <%- include("partials/navbar") %>
+    <%- include("../partials/navbar") %>
     <!-- Welcome Section -->
     <div class="welcome-section">
         <div class="row">
@@ -364,7 +364,7 @@
     <div class="container-system">
       <div class="post-sections">
         <div class="vl"></div>
-        <span class="news-span">Stories</span>
+        <a href="/extra#stories" class="sitemap-links"><span class="news-span">Stories</span></a> 
       </div>
       <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -411,7 +411,7 @@
             <!-- Adverbs Section -->
             <div class="post-sections">
               <div class="vl"></div>
-              <span class="news-span">Adverbs</span>
+              <a href="/extra#adverbs" class="sitemap-links"><span class="news-span">Adverbs</span></a> 
             </div>
             <div class="card post-component">
               <div class="post-body">
@@ -442,7 +442,7 @@
             </div>
         </div>
     </div>
-<%- include("partials/sitemap") %>
+<%- include("../partials/sitemap") %>
 
-<%- include("partials/footer") %>
+<%- include("../partials/footer") %>
 <script src="home.js"></script>

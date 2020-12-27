@@ -276,3 +276,16 @@ nav {
 .login-h5 {
     padding-left: 7px;
 }
+/* 404Page Style */
+.notfound {
+    justify-content: center;
+    text-align: center;
+    padding: 3% 25%;
+}
+.notfound-img {
+    max-width: 20%;
+}
+.notfound-text {
+    line-height:1.5;
+    margin: 15px 0;
+}

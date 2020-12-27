@@ -6,8 +6,6 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
-const jsdom = require("jsdom");
-const { JSDOM } = jsdom;
 
 const app = express();
 
@@ -44,40 +42,44 @@ passport.serializeUser(Admin.serializeUser());
 passport.deserializeUser(Admin.deserializeUser());
 
 app.get("/", (req, res) => {
-  res.render("home");
+  res.render("blog/home");
 });
 
 app.get("/news", (req, res) => {
-  res.render("news");
+  res.render("blog/news");
 });
 
 app.get("/tech", (req, res) => {
-  res.render("tech");
+  res.render("blog/tech");
 });
 
 app.get("/sport", (req, res) => {
-  res.render("sport");
+  res.render("blog/sport");
 });
 
 app.get("/health", (req, res) => {
-  res.render("health");
+  res.render("blog/health");
 });
 
 app.get("/entertainment", (req, res) => {
-  res.render("entertainment");
+  res.render("blog/entertainment");
+});
+
+app.get("/extra", (req, res) => {
+  res.render("blog/extra");
 });
 
 app.get("/login", (req, res) => {
   if (req.isAuthenticated()) {
     res.redirect("/dashboard");
   } else {
-    res.render("login");
+    res.render("admin/login");
   }
 
 });
 app.get("/dashboard", (req, res) => {
   if (req.isAuthenticated()) {
-    res.render("dashboard");
+    res.render("admin/dashboard");
   } else {
     res.redirect("/login");
   }
@@ -104,6 +106,10 @@ app.post("/login", (req, res) => {
   })
 });
 
+app.use((req, res) => {
+  res.status(404).render("404Page");
+});
+
 app.listen(3000, () => {
     console.log("Server started on port 3000.");
-  });
+});
