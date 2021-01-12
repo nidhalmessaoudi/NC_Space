@@ -52,6 +52,7 @@ nav {
     margin-right: 2rem;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+    border-color: #bbbbbb;
 }
 .nav-link {
     color: #03506f !important;

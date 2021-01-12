@@ -54,137 +54,164 @@
         </div>
         <section id="posts">
           <h2 class="dash-h2">Manage Posts</h2>
-          <table class="table">
+          <table class="table table-bordered">
             <thead>
               <tr>
-                <th scope="col">Post Id</th>
+                <th>Post Id</th>
                 <th scope="col">Post Title</th>
                 <th scope="col">Post Category</th>
                 <th scope="col">Added date</th>
+                <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <th scope="row">1</th>
+                <td>84615805106</td>
                 <td>Lorem Ipsum</td>
                 <td>Lorem Ipsum</td>
                 <td>Lorem Ipsum</td>
+                <td>
+                  <button type="submit" class="btn btn-success action-btn">Edit</button>
+                  <button type="submit" class="btn btn-danger action-btn">Remove</button>
+                </td>
               </tr>
               <tr>
-                <th scope="row">2</th>
+                <td>90685855106</td>
                 <td>Lorem Ipsum</td>
                 <td>Lorem Ipsum</td>
                 <td>Lorem Ipsum</td>
+                <td>
+                  <button type="submit" class="btn btn-success action-btn">Edit</button>
+                  <button type="submit" class="btn btn-danger action-btn">Remove</button>
+                </td>
               </tr>
               <tr>
-                <th scope="row">3</th>
+                <td>974683012870</td>
                 <td>Lorem Ipsum</td>
                 <td>Lorem Ipsum</td>
                 <td>Lorem Ipsum</td>
+                <td>
+                  <button type="submit" class="btn btn-success action-btn">Edit</button>
+                  <button type="submit" class="btn btn-danger action-btn">Remove</button>
+                </td>
               </tr>
             </tbody>
           </table>
         </section>
         <section id="compose">
           <h2 class="dash-h2" >Add Post</h2>
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Post Title</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Post Title">
-          </div>
-          <div class="mb-3">
-            <label for="selectCategory" class="form-label">SelectCategory</label>
-            <select id="selectCategory" class="form-select">
-              <option>Lorem Ipsum</option>
-              <option>Lorem Ipsum</option>
-              <option>Lorem Ipsum</option>
-              <option>Lorem Ipsum</option>
-              <option>Lorem Ipsum</option>
-            </select>
-          </div>
-          <!-- Upload image input-->
-          <div class="input-group mb-3 px-2 py-2 form-control bg-white">
-            <input id="upload" type="file" onchange="readURL(this);" class="form-control border-0">
-            <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
-            <div class="input-group-append">
-                <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fas fa-cloud-upload-alt cloud-icon mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
-            </div>
-          </div>
-          <!-- Uploaded image area-->
-          <p class="font-italic text-center">The image uploaded will be rendered inside the box below.</p>
-          <div class="image-area mt-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
-          <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Post Text</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"></textarea>
-          </div>
-          <div class="d-grid gap-2">
-            <button class="btn btn-primary" type="submit">Post</button>
+          <div class="dashboard-system">
+            <form action="/dashboard" method="POST" enctype="multipart/form-data">
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Post Title</label>
+                <input type="text" class="form-control" name="postTitle" id="exampleFormControlInput1" placeholder="Post Title">
+              </div>
+              <div class="mb-3">
+                <label for="selectCategory" class="form-label">SelectCategory</label>
+                <select id="selectCategory" name="postCategorie" class="form-select">
+                  <option>News</option>
+                  <option>Tech</option>
+                  <option>Sport</option>
+                  <option>Health</option>
+                  <option>Life</option>
+                  <option>Entertainment</option>
+                </select>
+              </div>
+              <!-- Upload image input-->
+              <div class="input-group mb-3 px-2 py-2 form-control bg-white">
+                <input id="upload" type="file" name="image" onchange="readURL(this);" class="form-control border-0">
+                <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
+                <div class="input-group-append">
+                    <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fas fa-cloud-upload-alt cloud-icon mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
+                </div>
+              </div>
+              <!-- Uploaded image area-->
+              <p class="font-italic text-center">The image uploaded will be rendered inside the box below.</p>
+              <div class="image-area mt-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+              <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Post Text</label>
+                <textarea class="form-control" name="postContent" id="exampleFormControlTextarea1" rows="6"></textarea>
+              </div>
+              <div class="d-grid gap-2">
+                <button class="btn btn-primary" type="submit">Post</button>
+              </div>
+            </form>
           </div>
         </section>
         <section id="addCategory">
           <h2 class="dash-h2">Add Category</h2>
-          <div class="mb-3">
-            <label for="exampleInputCategory" class="form-label">Add New Category</label>
-            <input type="text" class="form-control" id="exampleInputCategory" placeholder="Category Name">
-          </div>
-          <div class="d-grid gap-2">
-            <button class="btn btn-primary" type="submit">Add</button>
+          <div class="dashboard-system">
+            <form action="/dashboard" method="POST">
+              <div class="mb-3">
+                <label for="exampleInputCategory" class="form-label">Add New Category</label>
+                <input type="text" class="form-control" name="addedCategory" id="exampleInputCategory" placeholder="Category Name">
+              </div>
+              <div class="d-grid gap-2">
+                <button class="btn btn-primary" type="button">Add</button>
+              </div>
+            </form>
           </div>
         </section>
         <section id="reports">
           <h2 class="dash-h2">Reports</h2>
-          <div class="card report-div">
-            <h5>Report Title</h5>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat, illum eveniet temporibus corrupti sit illo corporis? Ex, tempora. Nesciunt ipsam deleniti ab neque earum? Aut qui ex nemo ratione laudantium! Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi minima a voluptatum possimus repellendus error? Laborum doloribus non recusandae! Iusto illo facere adipisci exercitationem aperiam laborum ipsa quaerat distinctio hic.</p>
-          </div>
-          <div class="card report-div">
-            <h5>Report Title</h5>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat, illum eveniet temporibus corrupti sit illo corporis? Ex, tempora. Nesciunt ipsam deleniti ab neque earum? Aut qui ex nemo ratione laudantium! Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi minima a voluptatum possimus repellendus error? Laborum doloribus non recusandae! Iusto illo facere adipisci exercitationem aperiam laborum ipsa quaerat distinctio hic.</p>
-          </div>
-          <div class="card report-div">
-            <h5>Report Title</h5>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat, illum eveniet temporibus corrupti sit illo corporis? Ex, tempora. Nesciunt ipsam deleniti ab neque earum? Aut qui ex nemo ratione laudantium! Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi minima a voluptatum possimus repellendus error? Laborum doloribus non recusandae! Iusto illo facere adipisci exercitationem aperiam laborum ipsa quaerat distinctio hic.</p>
-          </div>
-          <div class="card report-div">
-            <h5>Report Title</h5>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat, illum eveniet temporibus corrupti sit illo corporis? Ex, tempora. Nesciunt ipsam deleniti ab neque earum? Aut qui ex nemo ratione laudantium! Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi minima a voluptatum possimus repellendus error? Laborum doloribus non recusandae! Iusto illo facere adipisci exercitationem aperiam laborum ipsa quaerat distinctio hic.</p>
+          <div class="dashboard-system">
+            <div class="card">
+              <h5>Report Title</h5>
+              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat, illum eveniet temporibus corrupti sit illo corporis? Ex, tempora. Nesciunt ipsam deleniti ab neque earum? Aut qui ex nemo ratione laudantium! Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi minima a voluptatum possimus repellendus error? Laborum doloribus non recusandae! Iusto illo facere adipisci exercitationem aperiam laborum ipsa quaerat distinctio hic.</p>
+            </div>
+            <div class="card">
+              <h5>Report Title</h5>
+              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat, illum eveniet temporibus corrupti sit illo corporis? Ex, tempora. Nesciunt ipsam deleniti ab neque earum? Aut qui ex nemo ratione laudantium! Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi minima a voluptatum possimus repellendus error? Laborum doloribus non recusandae! Iusto illo facere adipisci exercitationem aperiam laborum ipsa quaerat distinctio hic.</p>
+            </div>
+            <div class="card">
+              <h5>Report Title</h5>
+              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat, illum eveniet temporibus corrupti sit illo corporis? Ex, tempora. Nesciunt ipsam deleniti ab neque earum? Aut qui ex nemo ratione laudantium! Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi minima a voluptatum possimus repellendus error? Laborum doloribus non recusandae! Iusto illo facere adipisci exercitationem aperiam laborum ipsa quaerat distinctio hic.</p>
+            </div>
+            <div class="card">
+              <h5>Report Title</h5>
+              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat, illum eveniet temporibus corrupti sit illo corporis? Ex, tempora. Nesciunt ipsam deleniti ab neque earum? Aut qui ex nemo ratione laudantium! Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi minima a voluptatum possimus repellendus error? Laborum doloribus non recusandae! Iusto illo facere adipisci exercitationem aperiam laborum ipsa quaerat distinctio hic.</p>
+            </div>
           </div>
         </section>
         <section id="advertiseRequests">
           <h2 class="dash-h2">Advertise Requests</h2>
-          <div class="card ad-request">
-            <h5>Name:</h5>
-            <p>Lorem Ipsum</p>
-            <h5>Email:</h5>
-            <p>loremipsum@gmail.com</p>
-            <h5>Message:</h5>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe eum modi incidunt asperiores nam aperiam explicabo, culpa voluptatum id porro, exercitationem provident soluta tempore placeat necessitatibus eius rem nemo debitis! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid enim fugit harum illo at. Reiciendis tenetur temporibus numquam illum esse architecto illo, quibusdam ratione praesentium qui deserunt necessitatibus cupiditate dignissimos!</p>
+          <div class="dashboard-system">
+            <div class="card">
+              <h5>Name:</h5>
+              <p>Lorem Ipsum</p>
+              <h5>Email:</h5>
+              <p>loremipsum@gmail.com</p>
+              <h5>Message:</h5>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe eum modi incidunt asperiores nam aperiam explicabo, culpa voluptatum id porro, exercitationem provident soluta tempore placeat necessitatibus eius rem nemo debitis! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid enim fugit harum illo at. Reiciendis tenetur temporibus numquam illum esse architecto illo, quibusdam ratione praesentium qui deserunt necessitatibus cupiditate dignissimos!</p>
+            </div>
+            <div class="card">
+              <h5>Name:</h5>
+              <p>Lorem Ipsum</p>
+              <h5>Email:</h5>
+              <p>loremipsum@gmail.com</p>
+              <h5>Message:</h5>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe eum modi incidunt asperiores nam aperiam explicabo, culpa voluptatum id porro, exercitationem provident soluta tempore placeat necessitatibus eius rem nemo debitis! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid enim fugit harum illo at. Reiciendis tenetur temporibus numquam illum esse architecto illo, quibusdam ratione praesentium qui deserunt necessitatibus cupiditate dignissimos!</p>
+            </div>
+            <div class="card">
+              <h5>Name:</h5>
+              <p>Lorem Ipsum</p>
+              <h5>Email:</h5>
+              <p>loremipsum@gmail.com</p>
+              <h5>Message:</h5>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe eum modi incidunt asperiores nam aperiam explicabo, culpa voluptatum id porro, exercitationem provident soluta tempore placeat necessitatibus eius rem nemo debitis! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid enim fugit harum illo at. Reiciendis tenetur temporibus numquam illum esse architecto illo, quibusdam ratione praesentium qui deserunt necessitatibus cupiditate dignissimos!</p>
+            </div>
+            <div class="card">
+              <h5>Name:</h5>
+              <p>Lorem Ipsum</p>
+              <h5>Email:</h5>
+              <p>loremipsum@gmail.com</p>
+              <h5>Message:</h5>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe eum modi incidunt asperiores nam aperiam explicabo, culpa voluptatum id porro, exercitationem provident soluta tempore placeat necessitatibus eius rem nemo debitis! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid enim fugit harum illo at. Reiciendis tenetur temporibus numquam illum esse architecto illo, quibusdam ratione praesentium qui deserunt necessitatibus cupiditate dignissimos!</p>
+            </div>
           </div>
-          <div class="card ad-request">
-            <h5>Name:</h5>
-            <p>Lorem Ipsum</p>
-            <h5>Email:</h5>
-            <p>loremipsum@gmail.com</p>
-            <h5>Message:</h5>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe eum modi incidunt asperiores nam aperiam explicabo, culpa voluptatum id porro, exercitationem provident soluta tempore placeat necessitatibus eius rem nemo debitis! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid enim fugit harum illo at. Reiciendis tenetur temporibus numquam illum esse architecto illo, quibusdam ratione praesentium qui deserunt necessitatibus cupiditate dignissimos!</p>
-          </div>
-          <div class="card ad-request">
-            <h5>Name:</h5>
-            <p>Lorem Ipsum</p>
-            <h5>Email:</h5>
-            <p>loremipsum@gmail.com</p>
-            <h5>Message:</h5>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe eum modi incidunt asperiores nam aperiam explicabo, culpa voluptatum id porro, exercitationem provident soluta tempore placeat necessitatibus eius rem nemo debitis! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid enim fugit harum illo at. Reiciendis tenetur temporibus numquam illum esse architecto illo, quibusdam ratione praesentium qui deserunt necessitatibus cupiditate dignissimos!</p>
-          </div>
-          <div class="card ad-request">
-            <h5>Name:</h5>
-            <p>Lorem Ipsum</p>
-            <h5>Email:</h5>
-            <p>loremipsum@gmail.com</p>
-            <h5>Message:</h5>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe eum modi incidunt asperiores nam aperiam explicabo, culpa voluptatum id porro, exercitationem provident soluta tempore placeat necessitatibus eius rem nemo debitis! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid enim fugit harum illo at. Reiciendis tenetur temporibus numquam illum esse architecto illo, quibusdam ratione praesentium qui deserunt necessitatibus cupiditate dignissimos!</p>
-          </div>
+
         </section>
-        <footer class="dash-footer">
+        <footer class="dash-footer dashboard-system">
           <p>&copy; 2021 TheNewCarthage, All rights reserved.</p>
         </footer>
 <%- include("../partials/footer") %> 
