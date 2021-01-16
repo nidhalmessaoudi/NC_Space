@@ -1,4 +1,4 @@
 // Hide Navbar
-$(document).on('click',function(){
-    $('.collapse').collapse('hide');
-});
+// $(document).on('click',function(){
+//     $('.collapse').collapse('hide');
+// });

@@ -5,193 +5,63 @@
     <%- include("../partials/navbar") %>
     <!-- Life Section -->
     <div class="container-system" id="life">
-        <div class="post-sections">
-          <div class="vl"></div>
-          <span class="news-span">Life</span>
-        </div>
-        <div class="row">
-          <div class="col-lg-4">
-            <div class="card post-component post-template">
-              <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
-              <div class="post-body">
-                <h5 class="card-title">Lorem Ipsum</h5>
-                <div class="date-div">
-                  <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span> 
-                </div> 
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
-              </div>
-            </div>
-            <div class="card post-component post-template">
-              <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
-              <div class="post-body">
-                <h5 class="card-title">Lorem Ipsum</h5>
-                <div class="date-div">
-                  <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span> 
-                </div>
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="card post-component post-template">
-              <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
-              <div class="post-body">
-                <h5 class="card-title">Lorem Ipsum</h5>
-                <div class="date-div">
-                  <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span> 
-                </div> 
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
-              </div>
-            </div>
-            <div class="card post-component post-template">
-              <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
-              <div class="post-body">
-                <h5 class="card-title">Lorem Ipsum</h5>
-                <div class="date-div">
-                  <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span> 
-                </div>
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="card post-component post-template">
-              <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
-              <div class="post-body">
-                <h5 class="card-title">Lorem Ipsum</h5>
-                <div class="date-div">
-                  <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span> 
-                </div> 
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
-              </div>
-            </div>
-            <div class="card post-component post-template">
-              <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
-              <div class="post-body">
-                <h5 class="card-title">Lorem Ipsum</h5>
-                <div class="date-div">
-                  <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span> 
-                </div>
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="post-sections">
+        <div class="vl"></div>
+        <span class="news-span">Life</span>
       </div>
+      <div class="row">
+        <% if (lifePosts.length > 0) { %>
+          <%  lifePosts.forEach(function(post){ %>
+            <div class="col-lg-4">
+              <a href="/posts/<%=post._id%>" class="post-link">
+                <div class="card post-component post-template">
+                  <img src= "/<%= post.image %>" class="card-img-top" alt="img2">
+                  <div class="post-body">
+                    <h5 class="card-title"><%= post.title.substring(0, 30) + " ..." %></h5>
+                    <div class="date-div">
+                      <span class="post-date"><i class="bi bi-clock"></i></span> 
+                      <span class="post-date"> <%= post.createdAt.toString().substring(0, 15) %></span>
+                    </div> 
+                    <p class="card-text"><%= post.content.substring(0, 142) + " ..." %></p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <% }) %>
+          <% } else { %> 
+          <h1>Life posts coming soon...</h1>
+        <% } %>
       </div>
+    </div>
     <!-- Stories Section -->
     <div class="container-system">
         <div class="post-sections" id="stories">
           <div class="vl"></div>
           <span class="news-span">Stories</span>
         </div>
-        <div class="card post-component post-template">
-            <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
-            <div class="post-body">
-              <h5 class="card-title">Lorem Ipsum</h5>
-              <div class="date-div">
-                <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span> 
-              </div>
-              <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
-            </div>
-        </div>
-        <div class="card post-component post-template">
-            <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
-            <div class="post-body">
-              <h5 class="card-title">Lorem Ipsum</h5>
-              <div class="date-div">
-                <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span> 
-              </div>
-              <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
-            </div>
-        </div>
-        <div class="card post-component post-template">
-            <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
-            <div class="post-body">
-              <h5 class="card-title">Lorem Ipsum</h5>
-              <div class="date-div">
-                <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span> 
-              </div>
-              <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
-            </div>
-        </div>
-      </div>
-      </div>
-    <!-- Adverbs Section -->
-    <div class="container-system" id="adverbs">
-        <div class="post-sections">
-          <div class="vl"></div>
-          <span class="news-span">Adverbs</span>
-        </div>
         <div class="row">
-          <div class="col-lg-4">
-            <div class="card post-component post-template">
-              <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
-              <div class="post-body">
-                <h5 class="card-title">Lorem Ipsum</h5>
-                <div class="date-div">
-                  <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span> 
-                </div> 
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
+          <% if (storiesPosts.length > 0) { %>
+            <% storiesPosts.forEach(function(post) { %> 
+              <div class="col-lg-6">
+                <a href="/posts/<%=post._id%>" class="post-link">
+                  <div class="card post-component post-template">
+                    <img src= "/<%= post.image %>" class="card-img-top2" alt="img2">
+                    <div class="post-body">
+                      <h5 class="card-title"><%= post.title.substring(0, 30) + " ..." %></h5>
+                      <div class="date-div">
+                        <span class="post-date"><i class="bi bi-clock"></i></span> 
+                        <span class="post-date"> <%= post.createdAt.toString().substring(0, 15) %></span>
+                      </div> 
+                      <p class="card-text"><%= post.content.substring(0, 142) + " ..." %></p>
+                    </div>
+                  </div>
+                </a>
               </div>
-            </div>
-            <div class="card post-component post-template">
-              <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
-              <div class="post-body">
-                <h5 class="card-title">Lorem Ipsum</h5>
-                <div class="date-div">
-                  <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span> 
-                </div>
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="card post-component post-template">
-              <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
-              <div class="post-body">
-                <h5 class="card-title">Lorem Ipsum</h5>
-                <div class="date-div">
-                  <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span> 
-                </div> 
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
-              </div>
-            </div>
-            <div class="card post-component post-template">
-              <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
-              <div class="post-body">
-                <h5 class="card-title">Lorem Ipsum</h5>
-                <div class="date-div">
-                  <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span> 
-                </div>
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="card post-component post-template">
-              <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
-              <div class="post-body">
-                <h5 class="card-title">Lorem Ipsum</h5>
-                <div class="date-div">
-                  <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span> 
-                </div> 
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
-              </div>
-            </div>
-            <div class="card post-component post-template">
-              <img src="imgs/img2.jpg" class="card-img-top" alt="img2">
-              <div class="post-body">
-                <h5 class="card-title">Lorem Ipsum</h5>
-                <div class="date-div">
-                  <span class="post-date"><i class="fas fa-calendar-week"></i>  12/23/2020</span> 
-                </div>
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis maiores sint delectus, perspiciatis blanditiis autem animi fugiat, eaque qua...</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+            <% }) %>
+          <% } else { %> 
+            <h1>Stories Coming soon...</h1>   
+          <% } %>  
+        </div> 
     </div>
 <!-- Explore Section -->
 <%- include("../partials/sitemap") %> 

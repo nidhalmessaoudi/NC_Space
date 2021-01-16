@@ -1,0 +1,31 @@
+<%- include("../partials/header") %>
+  <title>NC Blog | <%= post.title %> </title>
+<body>
+    <!-- Navbar -->
+    <%- include("../partials/navbar") %> 
+    <div class="row">
+        <div class="col-lg-3">
+            <h5 class="post-attr">Ads</h5>
+        </div>
+        <div class="col-lg-6 post-div">
+            <h1 class="postPage-title"> <%= post.title %>  </h1>
+            <div class="date-div">
+                <span class="post-date"><i class="bi bi-clock"></i></span> 
+                <span class="post-date"> <%= post.createdAt.toString().substring(0, 15) %></span>
+                <span class="post-cat"><%= post.category %></span>
+                <span class="post-cat"><i class="bi bi-bookmark"></i></span>
+            </div>
+            <hr> 
+            <img src= "/<%= post.image %>" class="post-img" alt="<%= post.title %>">
+            <p class="postPage-content"> <%= post.content %>  </p>
+        </div>
+        <div class="col-lg-3">
+            <h5 class="post-attr">Related</h5>
+        </div>
+    </div>
+    
+<!-- Explore Section -->
+<%- include("../partials/sitemap") %> 
+
+<%- include("../partials/footer") %>
+<script src="home.js"></script>

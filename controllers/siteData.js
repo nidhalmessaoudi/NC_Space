@@ -1,48 +1,58 @@
 const mongoose = require("mongoose");
 const passportLocalMongoose = require("passport-local-mongoose");
 const passport = require("passport");
+const postModel = require("../models/post");
+const adminModel = require("../models/admin");
 
-const adminSchema = new mongoose.Schema ({
-    email: String,
-    password: String
-});
+adminModel.adminSchema.plugin(passportLocalMongoose);
   
-adminSchema.plugin(passportLocalMongoose);
-  
-const Admin = new mongoose.model("Admin", adminSchema);
+const Admin = new mongoose.model("Admin", adminModel.adminSchema);
   
 passport.use(Admin.createStrategy());
    
 passport.serializeUser(Admin.serializeUser());
 passport.deserializeUser(Admin.deserializeUser());
 
-const postSchema = new mongoose.Schema ({
-    title: {
-        type: String,
-        required: true 
-    },
-    category: {
-        type: String,
-        required: true 
-    },
-    image: {
-        type: String,
-        required: true 
-    },
-    content: {
-        type: String,
-        required: true 
-    },
-}, {timestamps: true});
-  
-const Post = new mongoose.model("Post", postSchema);
+postModel.postSchema.index({
+  title: "text",
+  content: "text",
+}, {
+  weights: {
+    title: 5,
+    content: 1,
+  },
+});
+
+const Post = new mongoose.model("Post", postModel.postSchema);
 
 exports.getHome = (req, res) => {
-  res.render("blog/home");
+  Post.find({category: "News"}).limit(2).then(newsData => {
+    Post.find({category: "News"}).sort({createdAt: -1}).limit(1).then(firstData => {
+      Post.find({category: "Tech"}).sort({ createdAt: -1 }).limit(6).then(techData => {
+        Post.find({category: "Sport"}).sort({ createdAt: -1 }).limit(6).then(sportData =>{
+          Post.find({category: "Health"}).sort({ createdAt: -1 }).limit(6).then(healthData => {
+            Post.find({category: "Entertainment"}).sort({ createdAt: -1 }).limit(6).then(EnterData => {
+              Post.find({category: "Life"}).sort({ createdAt: -1 }).limit(1).then(lifeData => {
+                res.render("blog/home", {
+                  firstPost: firstData,
+                  newsPosts: newsData,
+                  techPosts: techData,
+                  sportPosts: sportData,
+                  healthPosts: healthData,
+                  enterPosts: EnterData,
+                  lifePosts: lifeData
+                });
+              });
+            });
+          });
+        });
+      });
+    });
+  });
 };
 
 exports.getNews = (req, res) => {
-  Post.find({category: "News"}, (err, results) => {
+  Post.find({category: "News"}).sort({createdAt: -1}).then(results => {
       res.render("blog/news", {
           posts: results
       });
@@ -50,7 +60,7 @@ exports.getNews = (req, res) => {
 };
 
 exports.getTech = (req, res) => {
-  Post.find({category: "Tech"}, (err, results) => {
+  Post.find({category: "Tech"}).sort({createdAt: -1}).then(results => {
     res.render("blog/tech", {
         posts: results
     });
@@ -58,7 +68,7 @@ exports.getTech = (req, res) => {
 };
 
 exports.getSport = (req, res) => {
-  Post.find({category: "Sport"}, (err, results) => {
+  Post.find({category: "Sport"}).sort({createdAt: -1}).then(results => {
     res.render("blog/sport", {
         posts: results
     });
@@ -66,7 +76,7 @@ exports.getSport = (req, res) => {
 };
 
 exports.getHealth = (req, res) => {
-  Post.find({category: "health"}, (err, results) => {
+  Post.find({category: "health"}).sort({createdAt: -1}).then(results => {
     res.render("blog/health", {
         posts: results
     });
@@ -74,7 +84,7 @@ exports.getHealth = (req, res) => {
 };
 
 exports.getEntertainment = (req, res) => {
-  Post.find({category: "Entertainment"}, (err, results) => {
+  Post.find({category: "Entertainment"}).sort({createdAt: -1}).then(results => {
     res.render("blog/entertainment", {
         posts: results
     });
@@ -82,7 +92,41 @@ exports.getEntertainment = (req, res) => {
 };
 
 exports.getExtra = (req, res) => {
-  res.render("blog/extra");
+  Post.find({category: "Life"}).sort({createdAt: -1}).limit(18).then(lifeData => {
+    Post.find({category: "Stories"}).sort({createdAt: -1}).limit(6).then(storiesData => {
+      res.render("blog/extra", {
+        lifePosts: lifeData,
+        storiesPosts: storiesData
+      });
+    });
+  });
+};
+
+exports.getPost = (req, res) => {
+  const requestedPostId = req.params.postId;
+
+  Post.findOne({_id: requestedPostId}, function(err, result){ 
+    if (!err) {
+      res.render("blog/post", {
+
+        post: result
+   
+      });
+    }
+  });
+}
+
+exports.postRelSearchs = (req, res) => {
+  const term = req.body.term;
+  Post.find({
+    $text: { $search: term },
+  })
+    .then(results => {
+      res.render("blog/search", {
+        posts: results
+      });
+    })
+    .catch(e => console.log(e))
 };
 
 exports.getLogin = (req, res) => {
