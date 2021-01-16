@@ -1,2 +1,20 @@
-# NC_Blog
-We are so exciting to share with you our new open source project which is a Blog Web Application For NewCarthage, our new Network. It is intended for anyone who wants to contribute and cooperate with us in achieving his success. So hope you Like It :)
+# Welcome EveryOne!
+This is our NC_Blog open source Project. If you want to use it or contribute on it, you should extract the zip folder, open your terminal and cd to the project folder:
+
+    cd Downloads/NC_Blog-main/
+
+
+## Usage Or Contribution
+
+    npm install
+To install all the required dependencies.
+
+* Optional =>  run
+ `npm i -g nodemon`
+ To facilitate the development process.
+ *To start the development server => run
+  `npm start`
+
+ ### Enjoy!
+
+###### Writen by Nidhal Messaoudi.
