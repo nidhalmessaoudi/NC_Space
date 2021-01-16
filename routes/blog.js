@@ -1,33 +1,21 @@
 const express = require("express");
 
+const blogController = require("../controllers/siteData");
+
 const router = express.Router();
 
-router.get("/", (req, res) => {
-    res.render("blog/home");
-});
+router.get("/", blogController.getHome);
   
-router.get("/news", (req, res) => {
-    res.render("blog/news");
-});
+router.get("/news", blogController.getNews);
   
-router.get("/tech", (req, res) => {
-    res.render("blog/tech");
-});
+router.get("/tech", blogController.getTech);
   
-router.get("/sport", (req, res) => {
-    res.render("blog/sport");
-});
+router.get("/sport", blogController.getSport);
   
-router.get("/health", (req, res) => {
-    res.render("blog/health");
-});
+router.get("/health", blogController.getHealth);
   
-router.get("/entertainment", (req, res) => {
-    res.render("blog/entertainment");
-});
+router.get("/entertainment", blogController.getEntertainment);
   
-router.get("/extra", (req, res) => {
-    res.render("blog/extra");
-});
+router.get("/extra", blogController.getExtra);
 
 module.exports = router;

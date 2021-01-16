@@ -151,9 +151,15 @@ nav {
 }
 .post-component {
     background-color: #fff;
-    -webkit-box-shadow: 4px 3px 15px -2px rgba(0,0,0,0.55);
-    -moz-box-shadow: 4px 3px 15px -2px rgba(0,0,0,0.55);
-    box-shadow: 4px 3px 15px -2px rgba(0,0,0,0.55);
+    -webkit-box-shadow: 5px 8px 25px -8px #000000; 
+    -moz-box-shadow: 5px 8px 25px -8px #000000; 
+    box-shadow: 5px 8px 25px -8px #000000;
+    transition: 500ms box-shadow;
+}
+.post-component:hover {
+    -webkit-box-shadow: 5px 8px 26px -4px #000000; 
+    -moz-box-shadow: 5px 8px 26px -4px #000000;
+    box-shadow: 5px 8px 26px -4px #000000;
 }
 .post-template {
     margin-bottom: 20px;
@@ -167,6 +173,9 @@ nav {
     object-fit: cover;
     border-top-left-radius: .25rem;
     border-top-right-radius: .25rem;
+}
+.fa-calendar-week {
+    margin-right: 8px;
 }
 @media (max-width: 992px) {
     .first-post {

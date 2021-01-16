@@ -9,20 +9,24 @@
           <span class="news-span">News</span>
         </div>
         <div class="row">
+          <% if (posts.length > 0) { %>
             <%  posts.forEach(function(post){ %>
-          <div class="col-lg-4">
-            <div class="card post-component post-template">
-              <img src= "/<%= post.image %>" class="card-img-top" alt="img2">
-              <div class="post-body">
-                <h5 class="card-title"><%= post.title %></h5>
-                <div class="date-div">
-                  <span class="post-date"><i class="fas fa-calendar-week"></i><%= post.createdAt %></span> 
-                </div> 
-                <p class="card-text"><%= post.content.substring(0, 142) + " ..." %></p>
+              <div class="col-lg-4">
+                <div class="card post-component post-template">
+                  <img src= "/<%= post.image %>" class="card-img-top" alt="img2">
+                  <div class="post-body">
+                    <h5 class="card-title"><%= post.title %></h5>
+                    <div class="date-div">
+                      <span class="post-date"><i class="fas fa-calendar-week"></i><%= post.createdAt.toString().substring(0, 15) %></span> 
+                    </div> 
+                    <p class="card-text"><%= post.content.substring(0, 142) + " ..." %></p>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-            <% }) %>
+              <% }) %>
+            <% } else { %> 
+            <h1>News posts coming soon...</h1>
+          <% } %>
         </div>
       </div>
       </div>

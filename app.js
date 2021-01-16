@@ -33,8 +33,8 @@ const fileFilter = (req, file, cb) => {
 
 const app = express();
 
-app.use(express.static("public"));
-app.use("images", express.static("images"));
+app.use(express.static(path.join(__dirname, "public")));
+app.use("/images", express.static(path.join(__dirname, "images")));
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({
   extended: true
@@ -46,27 +46,6 @@ app.use(
 
 mongoose.connect(process.env.DB_HOST, {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.set("useCreateIndex", true);
-
-const postSchema = new mongoose.Schema ({
-  title: {
-      type: String,
-      required: true 
-  },
-  category: {
-      type: String,
-      required: true 
-  },
-  image: {
-      type: String,
-      required: true 
-  },
-  content: {
-      type: String,
-      required: true 
-  },
-}, {timestamps: true});
-
-const Post = new mongoose.model("Post", postSchema);
 
 app.use(blogRoutes);
 
