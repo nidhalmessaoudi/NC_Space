@@ -21,6 +21,6 @@ router.get("/entertainment", blogController.getEntertainment);
   
 router.get("/extra", blogController.getExtra);
 
-router.post("/relatedsearchs", blogController.postRelSearchs);
+router.post("/search?", blogController.postRelSearchs);
 
 module.exports = router;

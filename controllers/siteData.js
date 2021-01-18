@@ -105,12 +105,15 @@ exports.getExtra = (req, res) => {
 exports.getPost = (req, res) => {
   const requestedPostId = req.params.postId;
 
-  Post.findOne({_id: requestedPostId}, function(err, result){ 
+  Post.findOne({_id: requestedPostId}, (err, result) => { 
     if (!err) {
-      res.render("blog/post", {
-
-        post: result
-   
+      Post.find({category: result.category}).limit(4).then(results => {
+          res.render("blog/post", {
+    
+            post: result,
+            relatedPosts: results
+  
+          });
       });
     }
   });
@@ -123,7 +126,8 @@ exports.postRelSearchs = (req, res) => {
   })
     .then(results => {
       res.render("blog/search", {
-        posts: results
+        posts: results,
+        yourSearch: term
       });
     })
     .catch(e => console.log(e))
@@ -168,7 +172,7 @@ exports.postDashboard = (req, res) => {
 
 exports.getLogOut = (req, res) => {
     req.logout();
-    res.redirect("/");
+    res.redirect("/login");
 };
 
 exports.postLogin = (req, res) => {

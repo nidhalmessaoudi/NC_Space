@@ -1,36 +1,45 @@
 <%- include("../partials/header") %>
-  <title>NC Blog: Related posts</title>
+  <title>NC Blog: Search Results</title>
 <body>
     <!-- Navbar -->
     <%- include("../partials/navbar") %> 
+    <!-- Main -->
     <div class="container-system">
+        <div class="search-div">
+          <form class="d-flex" action="/search?" method="POST">
+            <input class="form-control search-field me-2" name="term" type="search" value="<%= yourSearch %> " aria-required="true" placeholder="Search" aria-label="Search">
+            <button class="btn search-button btn-outline-secondary" type="submit"><i class="bi bi-search"></i></button>
+          </form>
+        </div>
         <div class="post-sections">
           <div class="vl"></div>
-          <span class="news-span">Related posts to your Search</span>
+          <span class="news-span">Relevant posts to: "<%= yourSearch %>"</span>
         </div>
-        <div class="row">
+        <div class="search-system">
           <% if (posts.length > 0) { %>
             <%  posts.forEach(function(post){ %>
-              <div class="col-lg-4">
-                  <a href="/posts/<%=post._id%>" class="post-link">
-                    <div class="card post-component post-template">
-                        <img src= "/<%= post.image %>" class="card-img-top" alt="img2">
-                        <div class="post-body">
-                          <h5 class="card-title"><%= post.title.substring(0, 30) + " ..." %></h5>
-                          <div class="date-div">
-                            <span class="post-date"><i class="bi bi-clock"></i></span> 
-                            <span class="post-date"> <%= post.createdAt.toString().substring(0, 15) %></span>
-                            <span class="post-cat"><%= post.category %></span>
-                            <span class="post-cat"><i class="bi bi-bookmark"></i></span>
-                          </div> 
-                          <p class="card-text"><%= post.content.substring(0, 142) + " ..." %></p>
-                        </div>
-                      </div>
-                  </a>
-              </div>
+              <a href="/posts/<%=post._id%>" class="post-link">
+               <div class="row search-post">
+                  <div class="col-lg-6 search-img">
+                    <img src= "/<%= post.image %>" class="post-sch-img" alt="img2">
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="post-body">
+                      <h5 class="card-title"><%= post.title %></h5>
+                      <div class="date-div">
+                        <span class="post-date"><i class="bi bi-clock"></i></span> 
+                        <span class="post-date text-icon"> <%= post.createdAt.toString().substring(0, 15) %></span>
+                        <span class="post-cat text-icon"><%= post.category %></span>
+                        <span class="post-cat"><i class="bi bi-bookmark"></i></span>
+                      </div> 
+                      <p class="card-text"><%= post.content.substring(0, 500) + " ..." %></p>
+                    </div>
+                  </div>
+               </div>
+              </a>
             <% }) %>
             <% } else { %> 
-            <h1>No related Posts Found!</h1>
+            <h1>Nothing was found!</h1>
           <% } %>
         </div>
     </div>

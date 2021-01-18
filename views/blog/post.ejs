@@ -3,25 +3,56 @@
 <body>
     <!-- Navbar -->
     <%- include("../partials/navbar") %> 
-    <div class="row">
-        <div class="col-lg-3">
-            <h5 class="post-attr">Ads</h5>
-        </div>
-        <div class="col-lg-6 post-div">
-            <h1 class="postPage-title"> <%= post.title %>  </h1>
-            <div class="date-div">
-                <span class="post-date"><i class="bi bi-clock"></i></span> 
-                <span class="post-date"> <%= post.createdAt.toString().substring(0, 15) %></span>
-                <span class="post-cat"><%= post.category %></span>
-                <span class="post-cat"><i class="bi bi-bookmark"></i></span>
+    <div class="postPage-system">
+        <div class="row">
+            <div class="col-lg-7 post-div">
+                <h1 class="postPage-title"> <%= post.title %>  </h1>
+                <div class="underTitle">
+                    <span class="post-date"><i class="bi bi-clock"></i></span> 
+                    <span class="post-date"> <%= post.createdAt.toString().substring(0, 15) %></span>
+                    <span class="post-cat"><%= post.category %></span>
+                    <span class="post-cat"><i class="bi bi-bookmark"></i></span>
+                </div>
+                <hr> 
+                <img src= "/<%= post.image %>" class="post-img" alt="<%= post.title %>">
+                <p class="postPage-content"> <%= post.content %>  </p>
             </div>
-            <hr> 
-            <img src= "/<%= post.image %>" class="post-img" alt="<%= post.title %>">
-            <p class="postPage-content"> <%= post.content %>  </p>
-        </div>
-        <div class="col-lg-3">
-            <h5 class="post-attr">Related</h5>
-        </div>
+            <div class="col-lg-5">
+                <div class="post-sections rel-posts">
+                    <div class="vl"></div>
+                    <span class="news-span">related</span>
+                </div>
+                <div class="row">
+                    <% if (relatedPosts.length > 0) { %>
+                      <%  relatedPosts.forEach(function(post){ %>
+                        <div class="col-lg-6">
+                          <a href="/posts/<%=post._id%>" class="post-link">
+                            <div class="card post-component post-template">
+                              <img src= "/<%= post.image %>" class="card-img-top relpost-img" alt="img2">
+                              <div class="post-body">
+                                <h5 class="card-title"><%= post.title.substring(0, 27) + " ..." %></h5>
+                                <div class="date-div">
+                                  <span class="post-date"><i class="bi bi-clock"></i></span> 
+                                  <span class="post-date"> <%= post.createdAt.toString().substring(0, 9) %></span>
+                                  <span class="post-cat"><%= post.category %></span>
+                                  <span class="post-cat"><i class="bi bi-bookmark"></i></span>
+                                </div> 
+                                <p class="card-text"><%= post.content.substring(0, 40) + " ..." %></p>
+                              </div>
+                            </div>
+                          </a>
+                        </div> 
+                        <% }) %>
+                      <% } else { %> 
+                      <h1>News posts coming soon...</h1>
+                    <% } %>
+                </div>
+                <div class="post-sections">
+                    <div class="vl"></div>
+                    <span class="news-span">Ads</span>
+                </div>
+            </div>
+        </div>   
     </div>
     
 <!-- Explore Section -->
