@@ -6,8 +6,9 @@
     <!-- Welcome Section -->
     <div class="welcome-section">
         <div class="row">
-            <div class="col-lg-6">
-                <h1 class="welcome-h1">Welcome To TheNewCarthage Blog.</h1>
+            <div class="col-lg-6 welcome-text">
+                <h1 class="welcome-h1">Welcome To the NC Blog.</h1>
+                <p>Note: The website run in the beta version, so, if you meet any problem, you can send us a <a href="/feedback">feedback</a>.</p>
             </div>
             <div class="col-lg-6">
                 <img class="news-img" src="imgs/news.png" alt="news-illustration">
@@ -34,7 +35,7 @@
                       <h5 class="card-title"><%= post.title %></h5>
                       <div class="date-div">
                         <span class="post-date"><i class="bi bi-clock"></i></span>
-                        <span class="post-date"><%= post.createdAt.toString().substring(0, 15) %></span>
+                        <span class="post-date text-icon"><%= post.createdAt.toString().substring(0, 15) %></span>
                       </div>
                       <p class="card-text"><%= post.content.substring(0, 524) + " ..." %></p>
                     </div>
@@ -52,10 +53,10 @@
                       <a href="/posts/<%=post._id%>" class="post-link">
                         <img src= "/<%= post.image %>" class="card-img-top" alt="img2">
                         <div class="post-body">
-                          <h5 class="card-title"><%= post.title %></h5>
+                          <h5 class="card-title"><%= post.title.substring(0, 40) + " ..." %></h5>
                           <div class="date-div">
                             <span class="post-date"><i class="bi bi-clock"></i></span>
-                            <span class="post-date"> <%= post.createdAt.toString().substring(0, 15) %></span>
+                            <span class="post-date text-icon"> <%= post.createdAt.toString().substring(0, 15) %></span>
                           </div>
                           <p class="card-text"><%= post.content.substring(0, 142) + " ..." %></p>
                         </div>
@@ -85,7 +86,7 @@
                     <h5 class="card-title"><%= post.title.substring(0, 30) + " ..." %></h5>
                     <div class="date-div">
                       <span class="post-date"><i class="bi bi-clock"></i></span> 
-                      <span class="post-date"> <%= post.createdAt.toString().substring(0, 15) %></span>
+                      <span class="post-date text-icon"> <%= post.createdAt.toString().substring(0, 15) %></span>
                     </div> 
                     <p class="card-text"><%= post.content.substring(0, 142) + " ..." %></p>
                   </div>
@@ -115,7 +116,7 @@
                     <h5 class="card-title"><%= post.title.substring(0, 30) + " ..." %></h5>
                     <div class="date-div">
                       <span class="post-date"><i class="bi bi-clock"></i></span> 
-                      <span class="post-date"> <%= post.createdAt.toString().substring(0, 15) %></span>
+                      <span class="post-date text-icon"> <%= post.createdAt.toString().substring(0, 15) %></span>
                     </div> 
                     <p class="card-text"><%= post.content.substring(0, 142) + " ..." %></p>
                   </div>
@@ -145,7 +146,7 @@
                     <h5 class="card-title"><%= post.title.substring(0, 30) + " ..." %></h5>
                     <div class="date-div">
                       <span class="post-date"><i class="bi bi-clock"></i></span> 
-                      <span class="post-date"> <%= post.createdAt.toString().substring(0, 15) %></span>
+                      <span class="post-date text-icon"> <%= post.createdAt.toString().substring(0, 15) %></span>
                     </div> 
                     <p class="card-text"><%= post.content.substring(0, 142) + " ..." %></p>
                   </div>
@@ -175,7 +176,7 @@
                     <h5 class="card-title"><%= post.title.substring(0, 30) + " ..." %></h5>
                     <div class="date-div">
                       <span class="post-date"><i class="bi bi-clock"></i></span> 
-                      <span class="post-date"> <%= post.createdAt.toString().substring(0, 15) %></span>
+                      <span class="post-date text-icon"> <%= post.createdAt.toString().substring(0, 15) %></span>
                     </div> 
                     <p class="card-text"><%= post.content.substring(0, 142) + " ..." %></p>
                   </div>
@@ -194,7 +195,29 @@
         <div class="vl"></div>
         <a href="/extra#stories" class="sitemap-links"><span class="news-span">Stories</span></a> 
       </div>
-      <h1>Coming soon...</h1>
+      <div class="row">
+        <% if (storiesPosts.length > 0) { %>
+          <%  storiesPosts.forEach(function(post){ %>
+            <div class="col-lg-6">
+              <a href="/posts/<%=post._id%>" class="post-link">
+                <div class="card post-component post-template">
+                  <img src= "/<%= post.image %>" class="card-img-top" alt="img2">
+                  <div class="post-body">
+                    <h5 class="card-title"><%= post.title.substring(0, 30) + " ..." %></h5>
+                    <div class="date-div">
+                      <span class="post-date"><i class="bi bi-clock"></i></span> 
+                      <span class="post-date text-icon"> <%= post.createdAt.toString().substring(0, 15) %></span>
+                    </div> 
+                    <p class="card-text"><%= post.content.substring(0, 180) + " ..." %></p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <% }) %>
+          <% } else { %> 
+          <h1>Stories posts coming soon...</h1>
+        <% } %>
+      </div>
     </div>
     <!-- Middle Section -->
     <div class="row container-system">
@@ -213,7 +236,7 @@
                       <h5 class="card-title"><%= post.title %></h5>
                       <div class="date-div">
                         <span class="post-date"><i class="bi bi-clock"></i> </span>
-                      <span> <%= post.createdAt.toString().substring(0, 15) %> </span> 
+                      <span class="post-date text-icon"> <%= post.createdAt.toString().substring(0, 15) %> </span> 
                       </div> 
                       <p class="card-text"><%= post.content.substring(0, 142) + " ..." %></p>
                     </div>
@@ -232,28 +255,28 @@
             </div>
             <div class="card post-component">
               <div class="post-body">
-                <h5 class="card-title">Lorem Ipsum</h5>
+                <h5 class="card-title">For today</h5>
                 <div class="card-body">
                   <blockquote class="blockquote mb-0">
-                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante."</p>
-                    <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+                    <p class="blockquote-footer">"Don't wait for the perfect moment, take the moment and make it perfect"</p>
                   </blockquote>
+                  <hr>
                   <blockquote class="blockquote mb-0">
-                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante."</p>
-                    <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+                    <p class="blockquote-footer">"Don't talk unless you can improve the silence"</p>
                   </blockquote>
+                  <hr>
                   <blockquote class="blockquote mb-0">
-                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante."</p>
-                    <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+                    <p class="blockquote-footer">"If your dream don't scare you, it's not big enough"</p>
                   </blockquote>
+                  <hr>
                   <blockquote class="blockquote mb-0">
-                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante."</p>
-                    <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+                    <p class="blockquote-footer">"Faith is the bird that feels the light when the dawn is still dark"</p>
                   </blockquote>
+                  <hr>
                   <blockquote class="blockquote mb-0">
-                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante."</p>
-                    <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+                    <p class="blockquote-footer">"Truth is more valuabe if takes you a few years to find it"</p>
                   </blockquote>
+                  <hr>
                 </div>
               </div>
             </div>

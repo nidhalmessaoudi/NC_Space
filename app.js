@@ -2,13 +2,12 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
-const ejs = require("ejs");
-const _ = require("lodash");
 const mongoose = require("mongoose");
 const multer = require("multer");
 
 const adminRoutes = require("./routes/admin");
 const blogRoutes = require("./routes/blog");
+const topicRoutes = require("./routes/topics");
 
 
 const fileStorage = multer.diskStorage({
@@ -52,6 +51,7 @@ app.use(blogRoutes);
 
 app.use(adminRoutes);
 
+app.use(topicRoutes);
 
 app.use((req, res) => {
   res.status(404).render("404Page");

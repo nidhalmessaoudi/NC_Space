@@ -1,0 +1,26 @@
+<%- include("../partials/header") %>
+  <title>NC Blog: Feedback</title>
+<body>
+    <!-- Navbar -->
+    <%- include("../partials/navbar") %> 
+    <div class="topic-system">
+        <h2>Send Feedback</h2>
+        <p>Hello and thank you for visiting the feedback center.</p>
+        <p>Have Feedback? We would love to hear it, that will help us improve our service and fix bugs if there was. But please don't share sensitive information.</p>
+        <form action="/feedback" method="POST">
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Subject</label>
+                <input type="text" class="form-control" name="subject" id="exampleFormControlInput1" placeholder="Your Feedback subject">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Feedback</label>
+                <textarea class="form-control" name="feedback" id="exampleFormControlTextarea1" rows="4"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary mb-3">Send</button>
+        </form>
+    </div>
+    <!-- Explore Section -->
+    <%- include("../partials/sitemap") %> 
+    
+    <%- include("../partials/footer") %>
+    <script src="home.js"></script>

@@ -13,6 +13,22 @@ exports.postSchema = new mongoose.Schema ({
         type: String,
         required: true 
     },
+    tagOne: {
+        type: String,
+        required: false
+    },
+    tagTwo: {
+        type: String,
+        required: false
+    },
+    tagThree: {
+        type: String,
+        required: false
+    },
+    tagFour: {
+        type: String,
+        required: false
+    },
     content: {
         type: String,
         required: true 

@@ -1,5 +1,4 @@
 const express = require("express");
-const _ = require("lodash");
 
 const blogController = require("../controllers/siteData");
 

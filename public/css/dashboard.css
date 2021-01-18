@@ -113,6 +113,9 @@ body {
 .dashboard-system {
   padding: 2% 5%;
 }
+.action-btn {
+  margin-bottom: 10px;
+}
 /* Main */
 #upload {
   opacity: 0;
