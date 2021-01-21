@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-lg-6 welcome-text">
                 <h1 class="welcome-h1">Welcome To the NC Blog.</h1>
-                <p>Note: The website run in the beta version, so, if you meet any problem, you can send us a <a href="/feedback">feedback</a>.</p>
+                <p>Note: The website runs in the beta version, so, if you meet any problem, you can send us a <a href="/feedback">feedback</a>.</p>
             </div>
             <div class="col-lg-6">
                 <img class="news-img" src="imgs/news.png" alt="news-illustration">
@@ -201,7 +201,7 @@
             <div class="col-lg-6">
               <a href="/posts/<%=post._id%>" class="post-link">
                 <div class="card post-component post-template">
-                  <img src= "/<%= post.image %>" class="card-img-top" alt="img2">
+                  <img src= "/<%= post.image %>" class="card-img-top img-stories" alt="img2">
                   <div class="post-body">
                     <h5 class="card-title"><%= post.title.substring(0, 30) + " ..." %></h5>
                     <div class="date-div">
@@ -231,14 +231,14 @@
               <%  lifePosts.forEach(function(post){ %>
                 <div class="card post-component post-template">
                   <a href="/posts/<%= post._id %> " class="post-link">
-                    <img src= "/<%= post.image %>" class="card-img-top" alt="img2">
+                    <img src= "/<%= post.image %>" class="card-img-top img-stories" alt="img2">
                     <div class="post-body">
                       <h5 class="card-title"><%= post.title %></h5>
                       <div class="date-div">
                         <span class="post-date"><i class="bi bi-clock"></i> </span>
                       <span class="post-date text-icon"> <%= post.createdAt.toString().substring(0, 15) %> </span> 
                       </div> 
-                      <p class="card-text"><%= post.content.substring(0, 142) + " ..." %></p>
+                      <p class="card-text"><%= post.content.substring(0, 300) + " ..." %></p>
                     </div>
                   </a>
                 </div>

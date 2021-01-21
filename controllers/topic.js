@@ -37,7 +37,12 @@ exports.postFeedback = (req, res) => {
     });
     feedback.save(err => {
         if(!err) {
-            res.render("topics/success");
+            res.render("topics/success", {
+                success: "Feedback sent successfully!",
+                successMessage: "Thank you for giving us part of your time to evaluate our work and provide your feedback. We promise we read it well.",
+                successButton: "Go to the homePage",
+                path: "/"
+            });
         } else {
             res.render("topics/failure", {
                 error: "A problem occurred while sending the feedback!",

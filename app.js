@@ -4,6 +4,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const multer = require("multer");
+const compression = require("compression");
 
 const adminRoutes = require("./routes/admin");
 const blogRoutes = require("./routes/blog");
@@ -33,6 +34,8 @@ const fileFilter = (req, file, cb) => {
 
 const app = express();
 
+app.use(compression());
+
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/images", express.static(path.join(__dirname, "images")));
 app.set('view engine', 'ejs');
@@ -57,8 +60,13 @@ app.use((req, res) => {
   res.status(404).render("404Page");
 });
 
-app.listen(3000, () => {
-  console.log("Server started on port 3000.");
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
+
+app.listen(port, function() {
+  console.log("Server has started Successfully.");
 });
 
 

@@ -154,10 +154,31 @@ body {
   z-index: 2;
   position: relative;
 }
-/* Add Requests Section */
-.card {
+/* Ads Requests Section */
+.feed-container {
+  background-color: #ffffff;
+  border: 1px solid #cfd3ce;
+  border-radius: 5px;
   padding: 20px;
   margin: 20px;
+}
+.bi-x {
+  font-size: 1.5rem;
+}
+.del-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  border: 0;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  float: right;
+  transition: 500ms background-color;
+}
+.del-btn:hover {
+  background-color: #bbbbbb;
 }
 /* Dashboard Footer */
 .dash-footer {

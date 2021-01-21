@@ -58,9 +58,9 @@
                       <td><%= post.category %></td>
                       <td><%= post.createdAt %></td>
                       <td>
-                        <form>
-                          <button type="button" class="btn btn-success action-btn">Edit</button>
-                          <button type="button" class="btn btn-danger action-btn">Remove</button>
+                        <form action="delpost" method="POST">
+                          <input type="hidden" value="<%= post._id %>" name="postId">
+                          <button type="submit" class="btn btn-danger action-btn">Delete</button>
                         </form>
                       </td>
                     </tr>
@@ -136,7 +136,11 @@
          <div class="dashboard-system">
           <% if (feedbacks.length > 0) { %>
             <%  feedbacks.forEach(function(feedback){ %>
-              <div class="card">
+              <div class="feed-container">
+                <form action="/delfeedback" method="POST">
+                  <input type="hidden" value="<%= feedback._id %>" name="feedbackId">
+                  <button class="btn del-btn" type="submit"><i class="bi bi-x"></i></button>
+                </form>
                 <h4><%= feedback.subject %> </h4>
                 <p>Added at: <%= feedback.createdAt %></p>
                 <p><%= feedback.content %> </p>
@@ -150,7 +154,8 @@
       <section id="advertiseRequests">
          <h2 class="dash-h2">Advertise Requests</h2>
          <div class="dashboard-system">
-           <div class="card">
+           <div class="feed-container">
+              <button class="btn del-btn" type="submit"><i class="bi bi-x"></i></button>
              <h5>Name:</h5>
              <p>Lorem Ipsum</p>
              <h5>Email:</h5>

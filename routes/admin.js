@@ -21,6 +21,10 @@ router.get("/dashboard", adminController.getDashboard);
 
 router.post("/dashboard", adminController.postDashboard);
 
+router.post("/delfeedback", adminController.postDelFeedback);
+
+router.post("/delpost", adminController.postDelPost);
+
 router.get("/logout", adminController.getLogOut);
 
 router.post("/login", adminController.postLogin);

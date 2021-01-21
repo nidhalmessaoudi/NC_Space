@@ -38,7 +38,7 @@ exports.getHome = (req, res) => {
           Post.find({category: "Health"}).sort({ createdAt: -1 }).limit(6).then(healthData => {
             Post.find({category: "Entertainment"}).sort({ createdAt: -1 }).limit(6).then(EnterData => {
               Post.find({category: "Life"}).sort({ createdAt: -1 }).limit(1).then(lifeData => {
-                Post.find({category: "stories"}).sort({ createdAt: -1 }).limit(4).then(storiesData => {
+                Post.find({category: "Stories"}).sort({ createdAt: -1 }).limit(4).then(storiesData => {
                   res.render("blog/home", {
                     firstPost: firstData,
                     newsPosts: newsData,
@@ -84,7 +84,7 @@ exports.getSport = (req, res) => {
 };
 
 exports.getHealth = (req, res) => {
-  Post.find({category: "health"}).sort({createdAt: -1}).then(results => {
+  Post.find({category: "Health"}).sort({createdAt: -1}).then(results => {
     res.render("blog/health", {
         posts: results
     });
@@ -186,12 +186,63 @@ exports.postDashboard = (req, res) => {
     });
     post.save(err => {
         if (!err) {
-            console.log("Post Saved Successfully");
+            res.render("topics/success", {
+              success: "Post Saved Successfully",
+              successMessage: "The post is saved in the database without any errors",
+              successButton: "Return to dashboard",
+              path: "/dashboard"
+            })
         } else {
-            console.log(err);
+          res.render("topics/failure", {
+            error: "An error occured while saving the post!",
+            errorMessage: "The post isn't saved in the database due to unexpected error!",
+            path: "/dashboard"
+          })
         }
     });
 };
+
+exports.postDelPost = (req, res) => {
+  const postId = req.body.postId;
+  Post.deleteOne({_id: postId}, err => {
+    if(!err) {
+      res.render("topics/success", {
+        success: "Post deleted Successfully",
+        successMessage: "The Post is deleted from the database without any errors",
+        successButton: "Return to dashboard",
+        path: "/dashboard"
+      });
+    } else {
+      console.log(err);
+      res.render("topics/failure", {
+        error: "Cant't delete the post!",
+        errorMessage: "The post isn't deleted due to unexpected error!",
+        path:"/dashboard"
+      })
+    }
+  })
+}
+
+exports.postDelFeedback = (req, res) => {
+  const feedbackId = req.body.feedbackId;
+  feedbackModel.Feedback.deleteOne({_id: feedbackId}, err => {
+    if(!err) {
+      res.render("topics/success", {
+        success: "Feedback deleted Successfully",
+        successMessage: "The feedback is deleted from the database without any errors",
+        successButton: "Return to dashboard",
+        path: "/dashboard#feedbacks"
+      });
+    } else {
+      console.log(err);
+      res.render("topics/failure", {
+        error: "Cant't delete the feedback!",
+        errorMessage: "The feedback isn't deleted due to unexpected error!",
+        path:"/dashboard#feedbacks"
+      })
+    }
+  })
+}
 
 exports.getLogOut = (req, res) => {
     req.logout();
