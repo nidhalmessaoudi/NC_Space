@@ -58,9 +58,13 @@
                       <td><%= post.category %></td>
                       <td><%= post.createdAt %></td>
                       <td>
+                        <form action="editpost" method="POST">
+                          <input type="hidden" value="<%= post._id %>" name="postId">
+                          <button type="submit" class="btn btn-outline-success action-btn">Update</button>
+                        </form>
                         <form action="delpost" method="POST">
                           <input type="hidden" value="<%= post._id %>" name="postId">
-                          <button type="submit" class="btn btn-danger action-btn">Delete</button>
+                          <button type="submit" class="btn btn-outline-danger action-btn">Delete</button>
                         </form>
                       </td>
                     </tr>

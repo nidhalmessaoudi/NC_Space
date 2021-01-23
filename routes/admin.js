@@ -23,6 +23,10 @@ router.post("/dashboard", adminController.postDashboard);
 
 router.post("/delfeedback", adminController.postDelFeedback);
 
+router.post("/editpost", adminController.postEditPost);
+
+router.post("/savepost", adminController.postSavePost);
+
 router.post("/delpost", adminController.postDelPost);
 
 router.get("/logout", adminController.getLogOut);

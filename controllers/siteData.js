@@ -4,6 +4,7 @@ const passport = require("passport");
 const postModel = require("../models/post");
 const adminModel = require("../models/admin");
 const feedbackModel = require("../models/feedback");
+const { result } = require("lodash");
 
 adminModel.adminSchema.plugin(passportLocalMongoose);
   
@@ -201,6 +202,63 @@ exports.postDashboard = (req, res) => {
         }
     });
 };
+
+exports.postEditPost = (req, res) => {
+  const postId = req.body.postId;
+  Post.findOne({_id: postId}, (err, result) => {
+    if (!result) {
+      console.log(err);
+      res.render("topics/failure", {
+        error: "Cant't go to the edit page!",
+        errorMessage: "The post you are looking to edit isn't found in the database, please try again.",
+        path:"/dashboard"
+      });
+    } else {
+      res.render("admin/edit", {
+        post: result
+      });
+    }
+  });
+
+}
+
+exports.postSavePost = (req, res) => {
+  const postId = req.body.postId;
+  const updatedTitle = req.body.postTitle;
+  const updatedCategory = req.body.postCategorie;
+  const updatedTag1 = req.body.tagOne;
+  const updatedTag2 = req.body.tagTwo;
+  const updatedTag3 = req.body.tagThree;
+  const updatedTag4 = req.body.tagFour;
+  const updatedContent = req.body.postContent;
+  Post.findOne({_id: postId}, (err, post) => {
+    if (!err) {
+      post.title = updatedTitle;
+      post.category = updatedCategory;
+      post.tagOne = updatedTag1;
+      post.tagTwo = updatedTag2;
+      post.tagThree = updatedTag3;
+      post.tagFour = updatedTag4;
+      post.content = updatedContent;
+      post.save(err => {
+        if (!err) {
+          res.render("topics/success", {
+            success: "Post Updated Successfully",
+            successMessage: "The post is updated without any errors",
+            successButton: "Return to dashboard",
+            path: "/dashboard"
+          })
+        } else {
+          res.render("topics/failure", {
+            error: "Cant't Update the post!",
+            errorMessage: "The post isn't updated due to unexpected error, please try again.",
+            path:"/dashboard"
+          })
+        }
+      });
+    }
+  });
+}
 
 exports.postDelPost = (req, res) => {
   const postId = req.body.postId;
