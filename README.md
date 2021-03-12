@@ -1,5 +1,5 @@
 # NC Blog
-This is our NC_Blog open source Project. If you want to use or contribute on it, copy git link and clone it or your own or install th zip folder, extract and cd to it. open your terminal and write:
+This is our NC_Blog open source Project. If you want to use or contribute on it, copy git link and clone it on your own or install the zip folder, extract and cd to it. open your terminal and write:
 
     git clone https://github.com/nidhalmessaoudi/NC_Blog.git
 
