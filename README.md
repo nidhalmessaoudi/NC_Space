@@ -1,10 +1,10 @@
-# Welcome EveryOne!
-This is our NC_Blog open source Project. If you want to use it or contribute on it, you should extract the zip folder, open your terminal and cd to the project folder:
+# NC Blog
+This is our NC_Blog open source Project. If you want to use or contribute on it, copy git link and clone it or your own or install th zip folder, extract and cd to it. open your terminal and write:
 
-    cd Downloads/NC_Blog-main/
+    git clone https://github.com/nidhalmessaoudi/NC_Blog.git
 
 
-## Usage Or Contribution
+## Usage or Contribution
 To install all the required dependencies, run:
 
     npm install
