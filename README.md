@@ -1,10 +1,10 @@
 # NC Blog
-This is our NC_Blog open source Project. If you want to use or contribute on it, copy git link and clone it on your own or install the zip folder, extract and cd to it. open your terminal and write:
+To use it, simply copy the git link and clone it on your own. Open your terminal and:
 
     git clone https://github.com/nidhalmessaoudi/NC_Blog.git
 
 
-## Usage or Contribution
+## Usage
 To install all the required dependencies, run:
 
     npm install
@@ -16,7 +16,7 @@ To install all the required dependencies, run:
               `SECRET=YOUR_DATABASE_ENCRYPTION_KEY`
 * Optional, run:
  `npm i -g nodemon`
- To facilitate the development process.
+ For better development experience.
  *To start the development server, run:
   `npm start`
 

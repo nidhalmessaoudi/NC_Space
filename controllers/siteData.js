@@ -32,32 +32,48 @@ postModel.postSchema.index({
 const Post = new mongoose.model("Post", postModel.postSchema);
 
 exports.getHome = (req, res) => {
-  Post.find({category: "News"}).limit(2).then(newsData => {
-    Post.find({category: "News"}).sort({createdAt: -1}).limit(1).then(firstData => {
-      Post.find({category: "Tech"}).sort({ createdAt: -1 }).limit(6).then(techData => {
-        Post.find({category: "Sport"}).sort({ createdAt: -1 }).limit(6).then(sportData =>{
-          Post.find({category: "Health"}).sort({ createdAt: -1 }).limit(6).then(healthData => {
-            Post.find({category: "Entertainment"}).sort({ createdAt: -1 }).limit(6).then(EnterData => {
-              Post.find({category: "Life"}).sort({ createdAt: -1 }).limit(1).then(lifeData => {
-                Post.find({category: "Stories"}).sort({ createdAt: -1 }).limit(4).then(storiesData => {
-                  res.render("blog/home", {
-                    firstPost: firstData,
-                    newsPosts: newsData,
-                    techPosts: techData,
-                    sportPosts: sportData,
-                    healthPosts: healthData,
-                    enterPosts: EnterData,
-                    lifePosts: lifeData,
-                    storiesPosts: storiesData
-                  });
-                });
-              });
-            });
-          });
-        });
-      });
-    });
+
+// RETRIEVING POSTS FROM DATABASE
+let firstData, newsData, techData, sportData, healthData, entertainData, lifeData, storiesData;
+
+Post.find({category: "News"}).limit(2)
+  .then(news => newsData = news)
+
+  .then(() => Post.find({category: "News"}).sort({createdAt: -1}).limit(1))
+  .then(first => firstData = first)
+
+  .then(() => Post.find({category: "Tech"}).sort({ createdAt: -1 }).limit(6))
+  .then(tech => techData = tech)
+
+  .then(() => Post.find({category: "Sport"}).sort({ createdAt: -1 }).limit(6))
+  .then(sport => sportData = sport)
+
+  .then(() => Post.find({category: "Health"}).sort({ createdAt: -1 }).limit(6))
+  .then(health => healthData = health)
+
+  .then(() => Post.find({category: "Entertainment"}).sort({ createdAt: -1 }).limit(6))
+  .then(entertainment => entertainData = entertainment)
+
+  .then(() => Post.find({category: "Life"}).sort({ createdAt: -1 }).limit(1))
+  .then(life => lifeData = life)
+
+  .then(() => Post.find({category: "Stories"}).sort({ createdAt: -1 }).limit(4))
+  .then(stories => storiesData = stories)
+
+  .then(() => {
+    // RENDERING POSTS
+    res.render("blog/home", {
+      firstPost: firstData,
+      newsPosts: newsData,
+      techPosts: techData,
+      sportPosts: sportData,
+      healthPosts: healthData,
+      enterPosts: entertainData,
+      lifePosts: lifeData,
+      storiesPosts: storiesData
+    })
   });
+  
 };
 
 exports.getNews = (req, res) => {
@@ -101,14 +117,19 @@ exports.getEntertainment = (req, res) => {
 };
 
 exports.getExtra = (req, res) => {
-  Post.find({category: "Life"}).sort({createdAt: -1}).limit(18).then(lifeData => {
-    Post.find({category: "Stories"}).sort({createdAt: -1}).limit(6).then(storiesData => {
+  let lifeData, storiesData;
+  Post.find({category: "Life"}).sort({createdAt: -1}).limit(18)
+    .then(life => lifeData = life)
+
+    .then(() => Post.find({category: "Stories"}).sort({createdAt: -1}).limit(6))
+    .then(stories => storiesData = stories)
+
+    .then(() => {
       res.render("blog/extra", {
         lifePosts: lifeData,
         storiesPosts: storiesData
       });
     });
-  });
 };
 
 exports.getPost = (req, res) => {
@@ -152,14 +173,20 @@ exports.getLogin = (req, res) => {
 
 exports.getDashboard = (req, res) => {
     if (req.isAuthenticated()) {
-      Post.find({}).sort({createdAt: -1}).then( tablePosts => {
-        feedbackModel.Feedback.find({}).sort({createdAt: -1}).then( results => {
+      let tablePosts, feedbacks;
+      Post.find({}).sort({createdAt: -1})
+        .then(posts => tablePosts = posts)
+
+        .then(() => feedbackModel.Feedback.find({}).sort({createdAt: -1}))
+        .then(feeds => feedbacks = feeds)
+
+        .then(() => {
           res.render("admin/dashboard", {
             posts: tablePosts,
-            feedbacks: results
+            feedbacks: feedbacks
           });
         });
-      })
+
     } else {
       res.redirect("/login");
     }
