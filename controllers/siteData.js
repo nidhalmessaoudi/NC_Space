@@ -31,9 +31,10 @@ postModel.postSchema.index({
 
 const Post = new mongoose.model("Post", postModel.postSchema);
 
-exports.getHome = (req, res) => {
+exports.getHome = async (req, res) => {
 
-// RETRIEVING POSTS FROM DATABASE
+/*
+//  OLD WAY OF RETRIEVING POSTS FROM DATABASE
 let firstData, newsData, techData, sportData, healthData, entertainData, lifeData, storiesData;
 
 Post.find({category: "News"}).limit(2)
@@ -73,7 +74,39 @@ Post.find({category: "News"}).limit(2)
       storiesPosts: storiesData
     })
   });
-  
+*/
+
+// NEW WAY
+const newsData = await Post.find({category: "News"}).limit(2);
+
+const firstData = await Post.find({category: "News"}).sort({createdAt: -1}).limit(1);
+
+const techData = await Post.find({category: "Tech"}).sort({ createdAt: -1 }).limit(6);
+
+const sportData = await Post.find({category: "Sport"}).sort({ createdAt: -1 }).limit(6);
+
+const healthData = await Post.find({category: "Health"}).sort({ createdAt: -1 }).limit(6);
+
+const entertainData = await Post.find({category: "Entertainment"}).sort({ createdAt: -1 }).limit(6);
+
+const lifeData = await Post.find({category: "Life"}).sort({ createdAt: -1 }).limit(1);
+
+const storiesData = await Post.find({category: "Stories"}).sort({ createdAt: -1 }).limit(4);
+
+
+// RENDERING POSTS
+await 
+res.render("blog/home", {
+  firstPost: firstData,
+  newsPosts: newsData,
+  techPosts: techData,
+  sportPosts: sportData,
+  healthPosts: healthData,
+  enterPosts: entertainData,
+  lifePosts: lifeData,
+  storiesPosts: storiesData
+});
+
 };
 
 exports.getNews = (req, res) => {
