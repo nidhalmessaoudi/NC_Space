@@ -9,14 +9,14 @@ To install all the required dependencies, run:
 
     npm install
 
-* Then, Configure the environment variables by:
-            * Creating a .env file.
-            * Making 2 variables inside of it like so:   
-              `DB_HOST=YOUR_MONGODB_CONNECTION_LINK` 
-              `SECRET=YOUR_DATABASE_ENCRYPTION_KEY`
-* Optional, run:
+* Then, Configure the environment variables by: <br />
+            * Creating a .env file. <br />
+            * Making 2 variables inside of it like so:  <br /> 
+              `DB_HOST=YOUR_MONGODB_CONNECTION_LINK` <br />
+              `SECRET=YOUR_DATABASE_ENCRYPTION_KEY` <br />
+* Optional, run: <br />
  `npm i -g nodemon`
- For better development experience.
+ For better development experience. <br />
  *To start the development server, run:
   `npm start`
 
