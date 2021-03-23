@@ -1,7 +1,7 @@
 {
   "name": "nc_blog",
   "version": "1.0.0",
-  "description": "NewCarthage's Official Blog",
+  "description": "NC Official Blog",
   "main": "app.js",
   "scripts": {
     "test": "node",
@@ -31,7 +31,6 @@
     "ejs": "^3.1.5",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
-    "lodash": "^4.17.20",
     "mongoose": "^5.11.8",
     "multer": "^1.4.2",
     "passport": "^0.4.1",

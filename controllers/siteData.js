@@ -4,7 +4,6 @@ const passport = require("passport");
 const postModel = require("../models/post");
 const adminModel = require("../models/admin");
 const feedbackModel = require("../models/feedback");
-const { result } = require("lodash");
 
 adminModel.adminSchema.plugin(passportLocalMongoose);
   
@@ -32,154 +31,124 @@ postModel.postSchema.index({
 const Post = new mongoose.model("Post", postModel.postSchema);
 
 exports.getHome = async (req, res) => {
+try {
+    // RETREIVING POSTS
+  const newsData = await Post.find({category: "News"}).limit(2);
 
-/*
-//  OLD WAY OF RETRIEVING POSTS FROM DATABASE
-let firstData, newsData, techData, sportData, healthData, entertainData, lifeData, storiesData;
+  const firstData = await Post.find({category: "News"}).sort({createdAt: -1}).limit(1);
 
-Post.find({category: "News"}).limit(2)
-  .then(news => newsData = news)
+  const techData = await Post.find({category: "Tech"}).sort({ createdAt: -1 }).limit(6);
 
-  .then(() => Post.find({category: "News"}).sort({createdAt: -1}).limit(1))
-  .then(first => firstData = first)
+  const sportData = await Post.find({category: "Sport"}).sort({ createdAt: -1 }).limit(6);
 
-  .then(() => Post.find({category: "Tech"}).sort({ createdAt: -1 }).limit(6))
-  .then(tech => techData = tech)
+  const healthData = await Post.find({category: "Health"}).sort({ createdAt: -1 }).limit(6);
 
-  .then(() => Post.find({category: "Sport"}).sort({ createdAt: -1 }).limit(6))
-  .then(sport => sportData = sport)
+  const entertainData = await Post.find({category: "Entertainment"}).sort({ createdAt: -1 }).limit(6);
 
-  .then(() => Post.find({category: "Health"}).sort({ createdAt: -1 }).limit(6))
-  .then(health => healthData = health)
+  const lifeData = await Post.find({category: "Life"}).sort({ createdAt: -1 }).limit(1);
 
-  .then(() => Post.find({category: "Entertainment"}).sort({ createdAt: -1 }).limit(6))
-  .then(entertainment => entertainData = entertainment)
+  const storiesData = await Post.find({category: "Stories"}).sort({ createdAt: -1 }).limit(4);
 
-  .then(() => Post.find({category: "Life"}).sort({ createdAt: -1 }).limit(1))
-  .then(life => lifeData = life)
 
-  .then(() => Post.find({category: "Stories"}).sort({ createdAt: -1 }).limit(4))
-  .then(stories => storiesData = stories)
+  // RENDERING POSTS
+  res.render("blog/home", {
+    firstPost: firstData,
+    newsPosts: newsData,
+    techPosts: techData,
+    sportPosts: sportData,
+    healthPosts: healthData,
+    enterPosts: entertainData,
+    lifePosts: lifeData,
+    storiesPosts: storiesData
+  });
+} catch (err) {
+  console.error(err);
+}
 
-  .then(() => {
-    // RENDERING POSTS
-    res.render("blog/home", {
-      firstPost: firstData,
-      newsPosts: newsData,
-      techPosts: techData,
-      sportPosts: sportData,
-      healthPosts: healthData,
-      enterPosts: entertainData,
+
+};
+
+exports.getNews = async (req, res) => {
+  try {
+    const results = await Post.find({category: "News"}).sort({createdAt: -1});
+    res.render("blog/news", {
+      posts: results
+  });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+exports.getTech = async (req, res) => {
+  try {
+    const results = await Post.find({category: "Tech"}).sort({createdAt: -1});
+    res.render("blog/tech", {
+      posts: results
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+exports.getSport = async (req, res) => {
+  try {
+    const results = await Post.find({category: "Sport"}).sort({createdAt: -1});
+    res.render("blog/sport", {
+      posts: results
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+exports.getHealth = async (req, res) => {
+  try {
+    const results = await Post.find({category: "Health"}).sort({createdAt: -1});
+    res.render("blog/health", {
+      posts: results
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+exports.getEntertainment = async (req, res) => {
+  try {
+    const results = await Post.find({category: "Entertainment"}).sort({createdAt: -1});
+    res.render("blog/entertainment", {
+      posts: results
+  });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+exports.getExtra = async (req, res) => {
+  try {
+    const lifeData = await Post.find({category: "Life"}).sort({createdAt: -1}).limit(18);
+    const storiesData = await Post.find({category: "Stories"}).sort({createdAt: -1}).limit(6);
+    res.render("blog/extra", {
       lifePosts: lifeData,
       storiesPosts: storiesData
-    })
-  });
-*/
-
-// NEW WAY
-const newsData = await Post.find({category: "News"}).limit(2);
-
-const firstData = await Post.find({category: "News"}).sort({createdAt: -1}).limit(1);
-
-const techData = await Post.find({category: "Tech"}).sort({ createdAt: -1 }).limit(6);
-
-const sportData = await Post.find({category: "Sport"}).sort({ createdAt: -1 }).limit(6);
-
-const healthData = await Post.find({category: "Health"}).sort({ createdAt: -1 }).limit(6);
-
-const entertainData = await Post.find({category: "Entertainment"}).sort({ createdAt: -1 }).limit(6);
-
-const lifeData = await Post.find({category: "Life"}).sort({ createdAt: -1 }).limit(1);
-
-const storiesData = await Post.find({category: "Stories"}).sort({ createdAt: -1 }).limit(4);
-
-
-// RENDERING POSTS
-await 
-res.render("blog/home", {
-  firstPost: firstData,
-  newsPosts: newsData,
-  techPosts: techData,
-  sportPosts: sportData,
-  healthPosts: healthData,
-  enterPosts: entertainData,
-  lifePosts: lifeData,
-  storiesPosts: storiesData
-});
-
-};
-
-exports.getNews = (req, res) => {
-  Post.find({category: "News"}).sort({createdAt: -1}).then(results => {
-      res.render("blog/news", {
-          posts: results
-      });
-  });
-};
-
-exports.getTech = (req, res) => {
-  Post.find({category: "Tech"}).sort({createdAt: -1}).then(results => {
-    res.render("blog/tech", {
-        posts: results
     });
-});
+  } catch (err) {
+    console.error(err);
+  }
 };
 
-exports.getSport = (req, res) => {
-  Post.find({category: "Sport"}).sort({createdAt: -1}).then(results => {
-    res.render("blog/sport", {
-        posts: results
+exports.getPost = async (req, res) => {
+  try {
+    const requestedPostId = req.params.postId;
+    const result = await Post.findOne({_id: requestedPostId});
+    if (!result) throw new Error("Cannot find any post with this id!");
+    const relatedResults = await Post.find({category: result.category}).limit(3);
+    res.render("blog/post", {
+      post: result,
+      relatedPosts: relatedResults
     });
-});
-};
-
-exports.getHealth = (req, res) => {
-  Post.find({category: "Health"}).sort({createdAt: -1}).then(results => {
-    res.render("blog/health", {
-        posts: results
-    });
-});
-};
-
-exports.getEntertainment = (req, res) => {
-  Post.find({category: "Entertainment"}).sort({createdAt: -1}).then(results => {
-    res.render("blog/entertainment", {
-        posts: results
-    });
-});
-};
-
-exports.getExtra = (req, res) => {
-  let lifeData, storiesData;
-  Post.find({category: "Life"}).sort({createdAt: -1}).limit(18)
-    .then(life => lifeData = life)
-
-    .then(() => Post.find({category: "Stories"}).sort({createdAt: -1}).limit(6))
-    .then(stories => storiesData = stories)
-
-    .then(() => {
-      res.render("blog/extra", {
-        lifePosts: lifeData,
-        storiesPosts: storiesData
-      });
-    });
-};
-
-exports.getPost = (req, res) => {
-  const requestedPostId = req.params.postId;
-
-  Post.findOne({_id: requestedPostId}, (err, result) => { 
-    if (!err) {
-      Post.find({category: result.category}).limit(3).then(results => {
-          res.render("blog/post", {
-    
-            post: result,
-            relatedPosts: results
-  
-          });
-      });
-    }
-  });
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 exports.postRelSearchs = (req, res) => {
@@ -204,25 +173,21 @@ exports.getLogin = (req, res) => {
     }
 };
 
-exports.getDashboard = (req, res) => {
+exports.getDashboard = async (req, res) => {
+  try {
     if (req.isAuthenticated()) {
-      let tablePosts, feedbacks;
-      Post.find({}).sort({createdAt: -1})
-        .then(posts => tablePosts = posts)
-
-        .then(() => feedbackModel.Feedback.find({}).sort({createdAt: -1}))
-        .then(feeds => feedbacks = feeds)
-
-        .then(() => {
-          res.render("admin/dashboard", {
-            posts: tablePosts,
-            feedbacks: feedbacks
-          });
-        });
-
+      const tablePosts = await Post.find({}).sort({createdAt: -1});
+      const feedbacks = await feedbackModel.Feedback.find({}).sort({createdAt: -1});
+      res.render("admin/dashboard", {
+        posts: tablePosts,
+        feedbacks: feedbacks
+      });
     } else {
       res.redirect("/login");
     }
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 exports.postDashboard = (req, res) => {
