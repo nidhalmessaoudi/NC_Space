@@ -1,0 +1,26 @@
+1- As a user, I want to read well created and displayed articles, 
+so that I enjoy reading them.
+
+2- As a user, I want to see the new articles displayed first on the space,
+so that I can easily toggle between them.
+
+3- As a user, I want to bookmark some articles, so that I can read them when
+I want to.
+
+4- As a user, I want to share articles with link, facebook post, or tweeter tweet,
+so that I can show my friends and community some nice topics.
+
+4- As a user, I want to give my likes and comments,so that I can show
+my admiration or criticism about the article.
+
+5- As a user I want to search about the target article, so that I can easily
+get what I want.
+
+6- As a user I want to see some videos, tweets, posts from social medias,
+so that I can better understand the article topic.
+
+
+//////////////////////////////
+We will keep updating that!
+//////////////////////////////
+
