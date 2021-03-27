@@ -17,27 +17,31 @@ export default class Test {
     }
 
     async _connectToDb () {
+        
+        try {
+            await mongoose.connect(`${process.env.DB_HOST}`, {
+                user: process.env.MONGO_USER,
+                pass: process.env.MONGO_PASSWORD,
+                useNewUrlParser: true,
+                useUnifiedTopology: true
+            });
 
-        await mongoose.connect(`${process.env.DB_HOST}`, {
-            user: process.env.MONGO_USER,
-            pass: process.env.MONGO_PASSWORD,
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
+            mongoose.set("useCreateIndex", true);
 
-        mongoose.set("useCreateIndex", true);
-
-        const testSchema = new mongoose.Schema({
-            username: {
-                type: String,
-                required: true
-            },
-            email: {
-                type: String,
-                required: true
-            }
-        });
-        this.#testModel = mongoose.model("Test", testSchema);
+            const testSchema = new mongoose.Schema({
+                username: {
+                    type: String,
+                    required: true
+                },
+                email: {
+                    type: String,
+                    required: true
+                }
+            });
+            this.#testModel = mongoose.model("Test", testSchema);
+        } catch (err) {
+            console.error(err);
+        }
 
     };
 
