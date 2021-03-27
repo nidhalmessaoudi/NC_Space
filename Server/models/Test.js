@@ -5,6 +5,7 @@ dotenv.config();
 
 export default class Test {
 
+    // Class fields
     #testModel;
     testData;
 

@@ -1,5 +1,6 @@
 import Test from "../models/Test.js";
 
+// Creating our test object and excuting _connectToDb method
 const test = new Test("", "");
 test._connectToDb();
 

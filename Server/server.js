@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 const app = express();
 dotenv.config();
 
+// Routes
 import routes from "./routes/routes.js";
 
 app.use(bodyParser.urlencoded({
