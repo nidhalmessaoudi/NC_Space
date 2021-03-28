@@ -1,37 +1,56 @@
 import Test from "../models/Test.js";
 
-// Creating our test object and excuting _connectToDb method
+// Creating our test object
 const test = new Test("", "");
-test._connectToDb();
 
 export const getApiTest = async (req, res) => {
-    res.send(`
+    try {
+        res.send(`
         <form action="/api/v1/test" method="POST">
             <input type="text" name="username">
             <input type="email" name="email">
             <button type="submit">Submit</button>
         </form>
    `);
+    } catch (err) {
+        console.error(err);
+    }
 };
 
 export const postApiTest = async (req, res) => {
-    const username = req.body.username;
-    const email = req.body.email;
-    test.username = username;
-    test.email = email;
-    await test._saveNewTest();
-    await test._getTests();
-    res.send(test.testData);
+    try {
+        const username = req.body.username;
+        const email = req.body.email;
+        test.username = username;
+        test.email = email;
+        await test._saveNewTest();
+        await test._getTests();
+        res.send(test.testData);
+    } catch (err) {
+        console.error(err);
+    }
 };
 
 export const putApiTest = async (req, res) => {
-    res.send("Successfully puted!");
+    try {
+        res.send("Successfully puted!");
+    } catch {
+        console.error(err);
+    }
 };
 
 export const patchApiTest = async (req, res) => {
-    res.send("Successfully patched!");
+    try {
+        res.send("Successfully patched!");
+    } catch (err) {
+        console.error(err);
+    }
 };
 
 export const deleteApiTest = async (req, res) => {
-    res.send("Successfully deleted!");
+    try {
+        res.send("Successfully deleted!");
+    } catch (err) {
+        console.error(err);
+    }
 };

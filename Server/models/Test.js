@@ -13,11 +13,12 @@ export default class Test {
 
         this.username = username;
         this.email = email;
+        this._connectToDb();
 
     }
 
     async _connectToDb () {
-        
+
         try {
             await mongoose.connect(`${process.env.DB_HOST}`, {
                 user: process.env.MONGO_USER,

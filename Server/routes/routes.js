@@ -8,7 +8,7 @@ router.route("/api/v1/test")
     .get(RouteController.getApiTest)
     .post(RouteController.postApiTest)
     .put(RouteController.putApiTest)
-    .patch(RouteController.putApiTest)
+    .patch(RouteController.patchApiTest)
     .delete(RouteController.deleteApiTest);
 
 export default router;
