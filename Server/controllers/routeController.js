@@ -1,7 +1,4 @@
-import Test from "../models/Test.js";
-
-// Creating our test object
-const test = new Test("", "");
+import test from "../models/Test.js";
 
 export const getApiTest = async (req, res) => {
     try {

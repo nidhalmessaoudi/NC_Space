@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 dotenv.config();
 
-export default class Test {
+class Test {
 
     // Class fields
     #testModel;
@@ -72,4 +72,6 @@ export default class Test {
 
     }
 
-}
+};
+
+export default new Test("", "");
