@@ -1,22 +1,19 @@
-import dotenv from "dotenv";
-import express from "express";
-import bodyParser from "body-parser";
-
-const app = express();
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 dotenv.config();
 
-// Routes
-import routes from "./routes/routes.js";
+const app = require("./app");
 
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
+mongoose.connect(process.env.DB_HOST, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true
+}).then(() => console.log("Successfully connected to database!"));
 
-app.use(routes);
 
-let port = process.env.PORT;
-if (port === null || port === "") port = 3000;
+const port = process.env.PORT || 3000;
 
-app.listen(3000, () => {
-    console.log("Server has started Successfully.");
+app.listen(port, () => {
+    console.log(`Server has started on port ${port}...`);
 });
