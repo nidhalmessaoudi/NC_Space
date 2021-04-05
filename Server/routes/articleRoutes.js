@@ -13,7 +13,4 @@ router.route("/:id")
     .patch(articleController.updateArticle)
     .delete(articleController.deleteArticle);
 
-router.route("/:category")
-    .get(articleController.getArticlesByCategory);
-
 module.exports = router;

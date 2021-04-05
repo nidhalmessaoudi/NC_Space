@@ -2,7 +2,9 @@ const Article = require("../models/articleModel");
 
 exports.getAllArticles = async (req, res) => {
     try {
-        const articles = await Article.getAllArticles();
+        const category = req.query?.category;
+
+        const articles = category ? await Article.getArticlesByCategory(category) : await Article.getAllArticles();
 
         res.status(200).json({
             status: "success",
@@ -80,24 +82,6 @@ exports.deleteArticle = async (req, res) => {
         res.status(204).json({
             status: "success",
             data: null
-        });
-    } catch (err) {
-        res.status(404).json({
-            status: "fail",
-            Message: err
-        });
-    }
-};
-
-exports.getArticlesByCategory = async (req, res) => {
-    try {
-        const articles = await Article.getArticlesByCategory(req.params.category);
-
-        res.status(200).json({
-            status: "success",
-            data: {
-                articles
-            }
         });
     } catch (err) {
         res.status(404).json({
