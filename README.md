@@ -1,5 +1,11 @@
 # NC_Space
 
 ///////////////////// <br />
-Remake in progress! <br />
+Project remake! <br />
 //////////////////// <br />
+
+## In progress
+Developing the private RESTful API of the project.
+
+## Upcoming
+Client side architecture and Development.
