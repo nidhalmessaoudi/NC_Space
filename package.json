@@ -1,0 +1,53 @@
+{
+  "name": "nc_space",
+  "version": "1.0.0",
+  "description": "Open social network for everybody.",
+  "main": "./dist/bundle.js",
+  "scripts": {
+    "test": "npm run test",
+    "start": "webpack serve --config webpack.dev.js",
+    "build:dev": "webpack --config webpack.dev.js",
+    "build:prod": "webpack --config webpack.prod.js"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-typescript"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nidhalmessaoudi/NC_Space.git"
+  },
+  "keywords": [
+    "nc-space",
+    "modern",
+    "pure-typescript",
+    "social-network"
+  ],
+  "author": "Nidhal Messaoudi",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/nidhalmessaoudi/NC_Space/issues"
+  },
+  "homepage": "https://github.com/nidhalmessaoudi/NC_Space#readme",
+  "devDependencies": {
+    "@babel/core": "^7.14.2",
+    "@babel/preset-env": "^7.14.2",
+    "@babel/preset-es2015": "^7.0.0-beta.53",
+    "@babel/preset-typescript": "^7.13.0",
+    "@types/regenerator-runtime": "^0.13.0",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^3.0.0",
+    "html-webpack-plugin": "^5.3.1",
+    "ts-loader": "^9.1.2",
+    "typescript": "^4.2.4",
+    "webpack": "^5.37.0",
+    "webpack-cli": "^4.7.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "dotenv": "^9.0.2",
+    "query-string": "^7.0.0"
+  }
+}
