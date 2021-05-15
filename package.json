@@ -2,9 +2,8 @@
   "name": "nc_space",
   "version": "1.0.0",
   "description": "Open social network for everybody.",
-  "main": "./dist/bundle.js",
+  "main": "app.ts",
   "scripts": {
-    "test": "npm run test",
     "start": "webpack serve --config webpack.dev.js",
     "build:dev": "webpack --config webpack.dev.js",
     "build:prod": "webpack --config webpack.prod.js"
