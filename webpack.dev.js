@@ -17,6 +17,7 @@ module.exports = {
     open: true,
     contentBase: "dist",
     compress: true,
+    historyApiFallback: true,
     port: 8080,
   },
   devtool: "inline-source-map",

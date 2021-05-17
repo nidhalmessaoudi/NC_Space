@@ -1,89 +1,24 @@
-import { stringify } from "query-string";
+import View from "./View";
+import Request from "./Request";
+import viewsMarkup from "./viewsMarkup";
 
-const root = document.getElementById("root")!;
+const root = document.getElementById("root") as HTMLDivElement;
 
-// IIFE for init
-(() => {
-  const initMarkup = `
-  <style>
-    #root {
-      display: flex;
-      justify-content: center;
-    }
-    form, input, button {
-      display: block;
-      margin: 5px;
-    }
-  </style>
-  <form class="get_all-form">
-    <button type:"submit">Get All Articles</button>
-  </form>
-  <form class="login-form">
-    <label>Email</label>
-    <input type="text" class="email">
-    <label>password</label>
-    <input type="password" class="password">
-    <button type="submit">Login</button>
-  </form>
-  <form class="create-form">
-    <label>Name</label>
-    <input type="text" class="article-name">
-    <label>Category</label>
-    <input type="text" class="article-category">
-    <label>Reading time</label>
-    <input type="number" class="article-reading-time">
-    <label>Number of paragraphs</label>
-    <input type="number" class="article-paragraphs">
-    <label>Cover image url</label>
-    <input type="text" class="article-cover-image">
-    <label>Body</label>
-    <textarea class="article-body" id="" cols="30" rows="10"></textarea> 
-    <button type="submit">Create Article</button>
-  </form>`;
-  root.insertAdjacentHTML("beforeend", initMarkup);
-})();
+const Home = new View(root, "/", viewsMarkup.home);
+const Articles = new View(root, "/articles", viewsMarkup.articles);
+const Login = new View(root, "/login", viewsMarkup.login);
+const CreateArticle = new View(root, "/create", viewsMarkup.createNewArticle);
 
-class Request {
-  private baseUrl: string = process.env.NC_SPACE_API!;
-  private data: object | undefined;
+Home.render("beforebegin", viewsMarkup.style);
 
-  constructor(
-    private path: string,
-    private method: string,
-    private params?: object,
-    private body?: object,
-    private headers?: HeadersInit
-  ) {}
+root.addEventListener("click", (e) => {
+  e.preventDefault();
 
-  async sendRequest(): Promise<object> {
-    const queries = this.params ? stringify(this.params) : undefined;
-
-    const completeUrl = queries
-      ? `${this.baseUrl}${this.path}?${this.params}`
-      : `${this.baseUrl}${this.path}`;
-
-    const headers = new Headers(this.headers);
-    headers.append("Content-Type", "application/json");
-
-    const response = await fetch(completeUrl, {
-      method: this.method,
-      mode: "cors",
-      cache: "default",
-      credentials: "include",
-      headers: headers,
-      redirect: "manual",
-      referrerPolicy: "no-referrer",
-      body: JSON.stringify(this.body),
-    });
-
-    return response.json();
-  }
-
-  async getData(): Promise<object> {
-    this.data = await this.sendRequest();
-    return this.data;
-  }
-}
+  const tag = e.target as HTMLAnchorElement;
+  if (tag.classList.contains("articles")) Articles.goTolink();
+  if (tag.classList.contains("login")) Login.goTolink();
+  if (tag.classList.contains("create")) CreateArticle.goTolink();
+});
 
 root.addEventListener("submit", (e) => {
   e.preventDefault();
