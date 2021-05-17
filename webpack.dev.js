@@ -12,14 +12,19 @@ module.exports = {
   output: {
     filename: "bundle.[contenthash].js",
     path: path.resolve(__dirname, "dist"),
-    publicPath: "dist",
+  },
+  devServer: {
+    open: true,
+    contentBase: "dist",
+    compress: true,
+    port: 8080,
   },
   devtool: "inline-source-map",
   module: {
     rules: [
       {
         test: /\.ts$/,
-        use: "babel-loader",
+        use: "ts-loader",
         exclude: /node_modules/,
       },
     ],
@@ -34,9 +39,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: "NC Space",
       publicPath: "",
-      meta: {
-        viewport: "width=device-width, initial-scale=1, shrink-to-fit=no",
-      },
+      template: "./src/index.html",
     }),
     new webpack.EnvironmentPlugin({
       NC_SPACE_API: JSON.stringify(process.env.NC_SPACE_API),

@@ -31,9 +31,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: "NC Space",
       publicPath: "",
-      meta: {
-        viewport: "width=device-width, initial-scale=1, shrink-to-fit=no",
-      },
+      template: "./src/index.html",
     }),
     new webpack.EnvironmentPlugin({
       NC_SPACE_API: JSON.stringify(process.env.NC_SPACE_API),
