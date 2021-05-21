@@ -2,7 +2,11 @@ import { stringify } from "query-string";
 
 class Request {
   private baseUrl: string = process.env.NC_SPACE_API!;
-  private data: object | undefined;
+  private _data: object[] | undefined;
+
+  get data() {
+    return this._data;
+  }
 
   constructor(
     private path: string,
@@ -12,7 +16,7 @@ class Request {
     private headers?: HeadersInit
   ) {}
 
-  async sendRequest(): Promise<object> {
+  async recieve() {
     const queries = this.params ? stringify(this.params) : undefined;
 
     const completeUrl = queries
@@ -22,7 +26,7 @@ class Request {
     const headers = new Headers(this.headers);
     headers.append("Content-Type", "application/json");
 
-    const response = await fetch(completeUrl, {
+    const request = await fetch(completeUrl, {
       method: this.method,
       mode: "cors",
       cache: "default",
@@ -32,14 +36,16 @@ class Request {
       referrerPolicy: "no-referrer",
       body: JSON.stringify(this.body),
     });
-
-    return response.json();
-  }
-
-  async getData(): Promise<object> {
-    this.data = await this.sendRequest();
-    return this.data;
+    const response = await request.json();
+    this._data = response.data;
+    return await response;
   }
 }
+
+// interface AJAXResponse {
+//   readonly status: "success" | "fail" | "error";
+//   readonly message?: string;
+//   readonly data?: object[];
+// }
 
 export default Request;

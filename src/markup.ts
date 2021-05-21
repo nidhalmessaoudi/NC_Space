@@ -1,4 +1,6 @@
-export default {
+const viewsMarkup: {
+  [index: string]: string;
+} = {
   style: `
     <style>
         #root {
@@ -10,20 +12,27 @@ export default {
         margin: 5px;
         }
     </style>
-    `,
-  home: `
+  `,
+  "/": `
     <ul>
         <li><a href="/articles" class="articles">Get all articles</a></li>
         <li><a href="/login" class="login">Login</a></li>
         <li><a href="/create" class="create">Create new article</a></li>
     </ul>
-    `,
-  articles: `
+  `,
+  "/articles": `
     <form class="get_all-form">
-        <button type:"submit">Get All Articles</button>
+        <button type="submit">Get All Articles</button>
     </form>
     `,
-  login: `
+  "/article": `
+    <h1>TITLE<h1>
+    <h4>SUMMARY</h4>
+    <p>AUTHOR | CREATED_AT · READING TIME</p>
+    <img src="IMG_URL">
+    <p>BODY</p>
+  `,
+  "/login": `
     <form class="login-form">
         <label>Email</label>
         <input type="text" class="email">
@@ -31,8 +40,8 @@ export default {
         <input type="password" class="password">
         <button type="submit">Login</button>
     </form>
-    `,
-  createNewArticle: `
+  `,
+  "/create": `
     <form class="create-form">
         <label>Name</label>
         <input type="text" class="article-name">
@@ -48,5 +57,10 @@ export default {
         <textarea class="article-body" id="" cols="30" rows="10"></textarea> 
         <button type="submit">Create Article</button>
     </form>
-    `,
+  `,
+  notFound: `
+  <h2>This path is not found!</h2>
+  `,
 };
+
+export default viewsMarkup;

@@ -7,6 +7,18 @@
     <title>NC Space</title>
   </head>
   <body>
+    <noscript>You need to enable JavaScript to run NC Space.</noscript>
     <div id="root"></div>
+
+    <!-- For IE -->
+    <script>
+      if (window.document.documentMode) {
+        var heading = document.createElement("h2");
+        heading.innerText =
+          "Internet Explorer is not supported, please try visiting from another browser.";
+        heading.style.textAlign = "center";
+        document.body.appendChild(heading);
+      }
+    </script>
   </body>
 </html>
