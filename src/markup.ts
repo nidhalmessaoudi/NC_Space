@@ -1,6 +1,4 @@
-const viewsMarkup: {
-  [index: string]: string;
-} = {
+const viewsMarkup = {
   style: `
     <style>
         #root {
@@ -26,11 +24,9 @@ const viewsMarkup: {
     </form>
     `,
   "/article": `
-    <h1>TITLE<h1>
-    <h4>SUMMARY</h4>
-    <p>AUTHOR | CREATED_AT · READING TIME</p>
-    <img src="IMG_URL">
-    <p>BODY</p>
+    <form class="get_one-form">
+        <button type="submit">Get Article</button>
+    </form>
   `,
   "/login": `
     <form class="login-form">

@@ -47,19 +47,23 @@ class Router {
 
   route(path: string, callback: Function) {
     this.path = location.pathname;
+    let fullPath: string = path;
     if (path.includes(":")) {
-      const parentCurrPath = this.path.slice(this.path.lastIndexOf("/") + 1);
+      const parentCurrPath = this.path.slice(0, this.path.lastIndexOf("/") + 1);
       const [parentPath, param] = path.split(":");
+
       if (parentCurrPath !== parentPath) return;
       const paramValue = this.path.split(parentPath)[1];
+
       if (param === "id") req.params.id = paramValue;
       if (param === "slug") req.params.slug = paramValue;
+      fullPath = `${parentPath}${paramValue}`;
     }
-    if (path !== this.path) return;
+    if (fullPath !== this.path) return;
     callback(req, res);
   }
 
-  linkHandler(pathName: string) {
+  pushState(pathName: string) {
     history.pushState({}, pathName, `${location.origin}${pathName}`);
   }
 }

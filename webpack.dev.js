@@ -39,7 +39,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: "NC Space",
-      publicPath: "",
+      publicPath: "/",
       template: "./src/index.html",
     }),
     new webpack.EnvironmentPlugin({

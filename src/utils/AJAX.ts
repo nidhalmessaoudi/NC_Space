@@ -1,6 +1,6 @@
 import { stringify } from "query-string";
 
-class Request {
+class AJAX {
   private baseUrl: string = process.env.NC_SPACE_API!;
   private _data: object[] | undefined;
 
@@ -48,4 +48,4 @@ class Request {
 //   readonly data?: object[];
 // }
 
-export default Request;
+export default AJAX;
