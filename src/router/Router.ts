@@ -4,16 +4,16 @@ import Request from "./Request";
 import Response from "./Response";
 
 const req: Request = {
-  protocol: location.protocol,
-  href: location.href,
-  origin: location.origin,
-  port: location.port || null,
-  path: location.pathname || null,
-  hash: location.hash || null,
-  queries: parse(location.search) || null,
-  locale: navigator.language,
-  userAgent: navigator.userAgent,
-  platform: navigator.platform,
+  protocol: "",
+  href: "",
+  origin: "",
+  port: "",
+  path: "",
+  hash: "",
+  queries: {},
+  locale: "",
+  userAgent: "",
+  platform: "",
   params: {},
 };
 
@@ -43,10 +43,18 @@ const res: Response = {
 };
 
 class Router {
-  private path = location.pathname;
+  private path: string = "";
+  private routes: string[] = [];
 
   route(path: string, callback: Function) {
     this.path = location.pathname;
+    if (path.startsWith("*")) {
+      const isFound = this.routes.includes(this.path);
+      if (!isFound) {
+        callback(req, res);
+        return;
+      }
+    }
     let fullPath: string = path;
     if (path.includes(":")) {
       const parentCurrPath = this.path.slice(0, this.path.lastIndexOf("/") + 1);
@@ -60,6 +68,20 @@ class Router {
       fullPath = `${parentPath}${paramValue}`;
     }
     if (fullPath !== this.path) return;
+    this.routes.push(fullPath);
+
+    req.protocol = location.protocol;
+    req.href = location.href;
+    req.origin = location.origin;
+    req.port = location.port || null;
+    req.path = location.pathname || null;
+    req.hash = location.hash || null;
+    req.queries = parse(location.search) || null;
+    req.locale = navigator.language;
+    req.userAgent = navigator.userAgent;
+    req.platform = navigator.platform;
+    req.params = {};
+
     callback(req, res);
   }
 

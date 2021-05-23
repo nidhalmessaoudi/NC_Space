@@ -1,7 +1,9 @@
 import { stringify } from "query-string";
 
+import config from "./config";
+
 class AJAX {
-  private baseUrl: string = process.env.NC_SPACE_API!;
+  private baseUrl = config.MAIN_API!;
   private _data: object[] | undefined;
 
   get data() {
