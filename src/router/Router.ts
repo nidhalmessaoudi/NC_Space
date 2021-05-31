@@ -1,5 +1,6 @@
 import { parse } from "query-string";
 
+import config from "../utils/config";
 import Request from "./Request";
 import Response from "./Response";
 
@@ -18,7 +19,7 @@ const req: Request = {
 };
 
 const res: Response = {
-  root: document.getElementById("root")!,
+  root: config.ROOT,
 
   sendText(text: string, displayEl: keyof HTMLElementTagNameMap = "p") {
     const el = document.createElement(displayEl);
