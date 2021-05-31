@@ -4,7 +4,7 @@ import config from "./config";
 
 class AJAX {
   private baseUrl = config.MAIN_API!;
-  private _data: object[] | undefined;
+  private _data: any;
 
   get data() {
     return this._data;

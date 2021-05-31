@@ -1,6 +1,9 @@
 const viewsMarkup = {
   style: `
     <style>
+        body {
+          text-align: center;
+        }
         #root {
         display: flex;
         justify-content: center;

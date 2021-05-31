@@ -81,7 +81,6 @@ class Router {
     req.locale = navigator.language;
     req.userAgent = navigator.userAgent;
     req.platform = navigator.platform;
-    req.params = {};
 
     callback(req, res);
   }

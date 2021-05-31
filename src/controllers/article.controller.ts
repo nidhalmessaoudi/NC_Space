@@ -3,6 +3,7 @@ import Response from "../router/Response";
 import markup from "../markup";
 import AJAX from "../utils/AJAX";
 import handleForms from "../helpers/handleForms";
+import ArticleComponent from "../components/Article/Article.component";
 
 export const getArticles = (req: Request, res: Response) => {
   console.log(req.href);
@@ -34,9 +35,17 @@ export const getArticle = (req: Request, res: Response) => {
         try {
           const Article = new AJAX(`articles/${req.params.slug}`, "GET");
           await Article.recieve();
-          const article = Article.data;
-
-          console.log(article);
+          const article = Article.data.article;
+          if (!article) return;
+          const articleLayout = new ArticleComponent(
+            article.title,
+            article.createdAt,
+            article.views,
+            article.coverImage,
+            article.summary,
+            article.body
+          );
+          res.insert(articleLayout.markup, "beforeend", true);
         } catch (err) {
           console.error(err);
         }
