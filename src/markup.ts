@@ -5,8 +5,10 @@ const viewsMarkup = {
           text-align: center;
         }
         #root {
-        display: flex;
-        justify-content: center;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
         }
         form, input, button {
         display: block;

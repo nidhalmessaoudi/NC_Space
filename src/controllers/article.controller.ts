@@ -4,6 +4,8 @@ import markup from "../markup";
 import AJAX from "../utils/AJAX";
 import handleForms from "../helpers/handleForms";
 import ArticleComponent from "../components/Article/Article.component";
+import ArticlePreviewComponent from "../components/ArticlePreview/ArticlePreview.component";
+import ArticleStructure from "../helpers/Article";
 
 export const getArticles = (req: Request, res: Response) => {
   console.log(req.href);
@@ -14,8 +16,14 @@ export const getArticles = (req: Request, res: Response) => {
         try {
           const Articles = new AJAX("articles", "GET");
           await Articles.recieve();
-          const articles = Articles.data;
-
+          const articles: ArticleStructure[] = Articles.data.articles;
+          articles.forEach((article: ArticleStructure) => {
+            const articlePrevLayout = new ArticlePreviewComponent(
+              article.title!,
+              article.id!
+            );
+            res.insert(articlePrevLayout.markup, "beforeend", false);
+          });
           console.log(articles);
         } catch (err) {
           console.error(err);
@@ -28,7 +36,7 @@ export const getArticles = (req: Request, res: Response) => {
 
 export const getArticle = (req: Request, res: Response) => {
   console.log(req.href);
-  res.insert(markup["/article"], "beforeend");
+  res.insert(markup["/article"], "beforeend", true);
   const printArticle = (form: HTMLFormElement) => {
     if (form.classList.contains("get_one-form")) {
       (async () => {
@@ -39,11 +47,14 @@ export const getArticle = (req: Request, res: Response) => {
           if (!article) return;
           const articleLayout = new ArticleComponent(
             article.title,
+            article.slug,
+            article.category,
             article.createdAt,
             article.views,
             article.coverImage,
             article.summary,
-            article.body
+            article.body,
+            article.tags
           );
           res.insert(articleLayout.markup, "beforeend", true);
         } catch (err) {
