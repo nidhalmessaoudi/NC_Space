@@ -7,8 +7,8 @@ import ArticleComponent from "../components/Article/Article.component";
 import ArticlePreviewComponent from "../components/ArticlePreview/ArticlePreview.component";
 import ArticleStructure from "../helpers/Article";
 
-export const getArticles = (req: Request, res: Response) => {
-  console.log(req.href);
+export const getArticles = (_: Request, res: Response) => {
+  res.setTitle("NC Space | articles");
   res.insert(markup["/articles"], "beforeend", true);
   const printArticles = (form: HTMLFormElement) => {
     if (form.classList.contains("get_all-form")) {
@@ -24,7 +24,6 @@ export const getArticles = (req: Request, res: Response) => {
             );
             res.insert(articlePrevLayout.markup, "beforeend", false);
           });
-          console.log(articles);
         } catch (err) {
           console.error(err);
         }
@@ -35,7 +34,6 @@ export const getArticles = (req: Request, res: Response) => {
 };
 
 export const getArticle = (req: Request, res: Response) => {
-  console.log(req.href);
   res.insert(markup["/article"], "beforeend", true);
   const printArticle = (form: HTMLFormElement) => {
     if (form.classList.contains("get_one-form")) {
@@ -56,6 +54,7 @@ export const getArticle = (req: Request, res: Response) => {
             article.body,
             article.tags
           );
+          res.setTitle(`NC Space | ${article.title}`);
           res.insert(articleLayout.markup, "beforeend", true);
         } catch (err) {
           console.error(err);
@@ -66,8 +65,8 @@ export const getArticle = (req: Request, res: Response) => {
   handleForms(printArticle);
 };
 
-export const createArticle = (req: Request, res: Response) => {
-  console.log(req.href);
+export const createArticle = (_: Request, res: Response) => {
+  res.setTitle("NC Space | Create Article");
   res.insert(markup["/create"], "beforeend", true);
   const createArticle = (form: HTMLFormElement) => {
     if (form.classList.contains("create-form")) {

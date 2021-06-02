@@ -38,6 +38,10 @@ const res: Response = {
     this.root.insertAdjacentHTML(position, markup);
   },
 
+  setTitle(title: string) {
+    document.title = title;
+  },
+
   clean() {
     this.root.innerHTML = "";
   },

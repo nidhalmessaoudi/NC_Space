@@ -4,8 +4,8 @@ import markup from "../markup";
 import AJAX from "../utils/AJAX";
 import handleForms from "../helpers/handleForms";
 
-export const login = (req: Request, res: Response) => {
-  console.log(req.href);
+export const login = (_: Request, res: Response) => {
+  res.setTitle("NC Space | Login");
   res.insert(markup["/login"], "beforeend", true);
   const loginUser = (form: HTMLFormElement) => {
     if (form.classList.contains("login-form")) {

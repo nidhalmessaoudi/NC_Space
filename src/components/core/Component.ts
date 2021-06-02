@@ -1,18 +1,31 @@
-import Article from "../../helpers/Article";
+import ObjIndex from "../../helpers/ObjectIndex";
 
-export default class Component {
-  getLayout<T extends Article>(initialMarkup: string, state: T) {
-    const keyValues = initialMarkup
+export default class Component<T extends ObjIndex> {
+  protected template!: string;
+  protected _state!: T;
+  protected _markup!: string;
+
+  fill() {
+    const keyValues = this.template
       .split("{{")
       .filter((e: string) => e.includes("}}"))
       .map((el: string) => el.split("}}")[0]);
 
-    let fullLayout = initialMarkup;
+    let fullFilledMarkup = this.template;
     keyValues.forEach((el: string) => {
-      if (!state[el]) return;
-      const currentData = String(state[el]);
-      fullLayout = fullLayout.replace(`{{${el}}}`, currentData);
+      if (!this._state[el]) return;
+      const currentData = String(this._state[el]);
+      fullFilledMarkup = fullFilledMarkup.replace(`{{${el}}}`, currentData);
     });
-    return fullLayout;
+    this._markup = fullFilledMarkup;
+    return fullFilledMarkup;
+  }
+
+  get state() {
+    return this._state;
+  }
+
+  get markup() {
+    return this._markup;
   }
 }

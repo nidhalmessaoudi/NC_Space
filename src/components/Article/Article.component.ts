@@ -1,19 +1,7 @@
 import Component from "../core/Component";
 import ArticleStructure from "../../helpers/Article";
 
-export default class Article extends Component {
-  private initialMarkup = `
-  <div>
-    <h3>{{title}}</h3>
-    <p>{{createdAt}} • {{views}} person read this article</p>
-    <img src="{{coverImage}}">
-    <p><em>{{summary}}</em></p>
-    <p>{{body}}</p>
-  </div>
-  `;
-  private _state: ArticleStructure;
-  private fullMarkup: string;
-
+export default class Article extends Component<ArticleStructure> {
   constructor(
     private title: string,
     private slug: string,
@@ -26,6 +14,17 @@ export default class Article extends Component {
     private tags: string
   ) {
     super();
+
+    this.template = `
+    <div>
+      <h3>{{title}}</h3>
+      <p>{{createdAt}} • {{views}} person read this article</p>
+      <img src="{{coverImage}}">
+      <p><em>{{summary}}</em></p>
+      <p>{{body}}</p>
+    </div>
+    `;
+
     this._state = {
       title: this.title,
       slug: this.slug,
@@ -38,14 +37,6 @@ export default class Article extends Component {
       tags: this.tags,
     };
 
-    this.fullMarkup = this.getLayout(this.initialMarkup, this._state);
-  }
-
-  get state() {
-    return this._state;
-  }
-
-  get markup() {
-    return this.fullMarkup;
+    this.fill();
   }
 }
