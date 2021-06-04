@@ -1,5 +1,5 @@
 import Router from "./Router";
-import route from "../routes/main";
+import AppRoute from "../routes/App.route";
 
 const capturedEls: HTMLElement[] = [];
 
@@ -17,8 +17,9 @@ const navigate = (links: HTMLAnchorElement[]) => {
       const clicked = e.target as HTMLAnchorElement;
       if (clicked?.tagName !== "A") return;
 
-      Router.pushState(clicked.pathname);
-      route();
+      Router.pushToHistory(clicked.pathname);
+      const routes = new AppRoute();
+      routes.handle();
     });
   });
 };

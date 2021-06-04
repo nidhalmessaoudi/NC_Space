@@ -1,12 +1,12 @@
 import config from "./utils/config";
 import markup from "./markup";
-import route from "./routes/main";
-import navigate from "./router/navigate";
+import AppRoute from "./routes/App.route";
 
-// This piece of code will be removed when we start developing our components (testing purposes)
-config.ROOT.insertAdjacentHTML("beforebegin", markup.style);
-
-window.addEventListener("load", route);
-window.addEventListener("popstate", route);
-
-navigate.observe(config.ROOT, { childList: true });
+class App {
+  constructor() {
+    // This piece of code will be removed when we start developing our components (testing purposes)
+    config.ROOT.insertAdjacentHTML("beforebegin", markup.style);
+    new AppRoute();
+  }
+}
+new App();

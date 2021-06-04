@@ -4,20 +4,6 @@ import config from "../utils/config";
 import Request from "./Request";
 import Response from "./Response";
 
-const req: Request = {
-  protocol: "",
-  href: "",
-  origin: "",
-  port: "",
-  path: "",
-  hash: "",
-  queries: {},
-  locale: "",
-  userAgent: "",
-  platform: "",
-  params: {},
-};
-
 const res: Response = {
   root: config.ROOT,
 
@@ -53,6 +39,7 @@ class Router {
 
   route(path: string, callback: Function) {
     this.path = location.pathname;
+    const req = this.buildRequest();
     if (path.startsWith("*")) {
       const isFound = this.routes.includes(this.path);
       if (!isFound) {
@@ -60,18 +47,14 @@ class Router {
         return;
       }
     }
+
     let fullPath: string = path;
-    if (path.includes(":")) {
-      const parentCurrPath = this.path.slice(0, this.path.lastIndexOf("/") + 1);
-      const [parentPath, param] = path.split(":");
 
-      if (parentCurrPath !== parentPath) return;
-      const paramValue = this.path.split(parentPath)[1];
+    const extractedParams = this.extractParams(path);
+    if (extractedParams?.fullPath) fullPath = extractedParams.fullPath;
+    if (extractedParams?.id) req.params.id = extractedParams.id;
+    if (extractedParams?.slug) req.params.slug = extractedParams.slug;
 
-      if (param === "id") req.params.id = paramValue;
-      if (param === "slug") req.params.slug = paramValue;
-      fullPath = `${parentPath}${paramValue}`;
-    }
     if (fullPath !== this.path) return;
     this.routes.push(fullPath);
 
@@ -89,8 +72,37 @@ class Router {
     callback(req, res);
   }
 
-  pushState(pathName: string) {
+  pushToHistory(pathName: string) {
     history.pushState({}, pathName, `${location.origin}${pathName}`);
+  }
+
+  private extractParams(path: string) {
+    if (path.includes(":")) {
+      const parentCurrPath = this.path.slice(0, this.path.lastIndexOf("/") + 1);
+      const [parentPath, param] = path.split(":");
+
+      if (parentCurrPath !== parentPath) return;
+      const paramValue = this.path.split(parentPath)[1];
+      const fullPath = `${parentPath}${paramValue}`;
+      if (param === "id") return { fullPath, id: paramValue };
+      if (param === "slug") return { fullPath, slug: paramValue };
+    }
+  }
+
+  private buildRequest(): Request {
+    return {
+      protocol: location.protocol,
+      href: location.href,
+      origin: location.origin,
+      port: location.port || null,
+      path: location.pathname || null,
+      hash: location.hash || null,
+      queries: parse(location.search) || null,
+      locale: navigator.language,
+      userAgent: navigator.userAgent,
+      platform: navigator.platform,
+      params: {},
+    };
   }
 }
 

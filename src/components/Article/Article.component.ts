@@ -15,8 +15,7 @@ export default class Article extends Component<ArticleStructure> {
   ) {
     super();
 
-    this.template = `
-    <div>
+    this.template = `<div id="article-temp">
       <h3>{{title}}</h3>
       <p>{{createdAt}} • {{views}} person read this article</p>
       <img src="{{coverImage}}">
