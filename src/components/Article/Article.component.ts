@@ -1,7 +1,7 @@
 import Component from "../core/Component";
-import ArticleStructure from "../../models/Article.model";
+import ArticleModel from "../../models/Article.model";
 
-export default class Article extends Component<ArticleStructure> {
+export default class Article extends Component<ArticleModel> {
   constructor(
     private title: string,
     private slug: string,

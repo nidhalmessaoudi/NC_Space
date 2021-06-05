@@ -4,10 +4,10 @@ import config from "../../utils/config";
 import ObjIndex from "../../helpers/ObjectIndex";
 
 export default class Component<T extends ObjIndex> {
+  private root: HTMLElement = config.ROOT;
   protected template!: string;
   protected _state!: T;
   protected _markup!: string;
-  private root: HTMLElement = config.ROOT;
   protected componentId: string = nanoid(6);
 
   get state() {

@@ -1,13 +1,15 @@
 import Request from "../router/Request";
 import Api from "../apis/articles/Article";
 import ArticleComponent from "../components/Article/Article.component";
+import Spinner from "../components/LoadingSpinner/spinner.component";
 
 export const getArticles = (_: Request) => {};
 
 export const getArticle = async (req: Request) => {
+  new Spinner();
   await Api.getArticle(req.params.slug!);
   const article = Api.article;
-  const Component = new ArticleComponent(
+  const Article = new ArticleComponent(
     article.title!,
     article.slug!,
     article.category!,
@@ -18,7 +20,7 @@ export const getArticle = async (req: Request) => {
     article.body!,
     article.tags!
   );
-  Component.render("beforeend", true);
+  Article.render("beforeend", true);
 };
 
 export const createArticle = (_: Request) => {};
