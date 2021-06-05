@@ -5,7 +5,11 @@ import AJAX from "../utils/AJAX";
 import handleForms from "../helpers/handleForms";
 import ArticleComponent from "../components/Article/Article.component";
 import ArticlePreviewComponent from "../components/ArticlePreview/ArticlePreview.component";
-import ArticleStructure from "../helpers/Article";
+import ArticleStructure from "../models/Article.model";
+
+/**
+ * @note The code inside these functions will be removed. (Just fro testing)
+ */
 
 export const getArticles = (_: Request, res: Response) => {
   res.setTitle("NC Space | articles");

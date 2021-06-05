@@ -12,6 +12,31 @@ export default class Component<T extends ObjIndex> {
     return this._state;
   }
 
+  set state(newState: T) {
+    if (this._state === newState) return;
+    this._state = newState;
+    this.fill();
+    if (this._markup.includes("{{") && this._markup.includes("}}"))
+      throw new Error("Failed to update the state! Some data is missing.");
+
+    const newLayout = document
+      .createRange()
+      .createContextualFragment(this._markup);
+    const newEls = Array.from(newLayout.querySelectorAll("*"));
+    const curEls = Array.from(this.root.querySelectorAll("*"));
+
+    newEls.forEach((newEl, i) => {
+      const curEl = curEls[i] as HTMLElement;
+
+      if (
+        !newEl.isEqualNode(curEl) &&
+        newEl.firstChild?.nodeValue?.trim() !== ""
+      ) {
+        this.update(curEl, newEl.textContent!);
+      }
+    });
+  }
+
   get markup() {
     return this._markup;
   }
@@ -41,40 +66,15 @@ export default class Component<T extends ObjIndex> {
     return id;
   }
 
-  protected setState(newState: T) {
-    if (this._state === newState) return;
-    this._state = newState;
-    this.fill();
-    if (this._markup.includes("{{") && this._markup.includes("}}"))
-      throw new Error("Failed to update the state! Some data is missing.");
-
-    const newLayout = document
-      .createRange()
-      .createContextualFragment(this._markup);
-    const newEls = Array.from(newLayout.querySelectorAll("*"));
-    const curEls = Array.from(this.root.querySelectorAll("*"));
-
-    newEls.forEach((newEl, i) => {
-      const curEl = curEls[i] as HTMLElement;
-
-      if (
-        !newEl.isEqualNode(curEl) &&
-        newEl.firstChild?.nodeValue?.trim() !== ""
-      ) {
-        this.update(curEl, newEl.textContent!);
-      }
-    });
-  }
-
-  private update(el: HTMLElement, newContent: string) {
+  private update(el: HTMLElement, newContent: string): void {
     el.textContent = newContent;
   }
 
-  private clean() {
+  private clean(): void {
     this.root.innerHTML = "";
   }
 
-  render(position: InsertPosition = "beforeend", clean?: boolean) {
+  render(position: InsertPosition = "beforeend", clean?: boolean): void {
     if (clean) this.clean();
     this.root.insertAdjacentHTML(position, this._markup);
     this.root =

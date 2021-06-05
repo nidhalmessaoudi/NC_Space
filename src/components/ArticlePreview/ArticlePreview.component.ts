@@ -1,4 +1,4 @@
-import ArticleStructure from "../../helpers/Article";
+import ArticleStructure from "../../models/Article.model";
 import Component from "../core/Component";
 
 export default class ArticlePreview extends Component<ArticleStructure> {

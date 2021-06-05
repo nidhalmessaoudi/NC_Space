@@ -1,5 +1,5 @@
 import Component from "../core/Component";
-import ArticleStructure from "../../helpers/Article";
+import ArticleStructure from "../../models/Article.model";
 
 export default class Article extends Component<ArticleStructure> {
   constructor(

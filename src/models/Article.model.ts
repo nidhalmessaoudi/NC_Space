@@ -1,5 +1,6 @@
-export default interface Article {
-  [property: string]: string | number | object | undefined;
+import ObjIndex from "../helpers/ObjectIndex";
+
+export default interface Article extends ObjIndex {
   readonly id?: string;
   readonly title?: string;
   readonly slug?: string;

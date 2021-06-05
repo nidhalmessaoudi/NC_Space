@@ -5,9 +5,14 @@ import config from "./config";
 class AJAX {
   private baseUrl = config.MAIN_API!;
   private _data: any;
+  private _error!: string;
 
   get data() {
     return this._data;
+  }
+
+  get error() {
+    return this._error;
   }
 
   constructor(
@@ -19,28 +24,32 @@ class AJAX {
   ) {}
 
   async recieve() {
-    const queries = this.params ? stringify(this.params) : undefined;
+    try {
+      const queries = this.params ? stringify(this.params) : undefined;
 
-    const completeUrl = queries
-      ? `${this.baseUrl}${this.path}?${this.params}`
-      : `${this.baseUrl}${this.path}`;
+      const completeUrl = queries
+        ? `${this.baseUrl}${this.path}?${this.params}`
+        : `${this.baseUrl}${this.path}`;
 
-    const headers = new Headers(this.headers);
-    headers.append("Content-Type", "application/json");
+      const headers = new Headers(this.headers);
+      headers.append("Content-Type", "application/json");
 
-    const request = await fetch(completeUrl, {
-      method: this.method,
-      mode: "cors",
-      cache: "default",
-      credentials: "include",
-      headers: headers,
-      redirect: "manual",
-      referrerPolicy: "no-referrer",
-      body: JSON.stringify(this.body),
-    });
-    const response = await request.json();
-    this._data = response.data;
-    return await response;
+      const request = await fetch(completeUrl, {
+        method: this.method,
+        mode: "cors",
+        cache: "default",
+        credentials: "include",
+        headers: headers,
+        redirect: "manual",
+        referrerPolicy: "no-referrer",
+        body: JSON.stringify(this.body),
+      });
+      const response = await request.json();
+      this._data = response.data;
+      return await response;
+    } catch (err) {
+      this._error = err.message;
+    }
   }
 }
 
