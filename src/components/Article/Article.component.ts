@@ -6,7 +6,7 @@ export default class Article extends Component<ArticleStructure> {
     private title: string,
     private slug: string,
     private category: string,
-    private createdAt: string,
+    private createdAt: Date,
     private views: number,
     private coverImage: string,
     private summary: string,
@@ -15,7 +15,7 @@ export default class Article extends Component<ArticleStructure> {
   ) {
     super();
 
-    this.template = `<div id="article-temp">
+    this.template = `<div id="${this.componentId}">
       <h3>{{title}}</h3>
       <p>{{createdAt}} • {{views}} person read this article</p>
       <img src="{{coverImage}}">

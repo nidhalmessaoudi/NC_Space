@@ -21,4 +21,5 @@ export default interface Article extends ObjIndex {
   readonly numberOfComments?: number;
   readonly likes?: object[];
   readonly comments?: object[];
+  readonly createdAt?: Date;
 }

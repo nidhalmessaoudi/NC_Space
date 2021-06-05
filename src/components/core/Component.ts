@@ -1,3 +1,5 @@
+import { nanoid } from "nanoid";
+
 import config from "../../utils/config";
 import ObjIndex from "../../helpers/ObjectIndex";
 
@@ -5,8 +7,8 @@ export default class Component<T extends ObjIndex> {
   protected template!: string;
   protected _state!: T;
   protected _markup!: string;
-  protected componentId!: string;
   private root: HTMLElement = config.ROOT;
+  protected componentId: string = nanoid(6);
 
   get state() {
     return this._state;
@@ -57,14 +59,14 @@ export default class Component<T extends ObjIndex> {
     return fullFilledMarkup;
   }
 
-  protected getId() {
-    if (this.componentId) return;
-    const idStart = this.template.indexOf("id") + 4;
-    const idEnd = this.template.slice(idStart).indexOf('"') + idStart;
-    const id = this.template.slice(idStart, idEnd);
-    this.componentId = id;
-    return id;
-  }
+  // protected getId() {
+  //   if (this.componentId) return;
+  //   const idStart = this.template.indexOf("id") + 4;
+  //   const idEnd = this.template.slice(idStart).indexOf('"') + idStart;
+  //   const id = this.template.slice(idStart, idEnd);
+  //   this.componentId = id;
+  //   return id;
+  // }
 
   private update(el: HTMLElement, newContent: string): void {
     el.textContent = newContent;

@@ -2,7 +2,6 @@ import ObjIndex from "../helpers/ObjectIndex";
 import ArticleModel from "./Article.model";
 
 export default interface User extends ObjIndex {
-  [property: string]: string | number | object | boolean | undefined;
   readonly id?: string;
   readonly name?: string;
   readonly email?: string;

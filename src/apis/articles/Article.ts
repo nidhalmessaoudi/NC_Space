@@ -1,16 +1,22 @@
 import AJAX from "../../utils/AJAX";
 import Api from "../Api";
 import ArticleModel from "../../models/Article.model";
+import LikeModel from "../../models/Like.model";
+import CommentModel from "../../models/Comment.model";
 
 class Article extends Api {
   private _articles!: ArticleModel[];
   private _article!: ArticleModel;
+  private _likes!: LikeModel[];
+  private _like!: LikeModel;
+  private _comments!: CommentModel[];
+  private _comment!: CommentModel;
   private _stats!: any;
 
   get articles() {
     if (!this._articles)
       throw new Error(
-        "You must call the getArticles() method before accessing the articles!"
+        "You must call the 1 of the fetching methods before accessing the articles!"
       );
     return this._articles;
   }
@@ -21,6 +27,38 @@ class Article extends Api {
         "You must call the getArticle() method before accessing the article!"
       );
     return this._article;
+  }
+
+  get likes() {
+    if (!this._likes)
+      throw new Error(
+        "You must call the getArticleLikes() method before accessing the likes!"
+      );
+    return this._likes;
+  }
+
+  get like() {
+    if (!this._like)
+      throw new Error(
+        "You must call the toggleArticleLike() method before accessing the like!"
+      );
+    return this._like;
+  }
+
+  get comments() {
+    if (!this._comments)
+      throw new Error(
+        "You must call the getArticleComments() method before accessing the comments!"
+      );
+    return this._comments;
+  }
+
+  get comment() {
+    if (!this._comment)
+      throw new Error(
+        "You must call the createArticleComment() method before accessing the comment!"
+      );
+    return this._comment;
   }
 
   get stats() {
@@ -74,16 +112,16 @@ class Article extends Api {
     this._articles = foundArticles.data.articles;
   }
 
-  async getHottestArticles<T extends object>(queries: T) {
+  async getHottestArticles<T extends object>(queries?: T) {
     let Articles: AJAX;
     if (queries) Articles = new AJAX("articles/hottest", "GET", queries);
     else Articles = Articles = new AJAX("articles/hottest", "GET");
     await Articles.recieve();
     if (this.checkForErrors(Articles)) return;
-    this._articles = Articles.data.articles;
+    this._articles = Articles.data.hottestArticles;
   }
 
-  async getStats(queryStr: string) {
+  async getStats(queryStr?: string) {
     const Stats = new AJAX(`articles/stats`, "GET", { by: queryStr });
     await Stats.recieve();
     if (this.checkForErrors(Stats)) return;
@@ -94,6 +132,34 @@ class Article extends Api {
     await Stats.recieve();
     if (this.checkForErrors(Stats)) return;
     this._stats = Stats.data.articles;
+  }
+
+  async getArticleLikes(id: string) {
+    const Likes = new AJAX(`articles/${id}/likes`, "GET");
+    await Likes.recieve();
+    if (this.checkForErrors(Likes)) return;
+    this._likes = Likes.data.likes;
+  }
+
+  async toggleArticleLike(id: string) {
+    const Like = new AJAX(`articles/${id}/likes`, "POST");
+    await Like.recieve();
+    if (this.checkForErrors(Like)) return;
+    this._like = Like.data.like;
+  }
+
+  async getArticleComments(id: string) {
+    const Comments = new AJAX(`articles/${id}/comments`, "GET");
+    await Comments.recieve();
+    if (this.checkForErrors(Comments)) return;
+    this._comments = Comments.data.comments;
+  }
+
+  async CreateArticleComment(id: string) {
+    const Comment = new AJAX(`articles/${id}/comments`, "POST");
+    await Comment.recieve();
+    if (this.checkForErrors(Comment)) return;
+    this._comment = Comment.data.comment;
   }
 }
 
