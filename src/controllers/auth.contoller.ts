@@ -4,6 +4,7 @@ import LoginModel from "src/models/Login.model";
 import LoginComponent from "../components/Login/Login.component";
 import SpinnerComponent from "../components/LoadingSpinner/Spinner.component";
 import ErrorComponent from "../components/Error/Error.component";
+import SuccessComponent from "../components/Success/Success.component";
 
 export const login = (_: Request) => {
   const Login = new LoginComponent();
@@ -14,18 +15,25 @@ export const login = (_: Request) => {
 
   loginForm?.addEventListener("submit", async (e) => {
     e.preventDefault();
+    Login.clearInterval();
     const credentials: LoginModel = {
       email: emailInput?.value,
       password: passInput?.value,
     };
     const Spinner = new SpinnerComponent();
-    Spinner.render();
+    Spinner.render("afterbegin");
     await Api.login(credentials);
+    emailInput.value = "";
+    passInput.value = "";
     Spinner.remove();
     if (Api.error) {
       console.log(Api.error);
       const Error = new ErrorComponent(Api.error);
       Error.render("afterbegin");
+      return;
     }
+    const successMsg = `You successfully logged in as ${Api.response.name}`;
+    const Success = new SuccessComponent(successMsg);
+    Success.render("afterbegin");
   });
 };

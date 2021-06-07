@@ -68,6 +68,12 @@ export default class Component<T extends ObjIndex> {
     this.root.innerHTML = "";
   }
 
+  protected removeAfter(sec: number) {
+    setTimeout(() => {
+      this.root.removeChild(document.getElementById(this.componentId)!);
+    }, sec * 1000);
+  }
+
   render(position: InsertPosition = "beforeend", clean?: boolean): void {
     if (clean) this.clean();
     this.root.insertAdjacentHTML(position, this._markup);
@@ -80,5 +86,12 @@ export default class Component<T extends ObjIndex> {
     if (!currComponent)
       throw new Error("The component is not rendered in the DOM!");
     this.root.removeChild(currComponent);
+  }
+
+  clearInterval(): void {
+    Array.from(this.root.children).forEach((child) => {
+      if (child.id === this.componentId) return;
+      this.root.removeChild(child);
+    });
   }
 }

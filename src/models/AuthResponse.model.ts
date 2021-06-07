@@ -1,6 +1,6 @@
-import ObjIndex from "../helpers/ObjectIndex";
+import UserModel from "./User.model";
 
-export default interface AuthResponse extends ObjIndex {
-  readonly message: string;
-  readonly token: string;
+export default interface AuthResponse extends UserModel {
+  readonly message?: string;
+  readonly token?: string;
 }

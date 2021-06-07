@@ -1,7 +1,7 @@
 import AJAX from "src/utils/AJAX";
 
 export default class Api {
-  protected _error!: string;
+  protected _error!: string | null;
 
   get error() {
     return this._error;
@@ -12,6 +12,7 @@ export default class Api {
       this._error = obj.error;
       return true;
     } else {
+      this._error = null;
       return false;
     }
   }

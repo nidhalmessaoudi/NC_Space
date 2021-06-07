@@ -36,7 +36,7 @@ class Auth extends Api {
     const Login = new AJAX("users/login", "POST", undefined, credentials);
     await Login.recieve();
     if (this.checkForErrors(Login)) return;
-    this._response = Login.data;
+    this._response = Login.data.user;
   }
 
   async verifyEmail() {
