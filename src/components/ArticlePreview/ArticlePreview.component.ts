@@ -1,5 +1,5 @@
 import ArticleModel from "../../models/Article.model";
-import Component from "../core/Component";
+import Component from "../Core/Component";
 
 export default class ArticlePreview extends Component<ArticleModel> {
   constructor(private title: string, private id: string) {

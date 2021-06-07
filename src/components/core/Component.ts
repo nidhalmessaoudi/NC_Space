@@ -44,6 +44,7 @@ export default class Component<T extends ObjIndex> {
   }
 
   protected fill() {
+    if (!this._state) throw new Error("There is no data to fill the template!");
     const keyValues = this.template
       .split("{{")
       .filter((e: string) => e.includes("}}"))
@@ -51,22 +52,13 @@ export default class Component<T extends ObjIndex> {
 
     let fullFilledMarkup = this.template;
     keyValues.forEach((el: string) => {
-      if (!this._state[el]) return;
+      if (this._state[el] === null || this._state[el] === undefined) return;
       const currentData = String(this._state[el]);
       fullFilledMarkup = fullFilledMarkup.replace(`{{${el}}}`, currentData);
     });
     this._markup = fullFilledMarkup;
     return fullFilledMarkup;
   }
-
-  // protected getId() {
-  //   if (this.componentId) return;
-  //   const idStart = this.template.indexOf("id") + 4;
-  //   const idEnd = this.template.slice(idStart).indexOf('"') + idStart;
-  //   const id = this.template.slice(idStart, idEnd);
-  //   this.componentId = id;
-  //   return id;
-  // }
 
   private update(el: HTMLElement, newContent: string): void {
     el.textContent = newContent;
@@ -81,5 +73,12 @@ export default class Component<T extends ObjIndex> {
     this.root.insertAdjacentHTML(position, this._markup);
     this.root =
       document.getElementById(this.componentId)?.parentElement || this.root;
+  }
+
+  remove(): void {
+    const currComponent = document.getElementById(this.componentId);
+    if (!currComponent)
+      throw new Error("The component is not rendered in the DOM!");
+    this.root.removeChild(currComponent);
   }
 }

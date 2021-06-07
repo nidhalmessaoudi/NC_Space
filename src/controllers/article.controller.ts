@@ -1,12 +1,13 @@
 import Request from "../router/Request";
 import Api from "../apis/articles/Article";
 import ArticleComponent from "../components/Article/Article.component";
-import Spinner from "../components/LoadingSpinner/spinner.component";
+import SpinnerComponent from "../components/LoadingSpinner/Spinner.component";
 
 export const getArticles = (_: Request) => {};
 
 export const getArticle = async (req: Request) => {
-  new Spinner();
+  const Spinner = new SpinnerComponent();
+  Spinner.render();
   await Api.getArticle(req.params.slug!);
   const article = Api.article;
   const Article = new ArticleComponent(
@@ -18,7 +19,9 @@ export const getArticle = async (req: Request) => {
     article.coverImage!,
     article.summary!,
     article.body!,
-    article.tags!
+    article.tags!,
+    article.numberOfLikes!,
+    article.numberOfComments!
   );
   Article.render("beforeend", true);
 };

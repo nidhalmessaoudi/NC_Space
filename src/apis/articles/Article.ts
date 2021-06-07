@@ -16,7 +16,7 @@ class Article extends Api {
   get articles() {
     if (!this._articles)
       throw new Error(
-        "You must call the 1 of the fetching methods before accessing the articles!"
+        "You must call one of the fetching methods before accessing the articles!"
       );
     return this._articles;
   }

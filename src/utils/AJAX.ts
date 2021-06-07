@@ -2,7 +2,7 @@ import { stringify } from "query-string";
 
 import config from "./config";
 
-class AJAX {
+export default class AJAX {
   private baseUrl = config.MAIN_API!;
   private _data: any;
   private _error!: string;
@@ -44,19 +44,12 @@ class AJAX {
         referrerPolicy: "no-referrer",
         body: JSON.stringify(this.body),
       });
+
       const response = await request.json();
+      if (!request.ok) throw new Error(response.message);
       this._data = response.data;
-      return await response;
     } catch (err) {
       this._error = err.message;
     }
   }
 }
-
-// interface AJAXResponse {
-//   readonly status: "success" | "fail" | "error";
-//   readonly message?: string;
-//   readonly data?: object[];
-// }
-
-export default AJAX;
