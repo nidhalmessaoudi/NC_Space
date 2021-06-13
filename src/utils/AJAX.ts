@@ -25,6 +25,7 @@ export default class AJAX {
 
   async recieve() {
     try {
+      this._data = null;
       const queries = this.params ? stringify(this.params) : undefined;
 
       const completeUrl = queries
@@ -45,9 +46,9 @@ export default class AJAX {
         body: JSON.stringify(this.body),
       });
 
-      const response = await request.json();
+      const response = (await request.json()) || null;
       if (!request.ok) throw new Error(response.message);
-      this._data = response.data;
+      if (response) this._data = response.data;
     } catch (err) {
       this._error = err.message;
     }

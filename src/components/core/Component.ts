@@ -15,8 +15,11 @@ export default class Component<T extends ObjIndex> {
   }
 
   set state(newState: T) {
-    if (this._state === newState) return;
-    this._state = newState;
+    if (!this._state) this._state === newState;
+    for (const prop in newState) {
+      if (this._state[prop] !== newState[prop])
+        this._state[prop] = newState[prop];
+    }
     this.fill();
     if (this._markup.includes("{{") && this._markup.includes("}}"))
       throw new Error("Failed to update the state! Some data is missing.");

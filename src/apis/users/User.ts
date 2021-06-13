@@ -15,10 +15,6 @@ class User extends Api {
   }
 
   get user() {
-    if (!this._user)
-      throw new Error(
-        "You must call the getUser() method before accessing the user!"
-      );
     return this._user;
   }
 

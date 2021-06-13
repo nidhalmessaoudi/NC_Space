@@ -1,3 +1,4 @@
+import config from "../utils/config";
 import Router from "./Router";
 import route from "../routes/App.route";
 
@@ -13,10 +14,12 @@ const navigate = (links: HTMLAnchorElement[]) => {
 
     capturedEls.push(parentEl);
     parentEl?.addEventListener("click", (e) => {
-      e.preventDefault();
       const clicked = e.target as HTMLAnchorElement;
-      if (clicked?.tagName !== "A") return;
 
+      if (clicked?.localName !== "a") return;
+      if (clicked.hostname !== config.hostname) return;
+
+      e.preventDefault();
       Router.pushToHistory(clicked.pathname);
       route();
     });

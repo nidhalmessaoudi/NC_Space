@@ -8,7 +8,7 @@ class Article extends Api {
   private _articles!: ArticleModel[];
   private _article!: ArticleModel;
   private _likes!: LikeModel[];
-  private _like!: LikeModel;
+  private _like!: LikeModel | null;
   private _comments!: CommentModel[];
   private _comment!: CommentModel;
   private _stats!: any;
@@ -38,10 +38,10 @@ class Article extends Api {
   }
 
   get like() {
-    if (!this._like)
-      throw new Error(
-        "You must call the toggleArticleLike() method before accessing the like!"
-      );
+    // if (!this._like)
+    //   throw new Error(
+    //     "You must call the toggleArticleLike() method before accessing the like!"
+    //   );
     return this._like;
   }
 
@@ -142,10 +142,11 @@ class Article extends Api {
   }
 
   async toggleArticleLike(id: string) {
+    this._like = null;
     const Like = new AJAX(`articles/${id}/likes`, "POST");
     await Like.recieve();
     if (this.checkForErrors(Like)) return;
-    this._like = Like.data.like;
+    if (Like.data.like) this._like = Like.data.like;
   }
 
   async getArticleComments(id: string) {

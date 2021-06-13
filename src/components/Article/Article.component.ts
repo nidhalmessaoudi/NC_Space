@@ -12,8 +12,8 @@ export default class Article extends Component<ArticleModel> {
     private summary: string,
     private body: string,
     private tags: string,
-    private numberOfComments: number,
-    private numberOfLikes: number
+    private numberOfLikes: number,
+    private numberOfComments: number
   ) {
     super();
 
@@ -24,14 +24,11 @@ export default class Article extends Component<ArticleModel> {
         <img src="{{coverImage}}">
         <p><em>{{summary}}</em></p>
         <p>{{body}}</p>
-        <p>{{numberOfLikes}} likes</p>
-        <form>
-          <button type="submit">Give a like</button>
-        </form>
-        <p>{{numberOfComments}} comments</p>
-        <form>
-          <button type="submit">Leave a comment</button>
-        </form>
+        <div id="user-reaction">
+          <p>{{numberOfLikes}} likes</p>
+          <button id="like-btn">Give a like</button>
+          <p>{{numberOfComments}} comments</p>
+        </div>
       </div>
     `;
 

@@ -9,7 +9,7 @@ export default interface Article extends ObjIndex {
   readonly coverImage?: string;
   readonly body?: string;
   readonly tags?: string;
-  readonly views?: number;
+  views?: number;
   readonly author?: {
     name: string;
     photo: string;
@@ -17,8 +17,8 @@ export default interface Article extends ObjIndex {
   };
   readonly readingTime?: number;
   readonly paragraphs?: number;
-  readonly numberOfLikes?: number;
-  readonly numberOfComments?: number;
+  numberOfLikes?: number;
+  numberOfComments?: number;
   readonly likes?: object[];
   readonly comments?: object[];
   readonly createdAt?: Date;
