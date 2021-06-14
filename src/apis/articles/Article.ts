@@ -146,7 +146,7 @@ class Article extends Api {
     const Like = new AJAX(`articles/${id}/likes`, "POST");
     await Like.recieve();
     if (this.checkForErrors(Like)) return;
-    if (Like.data.like) this._like = Like.data.like;
+    if (Like.data?.like) this._like = Like.data.like;
   }
 
   async getArticleComments(id: string) {

@@ -14,6 +14,7 @@ export default class Login extends Component<LoginModel> {
               <input type="password" id="pass-input">
               <button type="submit">Login</button>
             </form>
+            <p>Not yet signed up? <a href="/signup">Sign Up</a></p>
         </div>
     `;
   }

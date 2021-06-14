@@ -1,16 +1,16 @@
 import Request from "../router/Request";
-import Api from "../apis/articles/Article";
+import ArticleApi from "../apis/articles/Article";
 import ArticleComponent from "../components/Article/Article.component";
 import SpinnerComponent from "../components/LoadingSpinner/Spinner.component";
-import ErrorComponent from "../components/Error/Error.component";
+import catchError from "../helpers/catchError";
 
 export const getArticles = (_: Request) => {};
 
 export const getArticle = async (req: Request) => {
   const Spinner = new SpinnerComponent();
   Spinner.render();
-  await Api.getArticle(req.params.id!);
-  const article = Api.article;
+  await ArticleApi.getArticle(req.params.id!);
+  const article = ArticleApi.article;
   const Article = new ArticleComponent(
     article.title!,
     article.slug!,
@@ -32,22 +32,18 @@ export const getArticle = async (req: Request) => {
     const clickedId = clicked.id;
     if (clickedId !== "like-btn") return;
     Spinner.render();
-    await Api.toggleArticleLike(article.id!);
+    await ArticleApi.toggleArticleLike(article.id!);
     Spinner.remove();
-    if (Api.error) {
-      const likeError = new ErrorComponent(Api.error);
-      likeError.render();
-      return;
-    }
-    if (Api.like)
+
+    if (catchError(ArticleApi)) return;
+
+    if (ArticleApi.like)
       Article.state = {
         numberOfLikes: Article.state.numberOfLikes! + 1,
-        views: Article.state.views! + 1,
       };
     else
       Article.state = {
         numberOfLikes: Article.state.numberOfLikes! - 1,
-        views: Article.state.views! - 1,
       };
   });
 };

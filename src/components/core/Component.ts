@@ -71,7 +71,7 @@ export default class Component<T extends ObjIndex> {
     this.root.innerHTML = "";
   }
 
-  protected removeAfter(sec: number) {
+  removeAfter(sec: number) {
     setTimeout(() => {
       this.root.removeChild(document.getElementById(this.componentId)!);
     }, sec * 1000);

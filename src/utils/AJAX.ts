@@ -45,11 +45,14 @@ export default class AJAX {
         referrerPolicy: "no-referrer",
         body: JSON.stringify(this.body),
       });
+      let response;
+      if (request.status !== 204) response = await request.json();
 
-      const response = (await request.json()) || null;
       if (!request.ok) throw new Error(response.message);
-      if (response) this._data = response.data;
+      if (response) this._data = response.data || response;
+      else this._data = null;
     } catch (err) {
+      console.error(err);
       this._error = err.message;
     }
   }
