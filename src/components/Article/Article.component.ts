@@ -25,7 +25,7 @@ export default class Article extends Component<ArticleModel> {
         <p><em>{{summary}}</em></p>
         <p>{{body}}</p>
         <div id="user-reaction">
-          <p>{{numberOfLikes}} likes</p>
+          <p style="cursor: pointer" class="article-likes">{{numberOfLikes}} likes</p>
           <button id="like-btn">Give a like</button>
           <p>{{numberOfComments}} comments</p>
         </div>

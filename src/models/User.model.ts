@@ -5,6 +5,7 @@ export default interface User extends ObjIndex {
   readonly id?: string;
   readonly name?: string;
   readonly email?: string;
+  readonly username?: string;
   readonly photo?: string;
   readonly role?: string;
   readonly verified?: boolean;

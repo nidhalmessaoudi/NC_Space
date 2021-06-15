@@ -7,65 +7,37 @@ import CommentModel from "../../models/Comment.model";
 class Article extends Api {
   private _articles!: ArticleModel[];
   private _article!: ArticleModel;
-  private _likes!: LikeModel[];
+  private _likes!: LikeModel[] | null;
   private _like!: LikeModel | null;
-  private _comments!: CommentModel[];
-  private _comment!: CommentModel;
+  private _comments!: CommentModel[] | null;
+  private _comment!: CommentModel | null;
   private _stats!: any;
 
   get articles() {
-    if (!this._articles)
-      throw new Error(
-        "You must call one of the fetching methods before accessing the articles!"
-      );
     return this._articles;
   }
 
   get article() {
-    if (!this._article)
-      throw new Error(
-        "You must call the getArticle() method before accessing the article!"
-      );
     return this._article;
   }
 
   get likes() {
-    if (!this._likes)
-      throw new Error(
-        "You must call the getArticleLikes() method before accessing the likes!"
-      );
     return this._likes;
   }
 
   get like() {
-    // if (!this._like)
-    //   throw new Error(
-    //     "You must call the toggleArticleLike() method before accessing the like!"
-    //   );
     return this._like;
   }
 
   get comments() {
-    if (!this._comments)
-      throw new Error(
-        "You must call the getArticleComments() method before accessing the comments!"
-      );
     return this._comments;
   }
 
   get comment() {
-    if (!this._comment)
-      throw new Error(
-        "You must call the createArticleComment() method before accessing the comment!"
-      );
     return this._comment;
   }
 
   get stats() {
-    if (!this._stats)
-      throw new Error(
-        "You must call the getStats() method before accessing the stats!"
-      );
     return this._stats;
   }
 
@@ -83,6 +55,8 @@ class Article extends Api {
     await Article.recieve();
     if (this.checkForErrors(Article)) return;
     this._article = Article.data.article;
+    this._likes = null;
+    this._comments = null;
   }
 
   async createArticle(data: ArticleModel) {

@@ -4,11 +4,20 @@ import config from "../../utils/config";
 import ObjIndex from "../../helpers/ObjectIndex";
 
 export default class Component<T extends ObjIndex> {
-  private root: HTMLElement = config.ROOT;
+  private _root: HTMLElement = config.ROOT;
   protected template!: string;
   protected _state!: T;
   protected _markup!: string;
+  protected element!: HTMLElement | null;
   protected componentId: string = nanoid(6);
+
+  get id() {
+    return this.componentId;
+  }
+
+  set root(newRoot: HTMLElement) {
+    this._root = newRoot;
+  }
 
   get state() {
     return this._state;
@@ -28,7 +37,7 @@ export default class Component<T extends ObjIndex> {
       .createRange()
       .createContextualFragment(this._markup);
     const newEls = Array.from(newLayout.querySelectorAll("*"));
-    const curEls = Array.from(this.root.querySelectorAll("*"));
+    const curEls = Array.from(this._root.querySelectorAll("*"));
 
     newEls.forEach((newEl, i) => {
       const curEl = curEls[i] as HTMLElement;
@@ -68,33 +77,42 @@ export default class Component<T extends ObjIndex> {
   }
 
   private clean(): void {
-    this.root.innerHTML = "";
+    this._root.innerHTML = "";
   }
 
-  removeAfter(sec: number) {
+  private isRendered() {
+    if (this.element) return true;
+    throw new Error("The component is not rendered in the DOM!");
+  }
+
+  removeAfter(sec: number): void {
+    this.isRendered();
     setTimeout(() => {
-      this.root.removeChild(document.getElementById(this.componentId)!);
+      this._root.removeChild(this.element!);
     }, sec * 1000);
   }
 
   render(position: InsertPosition = "beforeend", clean?: boolean): void {
     if (clean) this.clean();
-    this.root.insertAdjacentHTML(position, this._markup);
-    this.root =
-      document.getElementById(this.componentId)?.parentElement || this.root;
+    this._root.insertAdjacentHTML(position, this._markup);
+    this._root = this.element?.parentElement || this._root;
+    this.element = document.getElementById(this.componentId);
   }
 
   remove(): void {
-    const currComponent = document.getElementById(this.componentId);
-    if (!currComponent)
-      throw new Error("The component is not rendered in the DOM!");
-    this.root.removeChild(currComponent);
+    this.isRendered();
+    this._root.removeChild(this.element!);
+  }
+
+  clear(): void {
+    this.isRendered();
+    this.element!.innerHTML = "";
   }
 
   clearInterval(): void {
-    Array.from(this.root.children).forEach((child) => {
+    Array.from(this._root.children).forEach((child) => {
       if (child.id === this.componentId) return;
-      this.root.removeChild(child);
+      this._root.removeChild(child);
     });
   }
 }
