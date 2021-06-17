@@ -1,6 +1,6 @@
-import AJAX from "../../utils/AJAX";
-import Api from "../Api";
-import UserModel from "../../models/User.model";
+import AJAX from "../utils/AJAX";
+import Api from "./Api";
+import UserModel from "../models/User.model";
 
 class User extends Api {
   private _users!: UserModel[];
@@ -29,6 +29,13 @@ class User extends Api {
 
   async getUser(id: string) {
     const User = new AJAX(`users/${id}`, "GET");
+    await User.recieve();
+    if (this.checkForErrors(User)) return;
+    this._user = User.data.user;
+  }
+
+  async getUserByUsername(username: string) {
+    const User = new AJAX(`users/public/${username}`, "GET");
     await User.recieve();
     if (this.checkForErrors(User)) return;
     this._user = User.data.user;

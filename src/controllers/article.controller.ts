@@ -1,5 +1,5 @@
 import Request from "../router/Request";
-import ArticleApi from "../apis/articles/Article";
+import ArticleApi from "../apis/Article";
 import ArticleComponent from "../components/Article/Article.component";
 import SpinnerComponent from "../components/LoadingSpinner/Spinner.component";
 import catchError from "../helpers/catchError";
@@ -11,8 +11,8 @@ export const getArticles = (_: Request) => {};
 
 export const getArticle = async (req: Request) => {
   const Spinner = new SpinnerComponent();
-  Spinner.render();
-  await ArticleApi.getArticle(req.params.id!);
+  Spinner.render("afterbegin", true);
+  await ArticleApi.getArticleBySlug(req.params.slug!);
   const article = ArticleApi.article;
   const Article = new ArticleComponent(
     article.title!,
@@ -39,7 +39,7 @@ export const getArticle = async (req: Request) => {
   const comments = ArticleApi.comments;
   comments?.forEach((comment) => {
     const Comment = new CommentComponent(
-      `/${comment.author.username}`,
+      comment.author.username!,
       comment.author.name!,
       comment.comment
     );
@@ -98,7 +98,7 @@ export const getArticle = async (req: Request) => {
 
       likes?.forEach((like) => {
         const { user } = like;
-        const Like = new LikeComponent(`/${user.username}`, user.name!);
+        const Like = new LikeComponent(user.username!, user.name!);
         Like.root = document.getElementById(LikesContainer.id)!;
         Like.render("beforeend");
       });

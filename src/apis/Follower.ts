@@ -1,6 +1,6 @@
-import AJAX from "../../utils/AJAX";
-import Api from "../Api";
-import FollowerModel from "../../models/Follower.model";
+import AJAX from "../utils/AJAX";
+import Api from "./Api";
+import FollowerModel from "../models/Follower.model";
 
 class Follower extends Api {
   private _followers!: FollowerModel[];

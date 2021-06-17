@@ -13,7 +13,6 @@ export default interface Request {
 
   // Route infos
   params: {
-    id?: string;
-    slug?: string;
+    [prop: string]: string;
   };
 }

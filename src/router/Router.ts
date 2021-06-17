@@ -17,12 +17,7 @@ class Router {
       }
     }
 
-    let fullPath: string = path;
-
-    const extractedParams = this.extractParams(path);
-    if (extractedParams?.fullPath) fullPath = extractedParams.fullPath;
-    if (extractedParams?.id) req.params.id = extractedParams.id;
-    if (extractedParams?.slug) req.params.slug = extractedParams.slug;
+    const fullPath = this.extractParams(path, req) || path;
 
     if (fullPath !== this.path) return;
     this.routes.push(fullPath);
@@ -45,7 +40,7 @@ class Router {
     history.pushState({}, pathName, `${location.origin}${pathName}`);
   }
 
-  private extractParams(path: string) {
+  private extractParams(path: string, req: Request) {
     if (path.includes(":")) {
       const parentCurrPath = this.path.slice(0, this.path.lastIndexOf("/") + 1);
       const [parentPath, param] = path.split(":");
@@ -53,8 +48,8 @@ class Router {
       if (parentCurrPath !== parentPath) return;
       const paramValue = this.path.split(parentPath)[1];
       const fullPath = `${parentPath}${paramValue}`;
-      if (param === "id") return { fullPath, id: paramValue };
-      if (param === "slug") return { fullPath, slug: paramValue };
+      req.params[param] = paramValue;
+      return fullPath;
     }
   }
 

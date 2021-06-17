@@ -1,8 +1,8 @@
-import AJAX from "../../utils/AJAX";
-import Api from "../Api";
-import SignupModel from "../../models/Signup.model";
-import LoginModel from "../../models/Login.model";
-import AuthResponseModel from "../../models/AuthResponse.model";
+import AJAX from "../utils/AJAX";
+import Api from "./Api";
+import SignupModel from "../models/Signup.model";
+import LoginModel from "../models/Login.model";
+import AuthResponseModel from "../models/AuthResponse.model";
 import UpdatePassModel from "src/models/UpdatePass.model";
 
 class Auth extends Api {

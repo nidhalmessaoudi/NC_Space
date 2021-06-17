@@ -1,8 +1,8 @@
-import AJAX from "../../utils/AJAX";
-import Api from "../Api";
-import ArticleModel from "../../models/Article.model";
-import LikeModel from "../../models/Like.model";
-import CommentModel from "../../models/Comment.model";
+import AJAX from "../utils/AJAX";
+import Api from "./Api";
+import ArticleModel from "../models/Article.model";
+import LikeModel from "../models/Like.model";
+import CommentModel from "../models/Comment.model";
 
 class Article extends Api {
   private _articles!: ArticleModel[];
@@ -52,6 +52,15 @@ class Article extends Api {
 
   async getArticle(id: string) {
     const Article = new AJAX(`articles/${id}`, "GET");
+    await Article.recieve();
+    if (this.checkForErrors(Article)) return;
+    this._article = Article.data.article;
+    this._likes = null;
+    this._comments = null;
+  }
+
+  async getArticleBySlug(slug: string) {
+    const Article = new AJAX(`articles/slug/${slug}`, "GET");
     await Article.recieve();
     if (this.checkForErrors(Article)) return;
     this._article = Article.data.article;

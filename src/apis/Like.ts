@@ -1,6 +1,6 @@
-import AJAX from "../../utils/AJAX";
-import Api from "../Api";
-import LikeModel from "../../models/Like.model";
+import AJAX from "../utils/AJAX";
+import Api from "./Api";
+import LikeModel from "../models/Like.model";
 
 class Like extends Api {
   private _likes!: LikeModel[];

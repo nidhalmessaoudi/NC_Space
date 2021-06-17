@@ -1,6 +1,6 @@
-import AJAX from "../../utils/AJAX";
-import Api from "../Api";
-import CommentModel from "../../models/Comment.model";
+import AJAX from "../utils/AJAX";
+import Api from "./Api";
+import CommentModel from "../models/Comment.model";
 
 class Comment extends Api {
   private _comments!: CommentModel[];

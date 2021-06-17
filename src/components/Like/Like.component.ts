@@ -1,18 +1,18 @@
-import ObjIndex from "../../helpers/ObjectIndex";
 import Component from "../Core/Component";
+import UserModel from "../../models/User.model";
 
-export default class Like extends Component<ObjIndex> {
-  constructor(private action: string, private name: string) {
+export default class Like extends Component<UserModel> {
+  constructor(private username: string, private name: string) {
     super();
 
     this.template = `
       <div id="${this.componentId}">
-        <a href="{{action}}">{{name}}</a>
+        <a href="/users/{{username}}">{{name}}</a>
       </div>
     `;
 
     this._state = {
-      action: this.action,
+      username: this.username,
       name: this.name,
     };
 

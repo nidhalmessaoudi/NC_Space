@@ -57,17 +57,24 @@ export default class Component<T extends ObjIndex> {
 
   protected fill() {
     if (!this._state) throw new Error("There is no data to fill the template!");
-    const keyValues = this.template
-      .split("{{")
-      .filter((e: string) => e.includes("}}"))
-      .map((el: string) => el.split("}}")[0]);
 
     let fullFilledMarkup = this.template;
-    keyValues.forEach((el: string) => {
-      if (this._state[el] === null || this._state[el] === undefined) return;
-      const currentData = String(this._state[el]);
-      fullFilledMarkup = fullFilledMarkup.replace(`{{${el}}}`, currentData);
-    });
+    this.template
+      .split("{{")
+      .filter((e: string) => e.includes("}}"))
+      .map((el: string) => el.split("}}")[0])
+      .forEach((el: string) => {
+        if (this._state[el] === null || this._state[el] === undefined)
+          throw new Error(
+            "The template is not fullfilled! Some data are null or undefined."
+          );
+        const currentData = String(this._state[el]);
+        fullFilledMarkup = fullFilledMarkup.replace(`{{${el}}}`, currentData);
+      });
+
+    if (fullFilledMarkup.includes("{{") && fullFilledMarkup.includes("}}"))
+      throw new Error("The template is not fullfilled! Some data are missing.");
+
     this._markup = fullFilledMarkup;
     return fullFilledMarkup;
   }
@@ -77,6 +84,7 @@ export default class Component<T extends ObjIndex> {
   }
 
   private clean(): void {
+    if (!this._root.innerHTML) return;
     this._root.innerHTML = "";
   }
 
@@ -106,6 +114,7 @@ export default class Component<T extends ObjIndex> {
 
   clear(): void {
     this.isRendered();
+    if (!this.element!.innerHTML) return;
     this.element!.innerHTML = "";
   }
 

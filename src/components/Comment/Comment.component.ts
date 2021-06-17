@@ -3,7 +3,7 @@ import Component from "../Core/Component";
 
 export default class Comment extends Component<ObjIndex> {
   constructor(
-    private action: string,
+    private username: string,
     private name: string,
     private comment: string
   ) {
@@ -11,13 +11,13 @@ export default class Comment extends Component<ObjIndex> {
 
     this.template = `
       <div id="${this.componentId}">
-        <h4><a href="{{action}}">{{name}}</a></h4>
+        <h4><a href="/users/{{username}}">{{name}}</a></h4>
         <p>{{comment}}</p>
       </div>
     `;
 
     this._state = {
-      action: this.action,
+      username: this.username,
       name: this.name,
       comment: this.comment,
     };

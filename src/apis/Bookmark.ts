@@ -1,6 +1,6 @@
-import AJAX from "../../utils/AJAX";
-import Api from "../Api";
-import BookmarkModel from "../../models/Bookmark.model";
+import AJAX from "../utils/AJAX";
+import Api from "./Api";
+import BookmarkModel from "../models/Bookmark.model";
 
 class Bookmark extends Api {
   private _bookmarks!: BookmarkModel[];

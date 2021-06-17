@@ -1,13 +1,8 @@
-import ObjIndex from "src/helpers/ObjectIndex";
-import UserModel from "src/models/User.model";
+import UserModel from "../../models/User.model";
 import Component from "../Core/Component";
 
-export default class Navbar extends Component<ObjIndex> {
-  constructor(
-    private loggedIn: boolean,
-    private action: string,
-    private name?: keyof UserModel
-  ) {
+export default class Navbar extends Component<UserModel> {
+  constructor(private name: string, private username?: string) {
     super();
 
     this.template = `
@@ -22,8 +17,10 @@ export default class Navbar extends Component<ObjIndex> {
       </nav>
     `;
 
-    if (this.loggedIn) this._state = { name: this.name, action: this.action };
-    else this._state = { name: "Login", action: "/login" };
+    this._state = {
+      name: this.name,
+      action: this.username ? `/users/${this.username}` : "/login",
+    };
 
     this.fill();
   }
