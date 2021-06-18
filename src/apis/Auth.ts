@@ -3,11 +3,16 @@ import Api from "./Api";
 import SignupModel from "../models/Signup.model";
 import LoginModel from "../models/Login.model";
 import AuthResponseModel from "../models/AuthResponse.model";
-import UpdatePassModel from "src/models/UpdatePass.model";
+import UpdatePassModel from "../models/UpdatePass.model";
 
-class Auth extends Api {
+class Auth extends Api<LoginModel> {
   private _response!: AuthResponseModel;
   private _message!: string;
+
+  constructor() {
+    super();
+    this.path = "users";
+  }
 
   get response() {
     if (!this._response)
@@ -26,30 +31,45 @@ class Auth extends Api {
   }
 
   async signup(credentials: SignupModel) {
-    const Signup = new AJAX("users/signup", "POST", undefined, credentials);
+    const Signup = new AJAX(
+      `${this.path}/signup`,
+      "POST",
+      undefined,
+      credentials
+    );
     await Signup.recieve();
     if (this.checkForErrors(Signup)) return;
     this._response = Signup.data;
   }
 
   async login(credentials: LoginModel) {
-    const Login = new AJAX("users/login", "POST", undefined, credentials);
+    const Login = new AJAX(
+      `${this.path}/login`,
+      "POST",
+      undefined,
+      credentials
+    );
     await Login.recieve();
     if (this.checkForErrors(Login)) return;
     this._response = Login.data.user;
   }
 
   async verifyEmail() {
-    const VerifyEmail = new AJAX("users/send-verify-email", "GET");
+    const VerifyEmail = new AJAX(`${this.path}/send-verify-email`, "GET");
     await VerifyEmail.recieve();
     if (this.checkForErrors(VerifyEmail)) return;
     this._message = VerifyEmail.data.message;
   }
 
   async forgotPassword(email: string) {
-    const ForgotPassword = new AJAX("users/forgot-password", "GET", undefined, {
-      email,
-    });
+    const ForgotPassword = new AJAX(
+      `${this.path}/forgot-password`,
+      "GET",
+      undefined,
+      {
+        email,
+      }
+    );
     await ForgotPassword.recieve();
     if (this.checkForErrors(ForgotPassword)) return;
     this._message = ForgotPassword.data.message;
@@ -57,7 +77,7 @@ class Auth extends Api {
 
   async updatePassword(passObj: UpdatePassModel) {
     const UpdatePassord = new AJAX(
-      "users/update-password",
+      `${this.path}/update-password`,
       "PATCH",
       undefined,
       passObj

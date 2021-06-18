@@ -12,8 +12,8 @@ export const getArticles = (_: Request) => {};
 export const getArticle = async (req: Request) => {
   const Spinner = new SpinnerComponent();
   Spinner.render("afterbegin", true);
-  await ArticleApi.getArticleBySlug(req.params.slug!);
-  const article = ArticleApi.article;
+  await ArticleApi.getBySlug(req.params.slug!);
+  const article = ArticleApi.article!;
   const Article = new ArticleComponent(
     article.title!,
     article.slug!,
@@ -31,7 +31,7 @@ export const getArticle = async (req: Request) => {
 
   // Render comments
   Spinner.render();
-  await ArticleApi.getArticleComments(article.id!);
+  await ArticleApi.getComments(article.id!);
   Spinner.remove();
 
   if (catchError(ArticleApi)) return;
@@ -61,7 +61,7 @@ export const getArticle = async (req: Request) => {
     if (clicked.id === "like-btn") {
       userReact = true;
       Spinner.render();
-      await ArticleApi.toggleArticleLike(article.id!);
+      await ArticleApi.toggleLike(article.id!);
       Spinner.remove();
 
       if (catchError(ArticleApi)) return;
@@ -89,7 +89,7 @@ export const getArticle = async (req: Request) => {
       let likes = ArticleApi.likes;
       if (userReact || !likes) {
         Spinner.render();
-        await ArticleApi.getArticleLikes(article.id!);
+        await ArticleApi.getLikes(article.id!);
         Spinner.remove();
         likes = ArticleApi.likes;
       }

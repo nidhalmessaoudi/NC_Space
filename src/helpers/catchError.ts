@@ -1,7 +1,8 @@
 import ApiClass from "../apis/Api";
+import ErrorModel from "src/models/Error.model";
 import ErrorComponent from "../components/Error/Error.component";
 
-export default (Api: ApiClass) => {
+export default (Api: ApiClass<ErrorModel>) => {
   if (!Api.error) return false;
   let error = Api.error;
   if (error === "Failed to fetch")

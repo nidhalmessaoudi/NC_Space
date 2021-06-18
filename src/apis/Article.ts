@@ -4,21 +4,24 @@ import ArticleModel from "../models/Article.model";
 import LikeModel from "../models/Like.model";
 import CommentModel from "../models/Comment.model";
 
-class Article extends Api {
-  private _articles!: ArticleModel[];
-  private _article!: ArticleModel;
+class Article extends Api<ArticleModel> {
   private _likes!: LikeModel[] | null;
   private _like!: LikeModel | null;
   private _comments!: CommentModel[] | null;
   private _comment!: CommentModel | null;
   private _stats!: any;
 
+  constructor() {
+    super();
+    this.path = "articles";
+  }
+
   get articles() {
-    return this._articles;
+    return this.docs;
   }
 
   get article() {
-    return this._article;
+    return this.doc;
   }
 
   get likes() {
@@ -41,109 +44,111 @@ class Article extends Api {
     return this._stats;
   }
 
-  async getArticles<T extends object>(queries?: T) {
-    let Articles: AJAX;
-    if (queries) Articles = new AJAX("articles", "GET", queries);
-    else Articles = Articles = new AJAX("articles", "GET");
-    await Articles.recieve();
-    if (this.checkForErrors(Articles)) return;
-    this._articles = Articles.data.articles;
-  }
+  // async getArticles<T extends object>(queries?: T) {
+  //   let Articles: AJAX;
+  //   if (queries) Articles = new AJAX("articles", "GET", queries);
+  //   else Articles = Articles = new AJAX("articles", "GET");
+  //   await Articles.recieve();
+  //   if (this.checkForErrors(Articles)) return;
+  //   this._articles = Articles.data.articles;
+  // }
 
-  async getArticle(id: string) {
-    const Article = new AJAX(`articles/${id}`, "GET");
+  // async getArticle(id: string) {
+  //   const Article = new AJAX(`articles/${id}`, "GET");
+  //   await Article.recieve();
+  //   if (this.checkForErrors(Article)) return;
+  //   this._article = Article.data.article;
+  //   this._likes = null;
+  //   this._comments = null;
+  // }
+
+  async getBySlug(slug: string) {
+    const Article = new AJAX(`${this.path}/slug/${slug}`, "GET");
     await Article.recieve();
     if (this.checkForErrors(Article)) return;
-    this._article = Article.data.article;
+    this.doc = Article.data[this.getPropertyName(Article.data)];
     this._likes = null;
     this._comments = null;
   }
 
-  async getArticleBySlug(slug: string) {
-    const Article = new AJAX(`articles/slug/${slug}`, "GET");
-    await Article.recieve();
-    if (this.checkForErrors(Article)) return;
-    this._article = Article.data.article;
-    this._likes = null;
-    this._comments = null;
+  // async createArticle(data: ArticleModel) {
+  //   const NewArticle = new AJAX(`articles`, "POST", undefined, data);
+  //   await NewArticle.recieve();
+  //   if (this.checkForErrors(NewArticle)) return;
+  //   this._article = NewArticle.data.article;
+  // }
+
+  // async updateArticle(id: string, data: ArticleModel) {
+  //   const UpdatedArticle = new AJAX(`articles/${id}`, "PATCH", undefined, data);
+  //   await UpdatedArticle.recieve();
+  //   if (this.checkForErrors(UpdatedArticle)) return;
+  //   this._article = UpdatedArticle.data.article;
+  // }
+
+  // async deleteArticle(id: string) {
+  //   const DeletedArticle = new AJAX(`articles/${id}`, "DELETE");
+  //   await DeletedArticle.recieve();
+  //   if (this.checkForErrors(DeletedArticle)) return;
+  // }
+
+  async search(queryStr: string) {
+    const FoundArticles = new AJAX(`${this.path}/search`, "GET", {
+      q: queryStr,
+    });
+    await FoundArticles.recieve();
+    if (this.checkForErrors(FoundArticles)) return;
+    this.doc = FoundArticles.data[this.getPropertyName(FoundArticles.data)];
   }
 
-  async createArticle(data: ArticleModel) {
-    const NewArticle = new AJAX(`articles`, "POST", undefined, data);
-    await NewArticle.recieve();
-    if (this.checkForErrors(NewArticle)) return;
-    this._article = NewArticle.data.article;
-  }
-
-  async updateArticle(id: string, data: ArticleModel) {
-    const UpdatedArticle = new AJAX(`articles/${id}`, "PATCH", undefined, data);
-    await UpdatedArticle.recieve();
-    if (this.checkForErrors(UpdatedArticle)) return;
-    this._article = UpdatedArticle.data.article;
-  }
-
-  async deleteArticle(id: string) {
-    const DeletedArticle = new AJAX(`articles/${id}`, "DELETE");
-    await DeletedArticle.recieve();
-    if (this.checkForErrors(DeletedArticle)) return;
-  }
-
-  async searchArticles(queryStr: string) {
-    const foundArticles = new AJAX(`articles/search`, "GET", { q: queryStr });
-    await foundArticles.recieve();
-    if (this.checkForErrors(foundArticles)) return;
-    this._articles = foundArticles.data.articles;
-  }
-
-  async getHottestArticles<T extends object>(queries?: T) {
+  async getHottest<T extends object>(queries?: T) {
     let Articles: AJAX;
-    if (queries) Articles = new AJAX("articles/hottest", "GET", queries);
-    else Articles = Articles = new AJAX("articles/hottest", "GET");
+    if (queries) Articles = new AJAX(`${this.path}/hottest`, "GET", queries);
+    else Articles = Articles = new AJAX(`${this.path}/hottest`, "GET");
     await Articles.recieve();
     if (this.checkForErrors(Articles)) return;
-    this._articles = Articles.data.hottestArticles;
+    this.docs = Articles.data[this.getPropertyName(Articles.data)];
   }
 
   async getStats(queryStr?: string) {
-    const Stats = new AJAX(`articles/stats`, "GET", { by: queryStr });
+    const Stats = new AJAX(`${this.path}/stats`, "GET", { by: queryStr });
     await Stats.recieve();
     if (this.checkForErrors(Stats)) return;
-    this._stats = Stats.data.articles;
+    this._stats = Stats.data[this.getPropertyName(Stats.data)];
   }
   async getMonthlyStats(year: string) {
-    const Stats = new AJAX(`articles/monthly-stats/${year}`, "GET");
+    const Stats = new AJAX(`${this.path}/monthly-stats/${year}`, "GET");
     await Stats.recieve();
     if (this.checkForErrors(Stats)) return;
-    this._stats = Stats.data.articles;
+    this._stats = Stats.data[this.getPropertyName(Stats.data)];
   }
 
-  async getArticleLikes(id: string) {
-    const Likes = new AJAX(`articles/${id}/likes`, "GET");
+  async getLikes(id: string) {
+    const Likes = new AJAX(`${this.path}/${id}/likes`, "GET");
     await Likes.recieve();
     if (this.checkForErrors(Likes)) return;
-    this._likes = Likes.data.likes;
+    this._likes = Likes.data[this.getPropertyName(Likes.data)];
   }
 
-  async toggleArticleLike(id: string) {
+  async toggleLike(id: string) {
     this._like = null;
-    const Like = new AJAX(`articles/${id}/likes`, "POST");
+    const Like = new AJAX(`${this.path}/${id}/likes`, "POST");
     await Like.recieve();
     if (this.checkForErrors(Like)) return;
-    if (Like.data?.like) this._like = Like.data.like;
+    if (Like.data) this._like = Like.data[this.getPropertyName(Like.data)];
   }
 
-  async getArticleComments(id: string) {
-    const Comments = new AJAX(`articles/${id}/comments`, "GET");
+  async getComments(id: string) {
+    const Comments = new AJAX(`${this.path}/${id}/comments`, "GET");
     await Comments.recieve();
     if (this.checkForErrors(Comments)) return;
-    this._comments = Comments.data.comments;
+    this._comments = Comments.data[this.getPropertyName(Comments.data)];
   }
 
-  async CreateArticleComment(id: string) {
-    const Comment = new AJAX(`articles/${id}/comments`, "POST");
+  async createComment(id: string) {
+    const Comment = new AJAX(`${this.path}/${id}/comments`, "POST");
     await Comment.recieve();
     if (this.checkForErrors(Comment)) return;
-    this._comment = Comment.data.comment;
+    this._comment = Comment.data[this.getPropertyName(Comment.data)];
   }
 }
 

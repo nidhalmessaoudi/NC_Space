@@ -11,7 +11,7 @@ export const getPublicUser = async (req: Request) => {
 
   if (catchError(UserApi)) return;
 
-  const user = UserApi.user;
+  const user = UserApi.user!;
 
   const User = new UserComponent(
     user.name!,

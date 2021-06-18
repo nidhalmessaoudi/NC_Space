@@ -1,6 +1,7 @@
 import { stringify } from "query-string";
 
 import config from "./config";
+import ResponseModel from "../models/Response.model";
 
 export default class AJAX {
   private baseUrl = config.MAIN_API!;
@@ -45,11 +46,11 @@ export default class AJAX {
         referrerPolicy: "no-referrer",
         body: JSON.stringify(this.body),
       });
-      let response;
+      let response: ResponseModel = { message: request.statusText };
       if (request.status !== 204) response = await request.json();
 
-      if (!request.ok) throw new Error(response.message);
-      if (response) this._data = response.data || response;
+      if (!request.ok) throw new Error(response?.message);
+      if (response) this._data = response?.data || response;
       else this._data = null;
     } catch (err) {
       console.error(err);

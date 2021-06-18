@@ -10,6 +10,7 @@ import catchError from "../helpers/catchError";
 export const getHome = async (_: Request) => {
   const Spinner = new SpinnerComponent();
   Spinner.render("afterbegin", true);
+  User.clearDocs();
   await User.getCurrentUser();
   let Navbar;
   if (User.user)
@@ -17,11 +18,11 @@ export const getHome = async (_: Request) => {
   else Navbar = new NavbarComponent("Login");
   Navbar.render("afterbegin", true);
   Spinner.render();
-  await ArticleApi.getHottestArticles();
+  await ArticleApi.getHottest();
   Spinner.remove();
   if (catchError(ArticleApi)) return;
 
-  const articles = ArticleApi.articles;
+  const articles = ArticleApi.articles!;
   articles.forEach((article) => {
     const Component = new ArticlePreviewComponent(
       article.title!,

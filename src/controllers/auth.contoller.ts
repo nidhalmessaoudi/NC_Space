@@ -1,6 +1,6 @@
 import Request from "../router/Request";
 import AuthApi from "../apis/Auth";
-import LoginModel from "src/models/Login.model";
+import LoginModel from "../models/Login.model";
 import LoginComponent from "../components/Login/Login.component";
 import SpinnerComponent from "../components/LoadingSpinner/Spinner.component";
 import SuccessComponent from "../components/Success/Success.component";
