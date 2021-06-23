@@ -7,7 +7,7 @@ import UserComponent from "../components/User/user.component";
 export const getPublicUser = async (req: Request) => {
   const Spinner = new SpinnerComponent();
   Spinner.render("afterbegin", true);
-  await UserApi.getUserByUsername(req.params.username!);
+  await UserApi.getUserByUsername(req.params?.username!);
 
   if (catchError(UserApi)) return;
 

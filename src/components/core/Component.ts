@@ -8,11 +8,15 @@ export default class Component<T extends ObjIndex> {
   protected template!: string;
   protected _state!: T;
   protected _markup!: string;
-  protected element!: HTMLElement | null;
+  protected _element: HTMLElement | null = null;
   protected componentId: string = nanoid(6);
 
   get id() {
     return this.componentId;
+  }
+
+  get element() {
+    return this._element;
   }
 
   set root(newRoot: HTMLElement) {
@@ -104,7 +108,7 @@ export default class Component<T extends ObjIndex> {
     if (clean) this.clean();
     this._root.insertAdjacentHTML(position, this._markup);
     this._root = this.element?.parentElement || this._root;
-    this.element = document.getElementById(this.componentId);
+    this._element = document.getElementById(this.componentId);
   }
 
   remove(): void {

@@ -9,6 +9,7 @@ class Article extends Api<ArticleModel> {
   private _like!: LikeModel | null;
   private _comments!: CommentModel[] | null;
   private _comment!: CommentModel | null;
+  private _message!: string;
   private _stats!: any;
 
   constructor() {
@@ -40,27 +41,13 @@ class Article extends Api<ArticleModel> {
     return this._comment;
   }
 
+  get message() {
+    return this._message;
+  }
+
   get stats() {
     return this._stats;
   }
-
-  // async getArticles<T extends object>(queries?: T) {
-  //   let Articles: AJAX;
-  //   if (queries) Articles = new AJAX("articles", "GET", queries);
-  //   else Articles = Articles = new AJAX("articles", "GET");
-  //   await Articles.recieve();
-  //   if (this.checkForErrors(Articles)) return;
-  //   this._articles = Articles.data.articles;
-  // }
-
-  // async getArticle(id: string) {
-  //   const Article = new AJAX(`articles/${id}`, "GET");
-  //   await Article.recieve();
-  //   if (this.checkForErrors(Article)) return;
-  //   this._article = Article.data.article;
-  //   this._likes = null;
-  //   this._comments = null;
-  // }
 
   async getBySlug(slug: string) {
     const Article = new AJAX(`${this.path}/slug/${slug}`, "GET");
@@ -70,26 +57,6 @@ class Article extends Api<ArticleModel> {
     this._likes = null;
     this._comments = null;
   }
-
-  // async createArticle(data: ArticleModel) {
-  //   const NewArticle = new AJAX(`articles`, "POST", undefined, data);
-  //   await NewArticle.recieve();
-  //   if (this.checkForErrors(NewArticle)) return;
-  //   this._article = NewArticle.data.article;
-  // }
-
-  // async updateArticle(id: string, data: ArticleModel) {
-  //   const UpdatedArticle = new AJAX(`articles/${id}`, "PATCH", undefined, data);
-  //   await UpdatedArticle.recieve();
-  //   if (this.checkForErrors(UpdatedArticle)) return;
-  //   this._article = UpdatedArticle.data.article;
-  // }
-
-  // async deleteArticle(id: string) {
-  //   const DeletedArticle = new AJAX(`articles/${id}`, "DELETE");
-  //   await DeletedArticle.recieve();
-  //   if (this.checkForErrors(DeletedArticle)) return;
-  // }
 
   async search(queryStr: string) {
     const FoundArticles = new AJAX(`${this.path}/search`, "GET", {
@@ -144,10 +111,16 @@ class Article extends Api<ArticleModel> {
     this._comments = Comments.data[this.getPropertyName(Comments.data)];
   }
 
-  async createComment(id: string) {
-    const Comment = new AJAX(`${this.path}/${id}/comments`, "POST");
+  async createComment(id: string, comment: string) {
+    const Comment = new AJAX(`${this.path}/${id}/comments`, "POST", undefined, {
+      comment,
+    });
     await Comment.recieve();
     if (this.checkForErrors(Comment)) return;
+    if (Comment.data.message) {
+      this._message = Comment.data.message;
+      return;
+    }
     this._comment = Comment.data[this.getPropertyName(Comment.data)];
   }
 }

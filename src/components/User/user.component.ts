@@ -13,7 +13,7 @@ export default class Like extends Component<UserModel> {
 
     this.template = `
       <div id="${this.componentId}">
-        <img src="{{photo}} alt="{{name}}"/>
+        <img src="{{photo}}" alt="{{name}}"/>
         <h2>{{name}}</h2>
         <p>@{{username}}</p>
         <h5>{{role}}</h5>

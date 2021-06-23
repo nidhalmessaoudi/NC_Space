@@ -4,10 +4,14 @@ import SignupModel from "../models/Signup.model";
 import LoginModel from "../models/Login.model";
 import AuthResponseModel from "../models/AuthResponse.model";
 import UpdatePassModel from "../models/UpdatePass.model";
+import UserModel from "../models/User.model";
 
 class Auth extends Api<LoginModel> {
-  private _response!: AuthResponseModel;
-  private _message!: string;
+  private _response!: AuthResponseModel | null;
+  private _message!: string | null;
+  private _user!: UserModel | null;
+  private _googleUrl!: string | null;
+  private _fbUrl!: string | null;
 
   constructor() {
     super();
@@ -15,19 +19,23 @@ class Auth extends Api<LoginModel> {
   }
 
   get response() {
-    if (!this._response)
-      throw new Error(
-        "Call the signup() or login() methods to get access to the response!"
-      );
     return this._response;
   }
 
   get message() {
-    if (!this._message)
-      throw new Error(
-        "Call the verifyEmail(), forgotPassword() or updatePassword() methods to access the message!"
-      );
     return this._message;
+  }
+
+  get user() {
+    return this._user;
+  }
+
+  get googleUrl() {
+    return this._googleUrl;
+  }
+
+  get fbUrl() {
+    return this._fbUrl;
   }
 
   async signup(credentials: SignupModel) {
@@ -39,7 +47,7 @@ class Auth extends Api<LoginModel> {
     );
     await Signup.recieve();
     if (this.checkForErrors(Signup)) return;
-    this._response = Signup.data;
+    this._message = Signup.data.message;
   }
 
   async login(credentials: LoginModel) {
@@ -51,7 +59,23 @@ class Auth extends Api<LoginModel> {
     );
     await Login.recieve();
     if (this.checkForErrors(Login)) return;
-    this._response = Login.data.user;
+    this._user = Login.data.user;
+  }
+
+  async loginWithGoogle() {
+    if (this._googleUrl) this._googleUrl = null;
+    const GoogleLogin = new AJAX(`${this.path}/google-login`, "GET");
+    await GoogleLogin.recieve();
+    if (this.checkForErrors(GoogleLogin)) return;
+    this._googleUrl = GoogleLogin.data.googleLoginLink;
+  }
+
+  async loginWithFacebook() {
+    if (this._fbUrl) this._fbUrl = null;
+    const FacebookLogin = new AJAX(`${this.path}/facebook-login`, "GET");
+    await FacebookLogin.recieve();
+    if (this.checkForErrors(FacebookLogin)) return;
+    this._fbUrl = FacebookLogin.data.facebookLoginLink;
   }
 
   async verifyEmail() {

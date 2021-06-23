@@ -6,13 +6,19 @@ import catchError from "../helpers/catchError";
 import LikeComponent from "../components/Like/Like.component";
 import LikesCntComponent from "../components/LikesContainer/LikesContainer.component";
 import CommentComponent from "../components/Comment/Comment.component";
+import CommentsCntComponent from "../components/CommentsContainer/CommentsContainer.component";
+import SuccessComponent from "../components/Success/Success.component";
 
 export const getArticles = (_: Request) => {};
 
 export const getArticle = async (req: Request) => {
   const Spinner = new SpinnerComponent();
   Spinner.render("afterbegin", true);
-  await ArticleApi.getBySlug(req.params.slug!);
+  await ArticleApi.getBySlug(req.params?.slug!);
+  Spinner.remove();
+
+  if (catchError(ArticleApi)) return;
+
   const article = ArticleApi.article!;
   const Article = new ArticleComponent(
     article.title!,
@@ -30,6 +36,8 @@ export const getArticle = async (req: Request) => {
   Article.render("beforeend", true);
 
   // Render comments
+  const CommentsContainer = new CommentsCntComponent();
+  CommentsContainer.render();
   Spinner.render();
   await ArticleApi.getComments(article.id!);
   Spinner.remove();
@@ -43,7 +51,44 @@ export const getArticle = async (req: Request) => {
       comment.author.name!,
       comment.comment
     );
+    Comment.root = CommentsContainer.element!;
     Comment.render();
+  });
+
+  // Add comment
+  const commentForm = document.getElementById(
+    "comment-form"
+  ) as HTMLFormElement;
+  const commentInput = document.getElementById(
+    "comment-input"
+  ) as HTMLTextAreaElement;
+
+  commentForm?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const CommentSpinner = new SpinnerComponent();
+    CommentSpinner.root = CommentsContainer.element!;
+    CommentSpinner.render("afterbegin");
+    await ArticleApi.createComment(article.id!, commentInput.value);
+    CommentSpinner.remove();
+
+    if (catchError(ArticleApi)) return;
+
+    if (ArticleApi.message) {
+      const CommentSuccess = new SuccessComponent(ArticleApi.message);
+      CommentSuccess.root = CommentsContainer.element!;
+      CommentSuccess.render("afterbegin");
+      CommentSuccess.removeAfter(8);
+      return;
+    }
+
+    const newComment = new CommentComponent(
+      ArticleApi.comment?.author.username!,
+      ArticleApi.comment?.author.name!,
+      ArticleApi.comment?.comment!
+    );
+    newComment.root = CommentsContainer.element!;
+    newComment.render();
   });
 
   // Render an empty container for likes

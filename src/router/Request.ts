@@ -1,3 +1,5 @@
+import { ParsedQuery } from "query-string";
+
 export default interface Request {
   // Window and navigtor infos
   protocol: string;
@@ -6,7 +8,7 @@ export default interface Request {
   port: string | null;
   path: string | null;
   hash: string | null;
-  queries: object | null;
+  queries: ParsedQuery<string> | null;
   locale: string;
   userAgent: string;
   platform: string;
