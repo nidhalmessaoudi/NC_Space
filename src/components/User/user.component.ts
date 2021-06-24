@@ -7,7 +7,10 @@ export default class Like extends Component<UserModel> {
     private username: string,
     private email: string,
     private role: string,
-    private photo: string
+    private photo: string,
+    private nFollowers: number,
+    private nFollowings: number,
+    private followed: boolean
   ) {
     super();
 
@@ -18,6 +21,8 @@ export default class Like extends Component<UserModel> {
         <p>@{{username}}</p>
         <h5>{{role}}</h5>
         <p>Email: {{email}}</p>
+        <p><b>{{numberOfFollowers}}</b> followers | <b>{{numberOfFollowings}}</b> following</p>
+        <button id="follow-btn">{{follow}}</button>
       </div>
     `;
 
@@ -32,6 +37,9 @@ export default class Like extends Component<UserModel> {
       email: this.email,
       role: this.role === "admin" || this.role === "writer" ? this.role : "",
       photo: this.photo || userPicture,
+      numberOfFollowers: this.nFollowers,
+      numberOfFollowings: this.nFollowings,
+      follow: this.followed ? "Followed" : "Follow",
     };
 
     this.fill();

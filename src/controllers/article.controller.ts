@@ -1,5 +1,6 @@
 import Request from "../router/Request";
 import ArticleApi from "../apis/Article";
+import UserApi from "../apis/User";
 import ArticleComponent from "../components/Article/Article.component";
 import SpinnerComponent from "../components/LoadingSpinner/Spinner.component";
 import catchError from "../helpers/catchError";
@@ -11,15 +12,38 @@ import SuccessComponent from "../components/Success/Success.component";
 
 export const getArticles = (_: Request) => {};
 
+// The logic here will be splitted into multiple functions later!
 export const getArticle = async (req: Request) => {
   const Spinner = new SpinnerComponent();
+
+  // Get Article
   Spinner.render("afterbegin", true);
   await ArticleApi.getBySlug(req.params?.slug!);
-  Spinner.remove();
 
   if (catchError(ArticleApi)) return;
-
   const article = ArticleApi.article!;
+
+  let likeAction = "Give A Like";
+
+  // Check if it's bookmarked for the current logged in user
+  await UserApi.getCurrentUser();
+
+  // Get likes for this article
+  await ArticleApi.getLikes(article.id!);
+
+  Spinner.remove();
+
+  if (UserApi.user) {
+    article.bookmarked = false;
+    UserApi.user.bookmarks?.forEach((bookmark) => {
+      if (bookmark.article.id === article.id) article.bookmarked = true;
+    });
+
+    ArticleApi.likes?.forEach((like) => {
+      if (like.user.id === UserApi.user?.id) likeAction = "Liked";
+    });
+  }
+
   const Article = new ArticleComponent(
     article.title!,
     article.slug!,
@@ -31,12 +55,31 @@ export const getArticle = async (req: Request) => {
     article.body!,
     article.tags!,
     article.numberOfLikes!,
-    article.numberOfComments!
+    article.numberOfComments!,
+    likeAction,
+    article.bookmarked!
   );
   Article.render("beforeend", true);
 
+  // Bookmark handler
+  const bookmarkBtn = document.getElementById("bookmark-btn");
+  bookmarkBtn?.addEventListener("click", async (e) => {
+    e.preventDefault();
+    const currentState = Article.state;
+    Article.state = { bookmarkAction: "Loading" };
+    await ArticleApi.toggleBookmark(article.id!);
+
+    if (catchError(ArticleApi)) {
+      Article.state = { bookmarkAction: currentState.bookmarkAction };
+      return;
+    }
+
+    if (ArticleApi.bookmark) Article.state = { bookmarkAction: "Bookmarked" };
+    else Article.state = { bookmarkAction: "Bookmark" };
+  });
+
   // Render comments
-  const CommentsContainer = new CommentsCntComponent();
+  const CommentsContainer = new CommentsCntComponent("Add Comment");
   CommentsContainer.render();
   Spinner.render();
   await ArticleApi.getComments(article.id!);
@@ -66,12 +109,10 @@ export const getArticle = async (req: Request) => {
   commentForm?.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const CommentSpinner = new SpinnerComponent();
-    CommentSpinner.root = CommentsContainer.element!;
-    CommentSpinner.render("afterbegin");
+    CommentsContainer.state = { commentAction: "Loading" };
     await ArticleApi.createComment(article.id!, commentInput.value);
-    CommentSpinner.remove();
-
+    commentInput.value = "";
+    CommentsContainer.state = { commentAction: "Add Comment" };
     if (catchError(ArticleApi)) return;
 
     if (ArticleApi.message) {
@@ -81,7 +122,7 @@ export const getArticle = async (req: Request) => {
       CommentSuccess.removeAfter(8);
       return;
     }
-
+    Article.state = { numberOfComments: Article.state.numberOfComments!++ };
     const newComment = new CommentComponent(
       ArticleApi.comment?.author.username!,
       ArticleApi.comment?.author.name!,
@@ -105,19 +146,22 @@ export const getArticle = async (req: Request) => {
     // Give new like functionality
     if (clicked.id === "like-btn") {
       userReact = true;
-      Spinner.render();
+      Article.state = { likeAction: "Loading" };
       await ArticleApi.toggleLike(article.id!);
-      Spinner.remove();
-
-      if (catchError(ArticleApi)) return;
+      if (catchError(ArticleApi)) {
+        Article.state = { likeAction: "Give A Like" };
+        return;
+      }
 
       if (ArticleApi.like)
         Article.state = {
           numberOfLikes: Article.state.numberOfLikes! + 1,
+          likeAction: "Liked",
         };
       else
         Article.state = {
           numberOfLikes: Article.state.numberOfLikes! - 1,
+          likeAction: "Give A Like",
         };
     }
 
@@ -134,7 +178,7 @@ export const getArticle = async (req: Request) => {
       let likes = ArticleApi.likes;
       if (userReact || !likes) {
         Spinner.render();
-        await ArticleApi.getLikes(article.id!);
+
         Spinner.remove();
         likes = ArticleApi.likes;
       }

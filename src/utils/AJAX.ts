@@ -46,8 +46,9 @@ export default class AJAX {
         referrerPolicy: "no-referrer",
         body: JSON.stringify(this.body),
       });
-      let response: ResponseModel = { message: request.statusText };
+      let response: ResponseModel | null = { message: request.statusText };
       if (request.status !== 204) response = await request.json();
+      else response = null;
 
       if (!request.ok) throw new Error(response?.message);
       if (response) this._data = response?.data || response;

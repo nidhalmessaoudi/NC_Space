@@ -3,12 +3,15 @@ import Api from "./Api";
 import ArticleModel from "../models/Article.model";
 import LikeModel from "../models/Like.model";
 import CommentModel from "../models/Comment.model";
+import BookmarkModel from "../models/Bookmark.model";
 
 class Article extends Api<ArticleModel> {
   private _likes!: LikeModel[] | null;
   private _like!: LikeModel | null;
   private _comments!: CommentModel[] | null;
   private _comment!: CommentModel | null;
+  private _bookmark!: BookmarkModel | null;
+  private _bookmarks!: BookmarkModel[] | null;
   private _message!: string;
   private _stats!: any;
 
@@ -39,6 +42,14 @@ class Article extends Api<ArticleModel> {
 
   get comment() {
     return this._comment;
+  }
+
+  get bookmarks() {
+    return this._bookmarks;
+  }
+
+  get bookmark() {
+    return this._bookmark;
   }
 
   get message() {
@@ -122,6 +133,22 @@ class Article extends Api<ArticleModel> {
       return;
     }
     this._comment = Comment.data[this.getPropertyName(Comment.data)];
+  }
+
+  async getBookmarks(id: string) {
+    const Bookmarks = new AJAX(`${this.path}/${id}/bookmarks`, "GET");
+    await Bookmarks.recieve();
+    if (this.checkForErrors(Bookmarks)) return;
+    this._bookmarks = Bookmarks.data[this.getPropertyName(Bookmarks.data)];
+  }
+
+  async toggleBookmark(id: string) {
+    this._bookmark = null;
+    const Bookmark = new AJAX(`${this.path}/${id}/bookmarks`, "POST");
+    await Bookmark.recieve();
+    if (this.checkForErrors(Bookmark)) return;
+    if (Bookmark.data)
+      this._bookmark = Bookmark.data[this.getPropertyName(Bookmark.data)];
   }
 }
 

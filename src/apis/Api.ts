@@ -65,6 +65,7 @@ export default class Api<T extends ObjIndex> {
   }
 
   async toggle(id: string, followedId: string) {
+    this.doc = null;
     let Doc: AJAX;
     if (followedId)
       Doc = new AJAX(this.path, "POST", undefined, {
@@ -77,7 +78,7 @@ export default class Api<T extends ObjIndex> {
       });
     await Doc.recieve();
     if (this.checkForErrors(Doc)) return;
-    this.doc = Doc.data[this.getPropertyName(Doc.data)];
+    if (Doc.data) this.doc = Doc.data[this.getPropertyName(Doc.data)];
   }
 
   clearDocs(): void {

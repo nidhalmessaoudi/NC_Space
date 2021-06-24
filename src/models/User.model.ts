@@ -1,5 +1,6 @@
 import ObjIndex from "../helpers/ObjectIndex";
 import ArticleModel from "./Article.model";
+import BookmarkModel from "./Bookmark.model";
 
 export default interface User extends ObjIndex {
   readonly id?: string;
@@ -14,7 +15,10 @@ export default interface User extends ObjIndex {
   readonly facebookId?: number;
   readonly active?: boolean;
   readonly myArticles?: ArticleModel[];
-  readonly bookmarks?: ArticleModel[];
+  readonly bookmarks?: BookmarkModel[];
   readonly followers?: User[];
   readonly following?: User[];
+  numberOfFollowers?: number;
+  numberOfFollowings?: number;
+  followed?: boolean;
 }

@@ -22,4 +22,5 @@ export default interface Article extends ObjIndex {
   readonly likes?: object[];
   readonly comments?: object[];
   readonly createdAt?: Date;
+  bookmarked?: boolean;
 }
