@@ -122,7 +122,7 @@ export const getArticle = async (req: Request) => {
       CommentSuccess.removeAfter(8);
       return;
     }
-    Article.state = { numberOfComments: Article.state.numberOfComments!++ };
+    Article.state = { numberOfComments: Article.state.numberOfComments! + 1 };
     const newComment = new CommentComponent(
       ArticleApi.comment?.author.username!,
       ArticleApi.comment?.author.name!,
